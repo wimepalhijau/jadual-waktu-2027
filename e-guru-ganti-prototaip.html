@@ -1,0 +1,1052 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>e-Guru Ganti</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Susun atur: rel navy di kiri (komputer) atau bar tab di bawah (telefon); kandungan dalam kad satu atau dua lajur.
+   Warna: navy sekolah + biru teal sebagai aksen + kuning pensel untuk penanda; hijau/kuning/merah hanya untuk status. */
+:root{
+  --bg:#EDF3F6; --surface:#FFFFFF; --sunk:#E3ECF1; --ink:#10283B; --ink2:#4B6274; --line:#D2DEE6;
+  --accent:#0E6B7A; --accent-ink:#FFFFFF; --accent-soft:#D6ECEF;
+  --pencil:#F4B71E;
+  --ok:#1D7A4D; --ok-soft:#DAF0E3; --warn:#8F5A00; --warn-soft:#FBEBC6;
+  --bad:#B3261E; --bad-soft:#FADBD8; --on-bad:#FFFFFF;
+  --rail:#102E46; --rail-ink:#E6EFF5; --rail-dim:#9FB6C7;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Public Sans','Segoe UI',Roboto,system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1A25; --surface:#122838; --sunk:#0E2131; --ink:#E7F0F5; --ink2:#9CB3C3; --line:#24445A;
+    --accent:#52C3D4; --accent-ink:#04222A; --accent-soft:#12414C;
+    --ok:#5BD293; --ok-soft:#10382A; --warn:#F2BC57; --warn-soft:#3E3010;
+    --bad:#FF8F86; --bad-soft:#4A1E1C; --on-bad:#3A0A07;
+    --rail:#07131C; --rail-ink:#E7F0F5; --rail-dim:#8CA5B6; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1A25; --surface:#122838; --sunk:#0E2131; --ink:#E7F0F5; --ink2:#9CB3C3; --line:#24445A;
+  --accent:#52C3D4; --accent-ink:#04222A; --accent-soft:#12414C;
+  --ok:#5BD293; --ok-soft:#10382A; --warn:#F2BC57; --warn-soft:#3E3010;
+  --bad:#FF8F86; --bad-soft:#4A1E1C; --on-bad:#3A0A07;
+  --rail:#07131C; --rail-ink:#E7F0F5; --rail-dim:#8CA5B6; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.rail :focus-visible,.tabbar :focus-visible{outline-color:var(--pencil)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.dim{color:var(--ink2)}
+small{font-size:12px;color:var(--ink2)}
+
+/* ---------- rangka ---------- */
+.app{display:grid;grid-template-columns:248px minmax(0,1fr)}
+.rail{position:sticky;top:0;height:100vh;overflow:auto;background:var(--rail);color:var(--rail-ink);
+  display:flex;flex-direction:column;gap:24px;padding-block:24px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:16px}
+.brand{display:flex;gap:12px;align-items:center;color:var(--rail-ink)}
+.brand strong{font:800 20px/1.1 var(--f-display);display:block}
+.brand small{color:var(--rail-dim)}
+.nav{display:grid;gap:4px}
+.nv{display:flex;gap:12px;align-items:center;width:100%;min-height:46px;padding:10px 14px;border:0;border-radius:10px;
+  background:transparent;color:var(--rail-dim);cursor:pointer;text-align:left;font-weight:500}
+.nv:hover{background:rgba(255,255,255,.07);color:var(--rail-ink)}
+.nv[aria-current="page"]{background:rgba(255,255,255,.13);color:var(--rail-ink)}
+.nv[aria-current="page"] svg{color:var(--pencil)}
+.nv .tx{flex:1}
+.lencana{min-width:22px;padding:0 7px;border-radius:99px;background:var(--bad);color:var(--on-bad);font:600 12px/22px var(--f-mono);text-align:center}
+.rail-foot{margin-top:auto;display:grid;gap:10px;font-size:13px;color:var(--rail-dim)}
+.rail-btn{min-height:40px;border:1px solid rgba(255,255,255,.22);border-radius:10px;background:transparent;color:var(--rail-ink);cursor:pointer}
+.rail-btn:hover{background:rgba(255,255,255,.08)}
+.rail-btn.amaran,.btn.amaran{background:var(--bad);color:var(--on-bad);border-color:var(--bad)}
+
+.main{min-width:0;padding-block:24px 40px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+.m-brand{display:none;align-items:center;gap:10px;margin-bottom:16px;color:var(--ink)}
+.m-brand strong{font:800 18px/1 var(--f-display)}
+.topbar{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+.topbar h1{font-size:30px;font-weight:800;letter-spacing:-.01em}
+.tarikh-label{color:var(--ink2);margin-top:4px}
+.datebar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.datebar input{min-height:44px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:158px}
+.ib{display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer}
+.ib:hover{background:var(--sunk)}
+.banner{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:13px;font-weight:500}
+.banner svg{flex:none;margin-top:1px}
+
+/* ---------- komponen ---------- */
+.kad{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.kad>h2,.kad-h h2{font-size:18px;font-weight:700}
+.kad>h2{margin-bottom:12px}
+.kad-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.alat{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.stack{display:grid;gap:20px;min-width:0;align-content:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:20px}
+.kosong{padding:20px 6px;color:var(--ink2);text-align:center}
+.kosong strong{display:block;color:var(--ink);font:700 17px var(--f-display);margin-bottom:4px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;
+  border:1px solid transparent;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);text-align:center}
+.btn:hover{filter:brightness(1.08)}
+.btn.sek{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sek:hover{background:var(--sunk);filter:none}
+.btn.bahaya{background:transparent;color:var(--bad);border-color:var(--bad)}
+.btn.bahaya:hover{background:var(--bad-soft);filter:none}
+.btn.kecil{min-height:40px;padding:0 14px;font-size:14px}
+.btn.amaran:hover{filter:none}
+
+.chip{display:inline-flex;align-items:center;gap:4px;padding:1px 10px;border-radius:99px;font-size:12px;font-weight:600;line-height:1.7;
+  background:var(--sunk);color:var(--ink2);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.info{background:var(--accent-soft);color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+
+/* KPI */
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.kpi>div{padding:18px 20px;border-left:1px solid var(--line);min-width:0}
+.kpi>div:first-child{border-left:0}
+.kpi .no{font:800 38px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.kpi .no.ok{color:var(--ok)} .kpi .no.warn{color:var(--warn)} .kpi .no.bad{color:var(--bad)}
+.kpi .dari{font-size:20px;color:var(--ink2);font-weight:700}
+.kpi .lb{margin-top:8px;font-weight:600}
+.kpi .sub{color:var(--ink2);font-size:13px}
+.bar{display:flex;height:10px;margin-top:10px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar i{display:block;background:var(--ok)}
+
+/* senarai tindakan */
+.tindak{list-style:none;margin:0;padding:0;display:grid}
+.tindak li{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)}
+.tindak li:first-child{border-top:0}
+.tindak li>div{min-width:0}
+.tindak p{margin-top:4px;overflow-wrap:anywhere}
+.tindak.rapat li{padding:10px 0}
+
+/* carta waktu */
+.carta{display:flex;gap:5px;align-items:stretch;margin-top:6px}
+.c-lajur{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.c-no{font-size:12px;min-height:18px;color:var(--ink2);font-family:var(--f-mono)}
+.c-trek{height:116px;width:100%;display:flex;align-items:flex-end;border-bottom:2px solid var(--line)}
+.c-bar{width:100%;display:flex;flex-direction:column-reverse;border-radius:6px 6px 0 0;overflow:hidden}
+.c-bar i{display:block}
+.c-bar i.ok{background:var(--ok)} .c-bar i.bad{background:var(--bad)}
+.c-w{font-size:11px;font-family:var(--f-mono);color:var(--ink2)}
+.c-rehat{flex:0 0 14px;display:grid;place-items:end center;padding-bottom:22px}
+.c-rehat span{writing-mode:vertical-rl;font-size:10px;color:var(--ink2);letter-spacing:.08em;text-transform:uppercase}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.beban{display:grid;gap:10px}
+.beban div{display:grid;grid-template-columns:minmax(80px,120px) minmax(0,1fr) 24px;gap:10px;align-items:center;font-size:14px}
+.beban .tr{height:10px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.beban .tr i{display:block;height:100%;background:var(--accent);border-radius:99px}
+
+/* guru & kelas */
+.seg2{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg2 button{min-height:44px;padding:0 20px;border:0;background:transparent;cursor:pointer;font-weight:600;color:var(--ink2)}
+.seg2 button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.cari{flex:1 1 220px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.lis{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.baris{display:grid;grid-template-columns:44px minmax(0,1.3fr) minmax(0,1.1fr) 150px auto;gap:6px 14px;align-items:center;width:100%;
+  text-align:left;background:transparent;border:0;border-top:1px solid var(--line);padding:12px 16px;cursor:pointer}
+.lis .baris:first-child{border-top:0}
+.baris:hover{background:var(--sunk)}
+.avatar{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:700 16px var(--f-display)}
+.baris strong{display:block}
+.baris .b-meta{font-size:13px;color:var(--ink2)}
+.baris .b-meta b{color:var(--ink);font-weight:600}
+.kelas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.kad-kelas{display:grid;gap:6px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer}
+.kad-kelas:hover{background:var(--sunk)}
+.kad-kelas h3{font-size:19px}
+
+/* jadual waktu */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.jd{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
+.jd th,.jd td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.jd thead th{background:var(--sunk);font-weight:600}
+.jd tbody th{position:sticky;left:0;background:var(--sunk);font-weight:500;white-space:nowrap}
+.jd th small{display:block}
+.jd td small{display:block}
+.jd td.hr,.jd th.hr{background:var(--accent-soft)}
+.jd td.tdk{background:var(--bad-soft)}
+.jd td.gnt{background:var(--ok-soft)}
+.jd small.bad{color:var(--bad);font-weight:600}
+.jd small.ok{color:var(--ok);font-weight:600}
+.jd tr.rehat td{text-align:center;background:var(--sunk);color:var(--ink2);font-size:12px}
+
+/* borang rekod */
+.grid-tdk{display:grid;grid-template-columns:minmax(280px,380px) minmax(0,1fr);gap:20px;align-items:start}
+.borang{display:grid;gap:6px}
+.borang label,.borang legend{font-weight:600;font-size:14px;margin-top:8px;padding:0}
+.borang select,.borang input[type=date],.borang input[type=text]{min-height:46px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.borang fieldset{border:0;margin:0;padding:0;min-width:0}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:6px}
+.seg3 label{margin:0;position:relative;font-weight:500}
+.seg3 input{position:absolute;opacity:0;inset:0;margin:0}
+.seg3 span{display:grid;place-items:center;text-align:center;min-height:56px;padding:6px;font-size:13px;line-height:1.25;border-left:1px solid var(--line);cursor:pointer}
+.seg3 label:first-child span{border-left:0}
+.seg3 input:checked+span{background:var(--accent);color:var(--accent-ink)}
+.seg3 input:focus-visible+span{outline:3px solid var(--accent);outline-offset:-3px}
+.ralat{background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:10px 12px;font-weight:600;font-size:14px}
+.borang .btn{margin-top:12px}
+.rek{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.rek:first-of-type{border-top:0}
+.rek strong{display:block}
+.rek .aks{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+/* agihan */
+.kumpulan{padding-bottom:6px}
+.slot{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1.3fr) auto;gap:8px 16px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.slot.konflik{background:var(--bad-soft);margin:0 -18px;padding:12px 18px}
+.s-w b{display:block;font:600 15px var(--f-mono)}
+.s-w small{font-family:var(--f-mono)}
+.s-gn strong{display:block}
+.slot small,.rek small{display:block}
+.s-aks{display:flex;gap:8px;flex-wrap:wrap}
+.hasil{display:grid;gap:8px;margin-bottom:16px}
+.hasil .kad{padding:14px 18px}
+
+/* panel */
+.tirai{position:fixed;inset:0;background:rgba(5,15,25,.6);display:none;z-index:40}
+.tirai.buka{display:flex;justify-content:flex-end;align-items:flex-end}
+.panel{background:var(--surface);color:var(--ink);width:min(680px,100%);max-height:92%;overflow:auto;border-radius:18px 18px 0 0;
+  padding-top:18px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.p-kepala{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.p-kepala h2{font-size:22px}
+.p-sub{color:var(--ink2);margin-top:4px}
+.panel h3{font-size:16px;margin:18px 0 8px}
+.calon{list-style:none;margin:0;padding:0}
+.calon li{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)}
+.calon li>div{min-width:0}
+.calon .chips{margin:6px 0 4px}
+.nota{background:var(--accent-soft);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px}
+
+/* toast */
+.toast{position:fixed;left:50%;transform:translate(-50%,20px);bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:60;max-width:min(520px,calc(100% - 32px));
+  background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.tunjuk{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--bad);color:var(--on-bad)}
+
+/* kertas cetak */
+.kertas{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:28px;max-width:1100px}
+.k-kepala{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:14px}
+.k-sek{font:600 13px var(--f-mono);letter-spacing:.12em}
+.k-kepala h2{font-size:26px;font-weight:800}
+.k-tarikh{font:600 16px var(--f-display)}
+.k-ringkas{margin-bottom:14px;font-size:14px}
+.kertas .tw{border:0;border-radius:0}
+table.kt{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+.kt th,.kt td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+.kt thead th{background:var(--sunk);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.kt td.tt{width:150px;height:44px}
+.kt .belum{font-weight:700;color:var(--bad)}
+.k-sah{display:flex;flex-wrap:wrap;gap:24px 48px;margin-top:34px}
+.k-sah div{min-width:200px;flex:1;font-size:13px}
+.k-sah i{display:block;border-bottom:1px solid var(--ink);height:44px;margin-bottom:6px}
+.salin{width:100%;min-height:150px;margin-bottom:16px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font:13px/1.5 var(--f-mono)}
+.panduan ol{margin:6px 0 0;padding-left:20px;display:grid;gap:6px}
+.print-sheet{display:none}
+
+/* telefon */
+.tabbar{display:none}
+@media (max-width:1100px){.grid2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){
+  .app{display:block}
+  .rail{display:none}
+  .m-brand{display:flex}
+  .main{padding-block:16px calc(92px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .topbar h1{font-size:26px}
+  .grid-tdk{grid-template-columns:minmax(0,1fr)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--rail);
+    padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px))}
+  .tb{position:relative;display:grid;justify-items:center;gap:3px;min-height:56px;padding:6px 2px;border:0;border-radius:10px;background:transparent;color:var(--rail-dim);font-size:11px;font-weight:500;line-height:1.15;cursor:pointer}
+  .tb[aria-current="page"]{color:var(--rail-ink);background:rgba(255,255,255,.13)}
+  .tb[aria-current="page"] svg{color:var(--pencil)}
+  .tb .lencana{position:absolute;top:2px;right:calc(50% - 26px);min-width:18px;font-size:11px;line-height:18px;padding:0 5px}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:760px){
+  .kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi>div:nth-child(3){border-left:0}
+  .kpi>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .baris{grid-template-columns:44px minmax(0,1fr)}
+  .baris>:nth-child(n+3){grid-column:2}
+  .slot{grid-template-columns:84px minmax(0,1fr)}
+  .slot .s-gn,.slot .s-aks{grid-column:1 / -1}
+  .kad{padding:16px}
+  .slot.konflik{margin:0 -16px;padding:12px 16px}
+  .kertas{padding:16px}
+}
+@media (min-width:901px){
+  .tirai.buka{align-items:stretch}
+  .panel{height:100%;max-height:none;border-radius:0;padding-top:max(20px,env(safe-area-inset-top,0px))}
+}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+
+/* cetak: kertas A4 mendatar, hitam putih */
+@media print{
+  @page{size:A4 landscape;margin:12mm}
+  :root{padding:0!important}
+  html,body{background:#fff!important;color:#000!important}
+  .rail,.tabbar,.m-brand,.topbar,.banner,.toast,.tirai,#view{display:none!important}
+  .app{display:block}
+  .main{padding:0!important}
+  .print-sheet{display:block}
+  .print-sheet .kertas{border:0;border-radius:0;padding:0;max-width:none}
+  .print-sheet *{color:#000!important;background:transparent!important;border-color:#000!important}
+  .print-sheet .kt th{background:#e8e8e8!important}
+  .print-sheet .tw{overflow:visible}
+  .print-sheet table.kt{min-width:0;font-size:11pt}
+  .kt tr{break-inside:avoid}
+  .kt thead{display:table-header-group}
+  .k-kepala{border-bottom-color:#000!important}
+}
+</style>
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="38" height="38" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="#F4B71E"/><rect x="10" y="10" width="20" height="20" rx="6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      <div><strong>e-Guru Ganti</strong><small>SK Contoh Harapan</small></div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Menu utama"></nav>
+    <div class="rail-foot">
+      <p>Prototaip dengan data contoh rekaan. Perubahan anda disimpan dalam pelayar ini sahaja.</p>
+      <button class="rail-btn" type="button" data-act="tetapSemula">Tetap semula data contoh</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="m-brand">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="#F4B71E"/><rect x="10" y="10" width="20" height="20" rx="6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      <strong>e-Guru Ganti</strong><span class="chip">Prototaip</span>
+    </div>
+    <header class="topbar">
+      <div><h1 id="tajuk"></h1><p class="tarikh-label" id="hariLabel"></p></div>
+      <div class="datebar">
+        <button class="ib" type="button" data-act="hari-" aria-label="Hari persekolahan sebelumnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <input type="date" id="tarikh" aria-label="Pilih tarikh">
+        <button class="ib" type="button" data-act="hari+" aria-label="Hari persekolahan seterusnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        <button class="btn sek" type="button" data-act="hariini">Hari ini</button>
+      </div>
+    </header>
+    <p class="banner" role="note"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg><span>Prototaip dengan data contoh rekaan. Nama guru, kelas dan jadual di sini bukan data sebenar mana-mana sekolah.</span></p>
+    <div id="view"></div>
+  </main>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Menu telefon"></nav>
+<div class="print-sheet" id="printSheet"></div>
+<div class="tirai" id="tirai"><div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Butiran"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ===== e-Guru Ganti · data contoh rekaan dan logik ===== */
+var HARI = ['Isnin','Selasa','Rabu','Khamis','Jumaat'];
+var HARI_PENUH = ['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'];
+var BULAN = ['Januari','Februari','Mac','April','Mei','Jun','Julai','Ogos','September','Oktober','November','Disember'];
+var WAKTU = [
+  {m:'7:30',t:'8:00'},{m:'8:00',t:'8:30'},{m:'8:30',t:'9:00'},{m:'9:00',t:'9:30'},{m:'9:30',t:'10:00'},
+  {m:'10:30',t:'11:00'},{m:'11:00',t:'11:30'},{m:'11:30',t:'12:00'},{m:'12:00',t:'12:30'}
+];
+var TEMPOH = {penuh:[0,8], pagi:[0,4], tengah:[5,8]};
+var TEMPOH_LABEL = {penuh:'Sehari penuh', pagi:'Pagi (W1–W5)', tengah:'Tengah hari (W6–W9)'};
+var JENIS_TDK = ['Cuti Sakit','Cuti Rehat','Cuti Kecemasan','Kursus / Bengkel','Urusan Rasmi'];
+var MATA = {BM:'Bahasa Melayu',BI:'Bahasa Inggeris',MT:'Matematik',SN:'Sains',BIM:'Bimbingan',
+  PI:'Pendidikan Islam',PJ:'Pendidikan Jasmani',PK:'Pendidikan Kesihatan',MZ:'Pendidikan Muzik',
+  PSV:'Pendidikan Seni Visual',KH:'Kemahiran Hidup'};
+
+/* ---------- tarikh ---------- */
+function pad2(n){return n<10?'0'+n:''+n;}
+function fmtISO(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+function parseISO(s){var a=s.split('-');return new Date(+a[0],+a[1]-1,+a[2]);}
+function idxHari(s){var d=parseISO(s).getDay();return (d===0||d===6)?-1:d-1;}
+function tarikhMalay(s){var d=parseISO(s);return HARI_PENUH[d.getDay()]+', '+d.getDate()+' '+BULAN[d.getMonth()]+' '+d.getFullYear();}
+function anjak(s,n){var d=parseISO(s);do{d.setDate(d.getDate()+n);}while(d.getDay()===0||d.getDay()===6);return fmtISO(d);}
+function tarikhAsas(){var s=fmtISO(new Date());return idxHari(s)<0?anjak(s,1):s;}
+
+/* ---------- kelas dan guru (semua rekaan) ---------- */
+var NAMA_KELAS = [[1,'Anggerik','Melur'],[2,'Kenanga','Cempaka'],[3,'Dahlia','Teratai'],[4,'Bijak','Cerdik'],[5,'Gigih','Tekun'],[6,'Maju','Jaya']];
+var KELAS = [];
+(function(){
+  for (var i=0;i<6;i++) for (var j=0;j<2;j++) {
+    KELAS.push({id:(i+1)+(j?'B':'A'), tahun:i+1, nama:NAMA_KELAS[i][1+j], murid:25+((i*3+j*4)%6), gk:'G'+pad2(i*2+j+1)});
+  }
+})();
+var NAMA_GK = ['Aisyah','Hafiz','Nurul','Faizal','Mei Ling','Kumar','Zulaikha','Rashid','Siti','Daniel','Farah','Arjun'];
+var SPEC = [
+  {id:'G13',nama:'Syafiq',gelaran:'Ustaz',skop:'Tahun 1–3',tahun:[1,2,3],mp:{PI:5}},
+  {id:'G14',nama:'Hanis',gelaran:'Ustazah',skop:'Tahun 4–6',tahun:[4,5,6],mp:{PI:5}},
+  {id:'G15',nama:'Azrul',gelaran:'Cikgu',skop:'Tahun 1–3',tahun:[1,2,3],mp:{PJ:3,PK:1,MZ:1}},
+  {id:'G16',nama:'Priya',gelaran:'Cikgu',skop:'Tahun 4–6',tahun:[4,5,6],mp:{PJ:3,PK:1,MZ:1}},
+  {id:'G17',nama:'Balqis',gelaran:'Cikgu',skop:'Tahun 1–3',tahun:[1,2,3],mp:{PSV:2,KH:3}},
+  {id:'G18',nama:'Wong',gelaran:'Cikgu',skop:'Tahun 4–6',tahun:[4,5,6],mp:{PSV:2,KH:3}}
+];
+var GURU = [];
+KELAS.forEach(function(k,i){GURU.push({id:k.gk,nama:NAMA_GK[i],gelaran:'Cikgu',peranan:'Guru Kelas',kelas:k.id,mp:['BM','BI','MT','SN','BIM']});});
+SPEC.forEach(function(s){GURU.push({id:s.id,nama:s.nama,gelaran:s.gelaran,peranan:'Guru Mata Pelajaran',skop:s.skop,mp:Object.keys(s.mp)});});
+var GURU_BY_ID = {}; GURU.forEach(function(g){GURU_BY_ID[g.id]=g;});
+var KELAS_BY_ID = {}; KELAS.forEach(function(k){KELAS_BY_ID[k.id]=k;});
+function namaGuru(id){var g=GURU_BY_ID[id];return g.gelaran+' '+g.nama;}
+function labelKelas(id){var k=KELAS_BY_ID[id];return k.tahun+' '+k.nama;}
+function masa(p){return WAKTU[p].m+'–'+WAKTU[p].t;}
+
+/* ---------- penjana jadual asas (deterministik) ---------- */
+function rngMake(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};}
+function kocok(a,r){for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function bina(seed){
+  var r=rngMake(seed), grid={}, sibuk={}, d, p;
+  KELAS.forEach(function(k){grid[k.id]=[];for(d=0;d<5;d++)grid[k.id].push(new Array(9).fill(null));});
+  SPEC.forEach(function(s){sibuk[s.id]=[];for(d=0;d<5;d++)sibuk[s.id].push(new Array(9).fill(false));});
+  var semua=[];for(d=0;d<5;d++)for(p=0;p<9;p++)semua.push([d,p]);
+  for (var si=0;si<SPEC.length;si++){
+    var sp=SPEC[si], unit=[];
+    KELAS.forEach(function(k){
+      if(sp.tahun.indexOf(k.tahun)<0)return;
+      Object.keys(sp.mp).forEach(function(m){for(var n=0;n<sp.mp[m];n++)unit.push({k:k.id,m:m});});
+    });
+    kocok(unit,r);
+    for (var u=0;u<unit.length;u++){
+      var un=unit[u], slot=kocok(semua.slice(),r), jumpa=false;
+      for (var s=0;s<slot.length&&!jumpa;s++){
+        d=slot[s][0];p=slot[s][1];
+        if(sibuk[sp.id][d][p]||grid[un.k][d][p])continue;
+        var sama=0;for(var q=0;q<9;q++){if(grid[un.k][d][q]&&grid[un.k][d][q].mp===un.m)sama++;}
+        if(sama>=2)continue;
+        grid[un.k][d][p]={mp:un.m,guru:sp.id};sibuk[sp.id][d][p]=true;jumpa=true;
+      }
+      if(!jumpa)return null;
+    }
+  }
+  KELAS.forEach(function(k){
+    var baki={BM:9,BI:7,MT:7,SN:4,BIM:3};
+    for(d=0;d<5;d++){
+      var cnt={};
+      for(p=0;p<9;p++){
+        if(grid[k.id][d][p])continue;
+        var calon=[],bobot=[],jum=0,m,w;
+        for(m in baki){if(baki[m]>0&&(cnt[m]||0)<3){w=baki[m];if((m==='BM'||m==='MT')&&p<4)w*=2;if(m==='BIM'&&p<3)w*=0.3;calon.push(m);bobot.push(w);jum+=w;}}
+        if(!calon.length){for(m in baki){if(baki[m]>0){calon.push(m);bobot.push(baki[m]);jum+=baki[m];}}}
+        var x=r()*jum,pilih=calon[calon.length-1];
+        for(var c=0;c<calon.length;c++){x-=bobot[c];if(x<0){pilih=calon[c];break;}}
+        baki[pilih]--;cnt[pilih]=(cnt[pilih]||0)+1;
+        grid[k.id][d][p]={mp:pilih,guru:k.gk};
+      }
+    }
+  });
+  return grid;
+}
+var JADUAL=null;
+for (var _sd=11;_sd<800&&!JADUAL;_sd++) JADUAL=bina(_sd);
+
+/* jadual mengikut guru + indeks */
+var GJ={}, P_KELAS={}, P_TAHUN={}, P_MP={};
+GURU.forEach(function(g){GJ[g.id]=[];for(var d=0;d<5;d++)GJ[g.id].push(new Array(9).fill(null));P_KELAS[g.id]={};P_TAHUN[g.id]={};P_MP[g.id]={};});
+KELAS.forEach(function(k){for(var d=0;d<5;d++)for(var p=0;p<9;p++){
+  var c=JADUAL[k.id][d][p];
+  GJ[c.guru][d][p]={kelas:k.id,mp:c.mp};
+  P_KELAS[c.guru][k.id]=true;P_TAHUN[c.guru][k.tahun]=true;P_MP[c.guru][c.mp]=true;
+}});
+function bebanMingguan(g){var n=0;for(var d=0;d<5;d++)for(var p=0;p<9;p++)if(GJ[g][d][p])n++;return n;}
+
+/* waktu ganti bulan ini sebelum prototaip (rekaan) */
+var GANTI_ASAS={};(function(){var r=rngMake(77);GURU.forEach(function(g){GANTI_ASAS[g.id]=Math.floor(r()*7);});})();
+
+/* ---------- keadaan ---------- */
+var S=null;
+var KUNCI='egg-prototaip-v1';
+function simpan(){try{localStorage.setItem(KUNCI,JSON.stringify({v:1,S:S}));}catch(e){}}
+function muat(asas){
+  try{var j=JSON.parse(localStorage.getItem(KUNCI)||'null');
+    if(j&&j.v===1&&j.S&&j.S.asas===asas&&Array.isArray(j.S.tdk)&&Array.isArray(j.S.agh))return j.S;}catch(e){}
+  return null;
+}
+
+function guruTidakHadirPada(g,t,p){
+  return S.tdk.some(function(x){return x.guru===g&&x.tarikh===t&&p>=TEMPOH[x.tempoh][0]&&p<=TEMPOH[x.tempoh][1];});
+}
+function perluGanti(t){
+  var d=idxHari(t),out=[];if(d<0)return out;
+  S.tdk.filter(function(x){return x.tarikh===t;}).forEach(function(rec){
+    var rg=TEMPOH[rec.tempoh];
+    for(var p=rg[0];p<=rg[1];p++){var c=GJ[rec.guru][d][p];if(c)out.push({rec:rec.id,guruAsal:rec.guru,kelas:c.kelas,waktu:p,mp:c.mp});}
+  });
+  out.sort(function(a,b){return a.waktu-b.waktu||a.kelas.localeCompare(b.kelas);});
+  return out;
+}
+function agihanUntuk(t,kelas,waktu){
+  for(var i=0;i<S.agh.length;i++){var a=S.agh[i];if(a.tarikh===t&&a.kelas===kelas&&a.waktu===waktu)return a;}
+  return null;
+}
+function gantiHari(g,t){return S.agh.filter(function(a){return a.ganti===g&&a.tarikh===t;}).length;}
+function gantiBulan(g,t){return GANTI_ASAS[g]+S.agh.filter(function(a){return a.ganti===g&&a.tarikh.slice(0,7)===t.slice(0,7);}).length;}
+
+/* ---------- cadangan guru ganti ---------- */
+function senaraiCalon(t,need){
+  var d=idxHari(t),p=need.waktu,kls=KELAS_BY_ID[need.kelas],ok=[],tidak=[];
+  var semasa=agihanUntuk(t,need.kelas,need.waktu);
+  GURU.forEach(function(g){
+    if(g.id===need.guruAsal)return;
+    if(guruTidakHadirPada(g.id,t,p)){tidak.push({guru:g.id,status:'tidakhadir',butiran:'Tidak hadir pada waktu ini'});return;}
+    var cell=GJ[g.id][d][p];
+    if(cell){tidak.push({guru:g.id,status:'mengajar',butiran:'Mengajar '+labelKelas(cell.kelas)+' ('+cell.mp+')'});return;}
+    var lain=null;
+    for(var i=0;i<S.agh.length;i++){var a=S.agh[i];if(a.tarikh===t&&a.waktu===p&&a.ganti===g.id&&a.kelas!==need.kelas){lain=a;break;}}
+    if(lain){tidak.push({guru:g.id,status:'ganti',butiran:'Sudah ganti '+labelKelas(lain.kelas)+' pada waktu ini'});return;}
+    var skor=50,sebab=[];
+    if(kls.gk===g.id){skor+=30;sebab.push('Guru kelas');}
+    else if(P_KELAS[g.id][kls.id]){skor+=20;sebab.push('Mengajar kelas ini');}
+    else if(P_TAHUN[g.id][kls.tahun]){skor+=12;sebab.push('Mengajar Tahun '+kls.tahun);}
+    if(P_MP[g.id][need.mp]){skor+=15;sebab.push('Mata pelajaran sama');}
+    var hari=gantiHari(g.id,t),bln=gantiBulan(g.id,t);
+    skor-=10*hari;skor-=1.5*bln;
+    sebab.push(hari===0?'Belum ganti hari ini':'Ganti hari ini: '+hari);
+    ok.push({guru:g.id,status:'kosong',skor:skor,sebab:sebab,hari:hari,bulan:bln,semasa:!!(semasa&&semasa.ganti===g.id)});
+  });
+  ok.sort(function(a,b){return b.skor-a.skor||a.guru.localeCompare(b.guru);});
+  return {ok:ok,tidak:tidak};
+}
+function janaAuto(t,hanya){
+  var siap=0,gagal=0;
+  perluGanti(t).filter(function(n){return !agihanUntuk(t,n.kelas,n.waktu)&&(!hanya||n.guruAsal===hanya);}).forEach(function(n){
+    var c=senaraiCalon(t,n).ok[0];
+    if(c){S.agh.push({id:S.nid++,tarikh:t,kelas:n.kelas,waktu:n.waktu,guruAsal:n.guruAsal,ganti:c.guru,cara:'auto'});siap++;}else gagal++;
+  });
+  return {siap:siap,gagal:gagal};
+}
+function tetapkan(t,kelas,waktu,ganti,cara){
+  var need=perluGanti(t).filter(function(n){return n.kelas===kelas&&n.waktu===waktu;})[0];
+  if(!need)return false;
+  S.agh=S.agh.filter(function(a){return !(a.tarikh===t&&a.kelas===kelas&&a.waktu===waktu);});
+  S.agh.push({id:S.nid++,tarikh:t,kelas:kelas,waktu:waktu,guruAsal:need.guruAsal,ganti:ganti,cara:cara||'manual'});
+  simpan();return true;
+}
+function bersihAgihan(){
+  S.agh=S.agh.filter(function(a){
+    var d=idxHari(a.tarikh);if(d<0)return false;
+    return S.tdk.some(function(x){return x.guru===a.guruAsal&&x.tarikh===a.tarikh&&a.waktu>=TEMPOH[x.tempoh][0]&&a.waktu<=TEMPOH[x.tempoh][1];});
+  });
+}
+
+/* ---------- pengesanan pertindihan ---------- */
+function kesanPertindihan(t){
+  var d=idxHari(t),out=[];if(d<0)return out;
+  var agh=S.agh.filter(function(a){return a.tarikh===t;});
+  agh.forEach(function(a){
+    var cell=GJ[a.ganti][d][a.waktu];
+    if(cell)out.push({jenis:'mengajar',ids:[a.id],kelas:a.kelas,waktu:a.waktu,guru:a.ganti,
+      mesej:namaGuru(a.ganti)+' dijadualkan mengajar '+labelKelas(cell.kelas)+' pada Waktu '+(a.waktu+1)+', tetapi ditugaskan ganti di '+labelKelas(a.kelas)+'.'});
+    if(guruTidakHadirPada(a.ganti,t,a.waktu))out.push({jenis:'tidakhadir',ids:[a.id],kelas:a.kelas,waktu:a.waktu,guru:a.ganti,
+      mesej:namaGuru(a.ganti)+' direkodkan tidak hadir pada Waktu '+(a.waktu+1)+', tetapi ditugaskan ganti di '+labelKelas(a.kelas)+'.'});
+    agh.forEach(function(b){
+      if(b.id>a.id&&b.ganti===a.ganti&&b.waktu===a.waktu)out.push({jenis:'ganda',ids:[a.id,b.id],kelas:a.kelas,waktu:a.waktu,guru:a.ganti,
+        mesej:namaGuru(a.ganti)+' ditugaskan ke '+labelKelas(a.kelas)+' dan '+labelKelas(b.kelas)+' serentak pada Waktu '+(a.waktu+1)+'.'});
+    });
+  });
+  return out;
+}
+function idKonflik(t){var s={};kesanPertindihan(t).forEach(function(k){k.ids.forEach(function(i){s[i]=true;});});return s;}
+function semakJadualAsas(){
+  var peta={},out=[],diperiksa=0;
+  KELAS.forEach(function(k){for(var d=0;d<5;d++)for(var p=0;p<9;p++){
+    var c=JADUAL[k.id][d][p];diperiksa++;
+    if(!c){out.push({mesej:labelKelas(k.id)+' tiada guru pada '+HARI[d]+' Waktu '+(p+1)+'.'});continue;}
+    var kunci=c.guru+'|'+d+'|'+p;
+    if(peta[kunci])out.push({mesej:namaGuru(c.guru)+' mengajar '+labelKelas(peta[kunci])+' dan '+labelKelas(k.id)+' serentak pada '+HARI[d]+' Waktu '+(p+1)+'.'});
+    else peta[kunci]=k.id;
+  }});
+  return {isu:out,diperiksa:diperiksa};
+}
+
+/* ---------- data awal ---------- */
+function semai(asas){
+  S={v:1,asas:asas,tdk:[],agh:[],nid:1};
+  function rec(g,t,jenis,tempoh,cat){S.tdk.push({id:S.nid++,guru:g,tarikh:t,jenis:jenis,tempoh:tempoh,catatan:cat||''});}
+  var t1=anjak(asas,-1),t2=anjak(asas,-2),t3=anjak(asas,-3);
+  rec('G03',asas,'Cuti Sakit','penuh','Data contoh');
+  rec('G15',asas,'Kursus / Bengkel','pagi','Bengkel contoh di luar sekolah');
+  rec('G08',asas,'Urusan Rasmi','tengah','');
+  rec('G06',t1,'Cuti Rehat','penuh','');
+  rec('G11',t2,'Kursus / Bengkel','penuh','');
+  rec('G02',t2,'Cuti Sakit','pagi','');
+  rec('G17',t3,'Urusan Rasmi','tengah','');
+  [t1,t2,t3].forEach(function(t){janaAuto(t);});
+  janaAuto(asas,'G03');
+}
+/* ===== e-Guru Ganti · antara muka ===== */
+function $(s,el){return (el||document).querySelector(s);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function ik(p,s){s=s||20;return '<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';}
+var IK={
+  rumah:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  guru:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14c2.5 0 4 2 4 5"/>',
+  tdk:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>',
+  tukar:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>',
+  cetak:'<path d="M7 9V3h10v6M7 17H4v-7h16v7h-3"/><rect x="7" y="14" width="10" height="7"/>',
+  cadang:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+  tambah:'<path d="M12 5v14M5 12h14"/>',
+  tutup:'<path d="M6 6l12 12M18 6L6 18"/>',
+  salin:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+  amaran:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/>',
+  semak:'<path d="M5 12l5 5L20 7"/>'
+};
+var NAV=[
+  {id:'utama',label:'Dashboard',pendek:'Utama',ikon:IK.rumah},
+  {id:'guru',label:'Guru dan Kelas',pendek:'Guru/Kelas',ikon:IK.guru},
+  {id:'tidakhadir',label:'Guru Tidak Hadir',pendek:'Tidak Hadir',ikon:IK.tdk},
+  {id:'agihan',label:'Agihan Guru Ganti',pendek:'Agihan',ikon:IK.tukar},
+  {id:'cetak',label:'Jadual Cetak',pendek:'Cetak',ikon:IK.cetak}
+];
+var TAJUK={utama:'Dashboard Utama',guru:'Guru dan Kelas',tidakhadir:'Rekod Guru Tidak Hadir',agihan:'Agihan Guru Ganti',cetak:'Jadual Harian untuk Dicetak'};
+var V={paparan:'utama',tarikh:null,tab:'guru',cari:'',tabTdk:'hari',semak:false,pilih:null,fokus:null};
+
+function chip(t,c){return '<span class="chip'+(c?' '+c:'')+'">'+t+'</span>';}
+function labelMp(m){return MATA[m]||m;}
+function hariDipilih(){return idxHari(V.tarikh);}
+
+/* ---------- pelbagai ---------- */
+function toast(m,j){
+  var el=$('#toast');el.textContent=m;el.className='toast tunjuk'+(j?' '+j:'');
+  clearTimeout(toast.t);toast.t=setTimeout(function(){el.className='toast';},4800);
+}
+function sahkan(btn,teks,fn){
+  if(btn.dataset.sah==='1'){clearTimeout(btn._t);btn.dataset.sah='';fn();return;}
+  btn.dataset.sah='1';btn.dataset.asal=btn.innerHTML;btn.textContent=teks;btn.classList.add('amaran');
+  btn._t=setTimeout(function(){btn.dataset.sah='';btn.innerHTML=btn.dataset.asal;btn.classList.remove('amaran');},3500);
+}
+function hujungMinggu(){
+  return '<div class="kad kosong"><strong>Tiada sesi persekolahan</strong><p>'+tarikhMalay(V.tarikh)+' ialah hujung minggu.</p><p style="margin-top:14px"><button class="btn" data-act="hari+">Pergi ke hari persekolahan seterusnya</button></p></div>';
+}
+function belumDiagih(t){return perluGanti(t).filter(function(n){return !agihanUntuk(t,n.kelas,n.waktu);});}
+
+/* ---------- navigasi ---------- */
+function binaNav(){
+  $('#nav').innerHTML=NAV.map(function(n){
+    return '<button class="nv" type="button" data-act="ke" data-ke="'+n.id+'">'+ik(n.ikon)+'<span class="tx">'+n.label+'</span><span class="lencana" data-lc="'+n.id+'" hidden></span></button>';
+  }).join('');
+  $('#tabbar').innerHTML=NAV.map(function(n){
+    return '<button class="tb" type="button" data-act="ke" data-ke="'+n.id+'">'+ik(n.ikon,22)+'<span>'+n.pendek+'</span><span class="lencana" data-lc="'+n.id+'" hidden></span></button>';
+  }).join('');
+}
+function kemasNav(){
+  var belum=idxHari(V.tarikh)>=0?belumDiagih(V.tarikh).length:0;
+  document.querySelectorAll('.nv,.tb').forEach(function(b){
+    if(b.dataset.ke===V.paparan)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+    var lc=b.querySelector('.lencana');
+    if(b.dataset.ke==='agihan'&&belum>0){lc.textContent=belum;lc.hidden=false;lc.setAttribute('aria-label',belum+' waktu belum diagih');}else lc.hidden=true;
+  });
+}
+function pergi(id){
+  V.paparan=id;V.semak=false;
+  try{location.hash=id;}catch(e){}
+  render();window.scrollTo(0,0);
+}
+
+/* ---------- DASHBOARD ---------- */
+function paparUtama(){
+  var t=V.tarikh;if(hariDipilih()<0)return hujungMinggu();
+  var perlu=perluGanti(t),n=perlu.length,belum=belumDiagih(t),diagih=n-belum.length;
+  var tdk=S.tdk.filter(function(x){return x.tarikh===t;});
+  var kon=kesanPertindihan(t),pct=n?Math.round(diagih/n*100):0;
+  var h='<div class="alat"><button class="btn" data-act="auto">'+ik(IK.cadang)+'Jana cadangan automatik</button>'+
+    '<button class="btn sek" data-act="ke" data-ke="tidakhadir">'+ik(IK.tambah)+'Rekod guru tidak hadir</button></div>';
+  h+='<div class="kpi">'+
+    '<div><div class="no">'+tdk.length+'</div><div class="lb">Guru tidak hadir</div><div class="sub">daripada '+GURU.length+' guru</div></div>'+
+    '<div><div class="no">'+n+'</div><div class="lb">Waktu perlu ganti</div><div class="sub">waktu mengajar terjejas</div></div>'+
+    '<div><div class="no '+(belum.length?'warn':'ok')+'">'+diagih+'<span class="dari">/'+n+'</span></div><div class="lb">Waktu telah diagih</div>'+
+      '<div class="bar" role="img" aria-label="'+pct+' peratus diagih"><i style="width:'+pct+'%"></i></div></div>'+
+    '<div><div class="no '+(kon.length?'bad':'ok')+'">'+kon.length+'</div><div class="lb">Pertindihan jadual</div><div class="sub">'+(kon.length?'Perlu dibaiki':'Tiada pertindihan')+'</div></div>'+
+    '</div>';
+
+  /* kiri */
+  var tind='';
+  kon.forEach(function(k){
+    tind+='<li><div>'+chip('Pertindihan','bad')+'<p>'+esc(k.mesej)+'</p></div><button class="btn kecil sek" data-act="tukar" data-kelas="'+k.kelas+'" data-waktu="'+k.waktu+'">Baiki</button></li>';
+  });
+  belum.slice(0,6).forEach(function(x){
+    tind+='<li><div>'+chip('Belum diagih','warn')+'<p><strong>Waktu '+(x.waktu+1)+'</strong> · '+labelKelas(x.kelas)+' · '+labelMp(x.mp)+'<br><span class="dim">Menggantikan '+namaGuru(x.guruAsal)+'</span></p></div>'+
+      '<button class="btn kecil sek" data-act="tukar" data-kelas="'+x.kelas+'" data-waktu="'+x.waktu+'">Pilih guru</button></li>';
+  });
+  var tindHtml;
+  if(tind){
+    tindHtml='<ul class="tindak">'+tind+'</ul>'+(belum.length>6?'<p class="dim" style="margin-top:8px">dan '+(belum.length-6)+' waktu lagi. <button class="btn kecil sek" data-act="ke" data-ke="agihan">Buka agihan</button></p>':'');
+  }else if(!tdk.length){
+    tindHtml='<div class="kosong"><strong>Tiada guru tidak hadir</strong>Semua guru hadir pada hari ini.</div>';
+  }else{
+    tindHtml='<div class="kosong"><strong>Semua waktu telah diagih</strong>Tiada pertindihan dikesan.<p style="margin-top:14px"><button class="btn" data-act="ke" data-ke="cetak">'+ik(IK.cetak)+'Lihat jadual untuk dicetak</button></p></div>';
+  }
+  var kiri='<div class="kad"><div class="kad-h"><h2>Perlu tindakan</h2>'+(tind?chip((kon.length+belum.length)+' perkara','warn'):chip('Selesai','ok'))+'</div>'+tindHtml+'</div>';
+
+  var senaraiTdk='';
+  tdk.forEach(function(r){
+    var nd=perlu.filter(function(x){return x.rec===r.id;}),sd=nd.filter(function(x){return agihanUntuk(t,x.kelas,x.waktu);}).length;
+    senaraiTdk+='<li><div><strong>'+namaGuru(r.guru)+'</strong><br><span class="dim">'+r.jenis+' · '+TEMPOH_LABEL[r.tempoh]+'</span></div>'+
+      (nd.length?chip(sd+'/'+nd.length+' diagih',sd===nd.length?'ok':'warn'):chip('Tiada waktu mengajar'))+'</li>';
+  });
+  kiri+='<div class="kad"><div class="kad-h"><h2>Guru tidak hadir hari ini</h2><button class="btn kecil sek" data-act="ke" data-ke="tidakhadir">Urus rekod</button></div>'+
+    (senaraiTdk?'<ul class="tindak rapat">'+senaraiTdk+'</ul>':'<p class="dim">Tiada rekod untuk tarikh ini.</p>')+'</div>';
+
+  /* kanan */
+  var maks=1,carta='';
+  for(var p=0;p<9;p++){maks=Math.max(maks,perlu.filter(function(x){return x.waktu===p;}).length);}
+  carta='<div class="carta">';
+  for(var q=0;q<9;q++){
+    if(q===5)carta+='<div class="c-rehat"><span>Rehat</span></div>';
+    var np=perlu.filter(function(x){return x.waktu===q;}),cp=np.filter(function(x){return agihanUntuk(t,x.kelas,x.waktu);}).length;
+    carta+='<div class="c-lajur"><span class="c-no">'+(np.length||'')+'</span><div class="c-trek"><div class="c-bar" style="height:'+(np.length/maks*100)+'%">'+
+      (cp?'<i class="ok" style="flex:'+cp+'"></i>':'')+(np.length-cp?'<i class="bad" style="flex:'+(np.length-cp)+'"></i>':'')+'</div></div><span class="c-w">W'+(q+1)+'</span></div>';
+  }
+  carta+='</div><div class="legend"><span><i style="background:var(--ok)"></i>Sudah diagih</span><span><i style="background:var(--bad)"></i>Belum diagih</span></div>';
+  var kanan='<div class="kad"><h2>Waktu terjejas hari ini</h2>'+(n?carta:'<p class="dim">Tiada waktu perlu diganti.</p>')+'</div>';
+
+  var kira={},mk=0;S.agh.filter(function(a){return a.tarikh===t;}).forEach(function(a){kira[a.ganti]=(kira[a.ganti]||0)+1;mk=Math.max(mk,kira[a.ganti]);});
+  var ids=Object.keys(kira).sort(function(a,b){return kira[b]-kira[a]||a.localeCompare(b);}).slice(0,6);
+  kanan+='<div class="kad"><h2>Beban guru ganti hari ini</h2>'+(ids.length?'<div class="beban">'+ids.map(function(g){
+    return '<div><span>'+namaGuru(g)+'</span><span class="tr"><i style="width:'+(kira[g]/mk*100)+'%"></i></span><span class="mono">'+kira[g]+'</span></div>';}).join('')+'</div>':'<p class="dim">Belum ada agihan untuk tarikh ini.</p>')+'</div>';
+
+  return h+'<div class="grid2"><div class="stack">'+kiri+'</div><div class="stack">'+kanan+'</div></div>';
+}
+
+/* ---------- GURU & KELAS ---------- */
+function statusGuru(id,t){
+  var r=S.tdk.filter(function(x){return x.guru===id&&x.tarikh===t;})[0],h='';
+  if(!r)h=chip('Hadir','ok');
+  else h=chip(r.tempoh==='penuh'?'Tidak hadir':'Tidak hadir ('+(r.tempoh==='pagi'?'pagi':'tengah hari')+')','bad');
+  var gh=gantiHari(id,t);
+  if(gh>0)h+=' '+chip('Ganti '+gh+' waktu','info');
+  return h;
+}
+function barisGuru(g){
+  var t=V.tarikh;
+  var info=g.kelas?'Guru Kelas · '+labelKelas(g.kelas):'Guru Mata Pelajaran · '+g.skop;
+  return '<button class="baris" type="button" data-act="guruButir" data-id="'+g.id+'">'+
+    '<span class="avatar">'+esc(g.nama.charAt(0))+'</span>'+
+    '<span><strong>'+namaGuru(g.id)+'</strong><small>'+g.id+' · '+info+'</small></span>'+
+    '<span class="mono b-meta">'+g.mp.join(' · ')+'</span>'+
+    '<span class="b-meta"><b>'+bebanMingguan(g.id)+'</b> waktu/minggu<br>Ganti bulan ini: <b>'+gantiBulan(g.id,t)+'</b></span>'+
+    '<span>'+statusGuru(g.id,t)+'</span></button>';
+}
+function senaraiGK(){
+  var q=V.cari.trim().toLowerCase(),t=V.tarikh;
+  if(V.tab==='guru'){
+    var ls=GURU.filter(function(g){
+      var s=(g.id+' '+namaGuru(g.id)+' '+(g.kelas?labelKelas(g.kelas):g.skop)+' '+g.peranan+' '+g.mp.map(labelMp).join(' ')).toLowerCase();
+      return !q||s.indexOf(q)>=0;});
+    if(!ls.length)return '<p class="kosong">Tiada guru sepadan dengan carian.</p>';
+    return '<div class="lis">'+ls.map(barisGuru).join('')+'</div>';
+  }
+  var ks=KELAS.filter(function(k){return !q||(labelKelas(k.id)+' '+namaGuru(k.gk)+' tahun '+k.tahun).toLowerCase().indexOf(q)>=0;});
+  if(!ks.length)return '<p class="kosong">Tiada kelas sepadan dengan carian.</p>';
+  var d=idxHari(t);
+  return '<div class="kelas-grid">'+ks.map(function(k){
+    var perlu=d<0?0:perluGanti(t).filter(function(x){return x.kelas===k.id;}).length;
+    return '<button class="kad-kelas" type="button" data-act="kelasButir" data-id="'+k.id+'"><h3>'+labelKelas(k.id)+'</h3>'+
+      '<span class="dim">Tahun '+k.tahun+' · '+k.murid+' murid</span><span>Guru kelas: <strong>'+namaGuru(k.gk)+'</strong></span>'+
+      '<span>'+(perlu?chip(perlu+' waktu perlu ganti','warn'):chip('Tiada waktu terjejas','ok'))+'</span></button>';
+  }).join('')+'</div>';
+}
+function paparGuru(){
+  return '<div class="alat"><div class="seg2" role="tablist" aria-label="Pilih senarai">'+
+    '<button role="tab" type="button" data-act="tab" data-tab="guru" aria-selected="'+(V.tab==='guru')+'">Guru ('+GURU.length+')</button>'+
+    '<button role="tab" type="button" data-act="tab" data-tab="kelas" aria-selected="'+(V.tab==='kelas')+'">Kelas ('+KELAS.length+')</button></div>'+
+    '<input class="cari" type="search" id="cari" placeholder="Cari nama, kelas atau mata pelajaran" aria-label="Carian" value="'+esc(V.cari)+'"></div>'+
+    '<div id="senarai">'+senaraiGK()+'</div>';
+}
+
+/* ---------- jadual waktu dalam panel ---------- */
+function jadualHtml(jenis,id){
+  var t=V.tarikh,dh=idxHari(t);
+  var h='<div class="tw"><table class="jd"><thead><tr><th>Waktu</th>'+HARI.map(function(n,i){return '<th'+(i===dh?' class="hr"':'')+'>'+n+'</th>';}).join('')+'</tr></thead><tbody>';
+  for(var p=0;p<9;p++){
+    if(p===5)h+='<tr class="rehat"><td colspan="6">Rehat 10:00–10:30</td></tr>';
+    h+='<tr><th scope="row"><span class="mono">W'+(p+1)+'</span><small>'+WAKTU[p].m+'</small></th>';
+    for(var d=0;d<5;d++){
+      var cls=(d===dh?'hr':''),isi='';
+      if(jenis==='guru'){
+        var c=GJ[id][d][p];
+        if(c){
+          isi='<strong class="mono">'+labelKelas(c.kelas)+'</strong><small>'+c.mp+'</small>';
+          if(d===dh&&guruTidakHadirPada(id,t,p)){cls='tdk';isi+='<small class="bad">Tidak hadir</small>';}
+        }else if(d===dh){
+          var a=S.agh.filter(function(x){return x.tarikh===t&&x.waktu===p&&x.ganti===id;})[0];
+          if(a){cls='gnt';isi='<strong class="mono">Ganti '+labelKelas(a.kelas)+'</strong><small class="ok">Waktu ganti</small>';}
+        }
+      }else{
+        var k=JADUAL[id][d][p];
+        isi='<strong class="mono">'+k.mp+'</strong><small>'+GURU_BY_ID[k.guru].nama+'</small>';
+        if(d===dh&&guruTidakHadirPada(k.guru,t,p)){
+          var ag=agihanUntuk(t,id,p);cls='tdk';
+          isi+=ag?'<small class="ok">Ganti: '+GURU_BY_ID[ag.ganti].nama+'</small>':'<small class="bad">Belum diagih</small>';
+        }
+      }
+      h+='<td'+(cls?' class="'+cls+'"':'')+'>'+isi+'</td>';
+    }
+    h+='</tr>';
+  }
+  return h+'</tbody></table></div>';
+}
+function bukaPanel(html){
+  V.fokus=document.activeElement;
+  $('#panel').innerHTML=html;$('#tirai').classList.add('buka');
+  var c=$('#panel .tutup');if(c)c.focus();
+}
+function tutupPanel(){
+  $('#tirai').classList.remove('buka');V.pilih=null;
+  if(V.fokus&&document.contains(V.fokus)){try{V.fokus.focus();}catch(e){}}
+}
+function kepalaPanel(tajuk,sub){
+  return '<div class="p-kepala"><div><h2>'+tajuk+'</h2><p class="p-sub">'+sub+'</p></div><button class="ib tutup" type="button" data-act="tutup" aria-label="Tutup">'+ik(IK.tutup)+'</button></div>';
+}
+function bukaGuru(id){
+  var g=GURU_BY_ID[id],t=V.tarikh;
+  var h=kepalaPanel(namaGuru(id),g.id+' · '+(g.kelas?'Guru Kelas '+labelKelas(g.kelas):'Guru Mata Pelajaran '+g.skop));
+  h+='<div class="chips" style="margin-bottom:12px">'+statusGuru(id,t)+chip(bebanMingguan(id)+' waktu/minggu')+chip('Ganti bulan ini: '+gantiBulan(id,t),'info')+'</div>';
+  h+='<p class="dim" style="margin-bottom:10px">Mata pelajaran: '+g.mp.map(labelMp).join(', ')+'.</p>';
+  h+=jadualHtml('guru',id)+'<p class="dim" style="margin-top:10px;font-size:13px">Lajur berwarna menunjukkan hari yang dipilih. Merah: tidak hadir. Hijau: bertugas ganti.</p>';
+  bukaPanel(h);
+}
+function bukaKelas(id){
+  var k=KELAS_BY_ID[id];
+  var h=kepalaPanel(labelKelas(id),'Tahun '+k.tahun+' · '+k.murid+' murid · Guru kelas '+namaGuru(k.gk));
+  h+=jadualHtml('kelas',id)+'<p class="dim" style="margin-top:10px;font-size:13px">Setiap petak: kod mata pelajaran dan nama guru. Lajur berwarna ialah hari yang dipilih.</p>';
+  bukaPanel(h);
+}
+
+/* ---------- GURU TIDAK HADIR ---------- */
+function statusRekod(r){
+  var nd=perluGanti(r.tarikh).filter(function(x){return x.rec===r.id;}),sd=nd.filter(function(x){return agihanUntuk(r.tarikh,x.kelas,x.waktu);}).length;
+  return {n:nd.length,s:sd};
+}
+function senaraiTdk(){
+  var ls=S.tdk.slice().filter(function(r){return V.tabTdk==='semua'||r.tarikh===V.tarikh;});
+  ls.sort(function(a,b){return a.tarikh<b.tarikh?1:a.tarikh>b.tarikh?-1:b.id-a.id;});
+  if(!ls.length)return '<div class="kosong"><strong>Tiada rekod</strong>Tiada guru direkodkan tidak hadir pada '+tarikhMalay(V.tarikh)+'.</div>';
+  return ls.map(function(r){
+    var st=statusRekod(r),c=st.n?chip(st.s+'/'+st.n+' waktu diagih',st.s===st.n?'ok':'warn'):chip('Tiada waktu mengajar');
+    return '<div class="rek"><div><strong>'+namaGuru(r.guru)+'</strong><span class="dim">'+(V.tabTdk==='semua'?tarikhMalay(r.tarikh)+' · ':'')+r.jenis+' · '+TEMPOH_LABEL[r.tempoh]+'</span>'+
+      (r.catatan?'<br><small>'+esc(r.catatan)+'</small>':'')+'<div style="margin-top:6px">'+c+'</div></div>'+
+      '<div class="aks"><button class="btn kecil sek" type="button" data-act="agihkan" data-tarikh="'+r.tarikh+'">Agihkan</button>'+
+      '<button class="btn kecil bahaya" type="button" data-act="padamTdk" data-id="'+r.id+'">Padam</button></div></div>';
+  }).join('');
+}
+function paparTdk(){
+  var opt='<option value="">Pilih guru…</option>'+GURU.map(function(g){
+    return '<option value="'+g.id+'">'+g.id+' · '+namaGuru(g.id)+' · '+(g.kelas?labelKelas(g.kelas):g.skop)+'</option>';}).join('');
+  var jenis=JENIS_TDK.map(function(j){return '<option>'+j+'</option>';}).join('');
+  var form='<form class="kad borang" id="borangTdk" novalidate><h2>Rekod baharu</h2>'+
+    '<label for="fGuru">Guru</label><select id="fGuru">'+opt+'</select>'+
+    '<label for="fTarikh">Tarikh</label><input type="date" id="fTarikh" value="'+V.tarikh+'">'+
+    '<label for="fJenis">Sebab</label><select id="fJenis">'+jenis+'</select>'+
+    '<fieldset><legend>Tempoh</legend><div class="seg3">'+
+      '<label><input type="radio" name="tempoh" value="penuh" checked><span>Sehari penuh</span></label>'+
+      '<label><input type="radio" name="tempoh" value="pagi"><span>Pagi<br>W1–W5</span></label>'+
+      '<label><input type="radio" name="tempoh" value="tengah"><span>Tengah hari<br>W6–W9</span></label></div></fieldset>'+
+    '<label for="fCatatan">Catatan (pilihan)</label><input type="text" id="fCatatan" maxlength="80" placeholder="Contoh: bengkel di luar sekolah">'+
+    '<p class="ralat" id="fRalat" role="alert" hidden></p>'+
+    '<button class="btn" type="submit">'+ik(IK.tambah)+'Simpan rekod</button></form>';
+  var sen='<div class="kad"><div class="kad-h"><h2>Rekod ketidakhadiran</h2><div class="seg2" role="tablist">'+
+    '<button type="button" role="tab" data-act="tabTdk" data-tab="hari" aria-selected="'+(V.tabTdk==='hari')+'">Tarikh dipilih</button>'+
+    '<button type="button" role="tab" data-act="tabTdk" data-tab="semua" aria-selected="'+(V.tabTdk==='semua')+'">Semua</button></div></div>'+
+    '<p class="dim" style="margin-bottom:6px">'+(V.tabTdk==='hari'?tarikhMalay(V.tarikh):'Semua rekod, terkini dahulu')+'</p>'+senaraiTdk()+'</div>';
+  return '<div class="grid-tdk">'+form+sen+'</div>';
+}
+
+/* ---------- AGIHAN ---------- */
+function paparAgihan(){
+  var t=V.tarikh;if(hariDipilih()<0)return hujungMinggu();
+  var perlu=perluGanti(t),belum=belumDiagih(t),diagih=perlu.length-belum.length,kon=kesanPertindihan(t),ik_=idKonflik(t);
+  var h='<div class="alat"><button class="btn" data-act="auto">'+ik(IK.cadang)+'Jana cadangan automatik</button>'+
+    '<button class="btn sek" data-act="semak">'+ik(IK.semak)+'Semak pertindihan</button>'+
+    '<button class="btn sek bahaya" data-act="kosongAgihan">Kosongkan agihan</button></div>';
+  h+='<div class="chips" style="margin-bottom:16px">'+chip(perlu.length+' waktu perlu ganti')+chip(diagih+' diagih','ok')+
+    (belum.length?chip(belum.length+' belum diagih','warn'):'')+(kon.length?chip(kon.length+' pertindihan','bad'):chip('Tiada pertindihan','ok'))+'</div>';
+  if(V.semak){
+    var as=semakJadualAsas();
+    h+='<div class="hasil"><div class="kad"><div class="kad-h"><h2>Hasil semakan pertindihan</h2><button class="btn kecil sek" data-act="semak">Tutup</button></div>'+
+      '<p>'+(kon.length?chip(kon.length+' pertindihan dalam agihan hari ini','bad'):chip('Agihan hari ini: tiada pertindihan','ok'))+'</p>'+
+      (kon.length?'<ul class="tindak rapat">'+kon.map(function(k){return '<li><p>'+esc(k.mesej)+'</p><button class="btn kecil sek" data-act="tukar" data-kelas="'+k.kelas+'" data-waktu="'+k.waktu+'">Baiki</button></li>';}).join('')+'</ul>':'')+
+      '<p style="margin-top:10px">'+(as.isu.length?chip(as.isu.length+' isu jadual asas','bad'):chip('Jadual asas: tiada pertindihan','ok'))+' <span class="dim">'+as.diperiksa+' petak kelas diperiksa.</span></p></div></div>';
+  }
+  var tdk=S.tdk.filter(function(x){return x.tarikh===t;});
+  if(!tdk.length)return h+'<div class="kad kosong"><strong>Tiada guru tidak hadir</strong>Rekod guru tidak hadir dahulu untuk menjana agihan.<p style="margin-top:14px"><button class="btn" data-act="ke" data-ke="tidakhadir">Rekod guru tidak hadir</button></p></div>';
+  tdk.forEach(function(r){
+    var nd=perlu.filter(function(x){return x.rec===r.id;}),sd=nd.filter(function(x){return agihanUntuk(t,x.kelas,x.waktu);}).length;
+    h+='<section class="kad kumpulan" style="margin-bottom:16px"><div class="kad-h"><div><h2>'+namaGuru(r.guru)+'</h2><span class="dim">'+r.jenis+' · '+TEMPOH_LABEL[r.tempoh]+'</span></div>'+
+      (nd.length?chip(sd+'/'+nd.length+' diagih',sd===nd.length?'ok':'warn'):chip('Tiada waktu mengajar'))+'</div>';
+    if(!nd.length)h+='<p class="dim">Guru ini tiada waktu mengajar pada tempoh tersebut.</p>';
+    nd.forEach(function(n){
+      var a=agihanUntuk(t,n.kelas,n.waktu),bk=a&&ik_[a.id];
+      h+='<div class="slot'+(bk?' konflik':'')+'"><div class="s-w"><b>Waktu '+(n.waktu+1)+'</b><small>'+masa(n.waktu)+'</small></div>'+
+        '<div><strong>'+labelKelas(n.kelas)+'</strong><small>'+labelMp(n.mp)+'</small></div><div class="s-gn">';
+      if(a){
+        h+='<strong>'+namaGuru(a.ganti)+'</strong><div class="chips">'+chip(a.cara==='auto'?'Cadangan automatik':'Pilihan manual',a.cara==='auto'?'info':'')+(bk?chip('Bertindih','bad'):'')+'</div></div>'+
+          '<div class="s-aks"><button class="btn kecil sek" data-act="tukar" data-kelas="'+n.kelas+'" data-waktu="'+n.waktu+'">Tukar</button>'+
+          '<button class="btn kecil sek" data-act="buang" data-kelas="'+n.kelas+'" data-waktu="'+n.waktu+'">Buang</button></div></div>';
+      }else{
+        var best=senaraiCalon(t,n).ok[0];
+        h+='<div class="chips">'+chip('Belum diagih','warn')+'</div>'+(best?'<small>Cadangan: '+namaGuru(best.guru)+' ('+best.sebab[0].toLowerCase()+')</small>':'<small>Tiada guru kosong pada waktu ini.</small>')+'</div>'+
+          '<div class="s-aks">'+(best?'<button class="btn kecil" data-act="cadang" data-kelas="'+n.kelas+'" data-waktu="'+n.waktu+'">Guna cadangan</button>':'')+
+          '<button class="btn kecil sek" data-act="tukar" data-kelas="'+n.kelas+'" data-waktu="'+n.waktu+'">Pilih sendiri</button></div></div>';
+      }
+    });
+    h+='</section>';
+  });
+  return h;
+}
+function bukaPilih(t,kelas,waktu){
+  var need=perluGanti(t).filter(function(n){return n.kelas===kelas&&n.waktu===waktu;})[0];
+  if(!need)return;
+  V.pilih={t:t,kelas:kelas,waktu:waktu};
+  var c=senaraiCalon(t,need),a=agihanUntuk(t,kelas,waktu);
+  var h=kepalaPanel('Pilih guru ganti','Waktu '+(waktu+1)+' ('+masa(waktu)+') · '+labelKelas(kelas)+' · '+labelMp(need.mp)+'<br>Menggantikan '+namaGuru(need.guruAsal));
+  if(a)h+='<p class="nota">Guru ganti sekarang: <strong>'+namaGuru(a.ganti)+'</strong>'+(ik_semakKonflik(a.id,t)?' (bertindih)':'')+'</p>';
+  h+='<h3>Disyorkan ('+c.ok.length+')</h3>';
+  if(!c.ok.length)h+='<p class="dim">Tiada guru kosong pada waktu ini. Lihat senarai di bawah untuk pilihan yang bertindih.</p>';
+  h+='<ul class="calon">'+c.ok.map(function(x,i){
+    return '<li><div><strong>'+namaGuru(x.guru)+'</strong> '+(x.semasa?chip('Dipilih sekarang','info'):(i===0&&!a?chip('Cadangan terbaik','ok'):''))+
+      '<div class="chips">'+x.sebab.map(function(s){return chip(esc(s));}).join('')+'</div><small>Ganti bulan ini: '+x.bulan+' waktu</small></div>'+
+      '<button class="btn kecil'+(x.semasa?' sek':'')+'" data-act="tetap" data-guru="'+x.guru+'" data-kelas="'+kelas+'" data-waktu="'+waktu+'">'+(x.semasa?'Kekal':'Pilih')+'</button></li>';}).join('')+'</ul>';
+  h+='<h3>Tidak sesuai ('+c.tidak.length+')</h3><p class="dim" style="margin-bottom:4px;font-size:14px">Guru di bawah akan menyebabkan pertindihan jika dipilih.</p><ul class="calon">'+c.tidak.map(function(x){
+    return '<li><div><strong>'+namaGuru(x.guru)+'</strong><div class="chips" style="margin-top:6px">'+chip(esc(x.butiran),'bad')+'</div></div>'+
+      '<button class="btn kecil bahaya" data-act="tetap" data-paksa="1" data-guru="'+x.guru+'" data-kelas="'+kelas+'" data-waktu="'+waktu+'">Pilih juga</button></li>';}).join('')+'</ul>';
+  bukaPanel(h);
+}
+function ik_semakKonflik(id,t){return !!idKonflik(t)[id];}
+
+/* ---------- CETAK ---------- */
+function teksSalin(){
+  var t=V.tarikh,perlu=perluGanti(t),l=['*JADUAL GURU GANTI*','SK Contoh Harapan','Tarikh: '+tarikhMalay(t),''];
+  if(!perlu.length)l.push('Tiada guru ganti diperlukan.');
+  perlu.forEach(function(n){
+    var a=agihanUntuk(t,n.kelas,n.waktu);
+    l.push('W'+(n.waktu+1)+' ('+masa(n.waktu)+') | '+labelKelas(n.kelas)+' | '+labelMp(n.mp)+' | '+(a?namaGuru(a.ganti):'BELUM DIAGIH')+' (ganti '+namaGuru(n.guruAsal)+')');
+  });
+  return l.join('\n');
+}
+function kertasHtml(){
+  var t=V.tarikh;
+  if(idxHari(t)<0)return '<div class="kertas"><p>Tiada sesi persekolahan pada '+tarikhMalay(t)+'.</p></div>';
+  var perlu=perluGanti(t),tdk=S.tdk.filter(function(x){return x.tarikh===t;});
+  var h='<div class="kertas"><header class="k-kepala"><div><p class="k-sek">SK CONTOH HARAPAN</p><h2>Jadual Guru Ganti Harian</h2></div><p class="k-tarikh">'+tarikhMalay(t)+'</p></header>';
+  h+='<p class="k-ringkas"><strong>Guru tidak hadir:</strong> '+(tdk.length?tdk.map(function(r){return namaGuru(r.guru)+' ('+r.jenis.toLowerCase()+', '+TEMPOH_LABEL[r.tempoh].toLowerCase()+')';}).join('; '):'tiada')+'.</p>';
+  h+='<div class="tw"><table class="kt"><thead><tr><th>Waktu</th><th>Masa</th><th>Kelas</th><th>Mata pelajaran</th><th>Guru tidak hadir</th><th>Guru ganti</th><th>Tandatangan</th></tr></thead><tbody>';
+  if(!perlu.length)h+='<tr><td colspan="7">Tiada guru ganti diperlukan pada hari ini.</td></tr>';
+  perlu.forEach(function(n){
+    var a=agihanUntuk(t,n.kelas,n.waktu);
+    h+='<tr><td><strong>'+(n.waktu+1)+'</strong></td><td>'+masa(n.waktu)+'</td><td>'+labelKelas(n.kelas)+'</td><td>'+labelMp(n.mp)+'</td><td>'+namaGuru(n.guruAsal)+'</td>'+
+      '<td>'+(a?namaGuru(a.ganti):'<span class="belum">BELUM DIAGIH</span>')+'</td><td class="tt"></td></tr>';
+  });
+  h+='</tbody></table></div><div class="k-sah"><div><i></i>Disediakan oleh<br>Guru Penolong Kanan Pentadbiran</div><div><i></i>Disahkan oleh<br>Guru Besar</div></div></div>';
+  return h;
+}
+function paparCetak(){
+  var t=V.tarikh;if(hariDipilih()<0)return hujungMinggu();
+  var belum=belumDiagih(t).length;
+  var h='<div class="alat"><button class="btn" data-act="salin">'+ik(IK.salin)+'Salin teks untuk WhatsApp</button>'+
+    '<button class="btn sek" data-act="ke" data-ke="agihan">Kembali ke agihan</button></div>';
+  if(belum)h+='<p class="banner" style="background:var(--bad-soft);color:var(--bad)"><span>'+belum+' waktu belum diagih dan akan tertera sebagai “BELUM DIAGIH” pada kertas.</span></p>';
+  h+='<textarea class="salin" id="salinTeks" readonly hidden aria-label="Teks jadual untuk disalin"></textarea>';
+  h+='<div class="kad panduan" style="margin-bottom:16px"><h2>Cara mencetak</h2><ol>'+
+    '<li>Komputer: tekan Ctrl+P (Mac: Cmd+P), pilih kertas A4 mendatar. Hanya jadual di bawah akan dicetak.</li>'+
+    '<li>Telefon Android: buka menu pelayar (tiga titik), pilih Kongsi atau Cetak.</li>'+
+    '<li>Butang Cetak sebenar akan ditambah dalam aplikasi yang diterbitkan. Dalam pratonton ini pelayar menyekatnya.</li></ol></div>';
+  return h+kertasHtml();
+}
+
+/* ---------- render ---------- */
+var VIEWS={utama:paparUtama,guru:paparGuru,tidakhadir:paparTdk,agihan:paparAgihan,cetak:paparCetak};
+function render(){
+  $('#tajuk').textContent=TAJUK[V.paparan];
+  var inp=$('#tarikh');if(inp.value!==V.tarikh)inp.value=V.tarikh;
+  $('#hariLabel').textContent=tarikhMalay(V.tarikh);
+  $('#view').innerHTML=VIEWS[V.paparan]();
+  $('#printSheet').innerHTML=kertasHtml();
+  kemasNav();
+}
+
+/* ---------- aksi ---------- */
+function laporAuto(r){
+  if(!r.siap&&!r.gagal)return toast('Semua waktu sudah diagih.','');
+  toast(r.siap+' waktu diagih secara automatik.'+(r.gagal?' '+r.gagal+' waktu tiada guru kosong.':''),r.gagal?'bad':'');
+}
+var AKSI={
+  ke:function(b){pergi(b.dataset.ke);},
+  'hari-':function(){V.tarikh=anjak(V.tarikh,-1);V.semak=false;render();},
+  'hari+':function(){V.tarikh=anjak(V.tarikh,1);V.semak=false;render();},
+  hariini:function(){V.tarikh=tarikhAsas();V.semak=false;render();},
+  tab:function(b){V.tab=b.dataset.tab;render();},
+  tabTdk:function(b){V.tabTdk=b.dataset.tab;render();},
+  guruButir:function(b){bukaGuru(b.dataset.id);},
+  kelasButir:function(b){bukaKelas(b.dataset.id);},
+  tutup:function(){tutupPanel();},
+  auto:function(){var r=janaAuto(V.tarikh);simpan();render();laporAuto(r);},
+  kosongAgihan:function(b){sahkan(b,'Sahkan kosongkan?',function(){
+    S.agh=S.agh.filter(function(a){return a.tarikh!==V.tarikh;});simpan();render();toast('Agihan untuk tarikh ini dikosongkan.','');});},
+  semak:function(){V.semak=!V.semak;render();},
+  tukar:function(b){bukaPilih(V.tarikh,b.dataset.kelas,+b.dataset.waktu);},
+  tetap:function(b){
+    var k=b.dataset.kelas,w=+b.dataset.waktu,g=b.dataset.guru;
+    tetapkan(V.tarikh,k,w,g,'manual');tutupPanel();render();
+    if(b.dataset.paksa){var n=kesanPertindihan(V.tarikh).length;toast('Pertindihan dikesan. '+namaGuru(g)+' bertindih pada Waktu '+(w+1)+'. Lihat tanda merah pada agihan.','bad');}
+    else toast(namaGuru(g)+' ditugaskan ke '+labelKelas(k)+', Waktu '+(w+1)+'.','');
+  },
+  buang:function(b){
+    var k=b.dataset.kelas,w=+b.dataset.waktu;
+    S.agh=S.agh.filter(function(a){return !(a.tarikh===V.tarikh&&a.kelas===k&&a.waktu===w);});simpan();render();toast('Agihan dibuang.','');
+  },
+  cadang:function(b){
+    var n=perluGanti(V.tarikh).filter(function(x){return x.kelas===b.dataset.kelas&&x.waktu===+b.dataset.waktu;})[0];
+    var c=n&&senaraiCalon(V.tarikh,n).ok[0];
+    if(c){tetapkan(V.tarikh,n.kelas,n.waktu,c.guru,'auto');render();toast(namaGuru(c.guru)+' ditugaskan ke '+labelKelas(n.kelas)+', Waktu '+(n.waktu+1)+'.','');}
+  },
+  padamTdk:function(b){sahkan(b,'Sahkan padam?',function(){
+    var id=+b.dataset.id;S.tdk=S.tdk.filter(function(x){return x.id!==id;});bersihAgihan();simpan();render();toast('Rekod dipadam. Agihan berkaitan turut dibuang.','');});},
+  agihkan:function(b){V.tarikh=b.dataset.tarikh;pergi('agihan');},
+  salin:function(){
+    var tx=teksSalin(),ta=$('#salinTeks');ta.value=tx;
+    function sandar(){ta.hidden=false;ta.focus();ta.select();toast('Salinan automatik tidak dibenarkan di sini. Teks telah dipilih; salin secara manual.','bad');}
+    try{navigator.clipboard.writeText(tx).then(function(){toast('Teks jadual disalin. Tampal ke WhatsApp.','');},sandar);}catch(e){sandar();}
+  },
+  tetapSemula:function(b){sahkan(b,'Sahkan tetap semula?',function(){
+    semai(tarikhAsas());simpan();V.tarikh=tarikhAsas();V.semak=false;render();toast('Data contoh ditetapkan semula.','');});}
+};
+document.addEventListener('click',function(e){
+  if(e.target.id==='tirai'){tutupPanel();return;}
+  var b=e.target.closest('[data-act]');if(!b)return;
+  var f=AKSI[b.dataset.act];if(f)f(b,e);
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#tirai').classList.contains('buka'))tutupPanel();});
+document.addEventListener('input',function(e){
+  if(e.target.id==='cari'){V.cari=e.target.value;$('#senarai').innerHTML=senaraiGK();}
+});
+document.addEventListener('change',function(e){
+  if(e.target.id==='tarikh'&&e.target.value){V.tarikh=e.target.value;V.semak=false;render();}
+});
+document.addEventListener('submit',function(e){
+  if(e.target.id!=='borangTdk')return;
+  e.preventDefault();
+  var g=$('#fGuru').value,t=$('#fTarikh').value,j=$('#fJenis').value,c=$('#fCatatan').value.trim();
+  var r=document.querySelector('input[name="tempoh"]:checked'),tp=r?r.value:'penuh',er=$('#fRalat');
+  function ralat(m){er.textContent=m;er.hidden=false;}
+  if(!g)return ralat('Pilih guru terlebih dahulu.');
+  if(!t)return ralat('Pilih tarikh.');
+  if(idxHari(t)<0)return ralat('Tarikh itu jatuh pada hujung minggu. Pilih hari persekolahan.');
+  var bt=S.tdk.some(function(x){return x.guru===g&&x.tarikh===t&&!(TEMPOH[x.tempoh][1]<TEMPOH[tp][0]||TEMPOH[x.tempoh][0]>TEMPOH[tp][1]);});
+  if(bt)return ralat(namaGuru(g)+' sudah direkodkan tidak hadir pada tarikh dan tempoh itu.');
+  S.tdk.push({id:S.nid++,guru:g,tarikh:t,jenis:j,tempoh:tp,catatan:c});
+  simpan();V.tarikh=t;V.tabTdk='hari';render();
+  var jum=perluGanti(t).filter(function(n){return n.guruAsal===g;}).length;
+  toast('Rekod disimpan. '+(jum?jum+' waktu perlu ganti. Buka Agihan untuk menjana cadangan.':'Guru ini tiada waktu mengajar pada tempoh itu.'),'');
+});
+
+/* ---------- mula ---------- */
+(function mula(){
+  var asas=tarikhAsas();S=muat(asas);
+  if(!S){semai(asas);simpan();}
+  V.tarikh=asas;
+  try{var h=location.hash.replace('#','');if(TAJUK[h])V.paparan=h;}catch(e){}
+  binaNav();render();
+})();
+</script>
+
+</body></html>

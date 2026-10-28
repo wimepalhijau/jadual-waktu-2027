@@ -1,0 +1,633 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Jadual Relif</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: satu lajur sempit untuk telefon guru. Tajuk + bar tarikh di atas, ringkasan satu baris, kemudian senarai relif mengikut waktu dalam satu kad. */
+:root {
+  --bg: #EDF1EF;
+  --surface: #FFFFFF;
+  --fg: #13221E;
+  --muted: #576963;
+  --line: #D3DDD9;
+  --accent: #0B6B5E;
+  --accent-fg: #FFFFFF;
+  --accent-soft: #DCEFEA;
+  --warn-bg: #FFEFC2;
+  --warn-fg: #6A4800;
+  --danger: #B3261E;
+  --font-display: 'Familjen Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1815; --surface: #15221E; --fg: #E6EFEB; --muted: #93A59E; --line: #27372F;
+    --accent: #3FC4AE; --accent-fg: #06201B; --accent-soft: #163A33;
+    --warn-bg: #3A2D07; --warn-fg: #F2C75A; --danger: #FF8A80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1815; --surface: #15221E; --fg: #E6EFEB; --muted: #93A59E; --line: #27372F;
+  --accent: #3FC4AE; --accent-fg: #06201B; --accent-soft: #163A33;
+  --warn-bg: #3A2D07; --warn-fg: #F2C75A; --danger: #FF8A80;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: 30px; line-height: 1.1; letter-spacing: -0.01em; }
+h2 { font-size: 18px; }
+p { margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.sub { color: var(--muted); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+.top-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.btn {
+  min-height: 40px; padding: 0 14px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 500;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.btn.small { min-height: 32px; padding: 0 10px; font-size: 13px; }
+.btn.danger { color: var(--danger); }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+.datebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.datebar .label {
+  flex: 1 1 200px; min-width: 0; font-family: var(--font-display); font-weight: 600; font-size: 19px; text-align: center;
+}
+.datebar input[type="date"] {
+  min-height: 40px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface);
+}
+
+.stats { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 2px 2px 0; }
+.stat { display: flex; align-items: baseline; gap: 8px; }
+.stat b { font-family: var(--font-display); font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 13px; }
+.stat.alert b { color: var(--warn-fg); }
+
+.tabs { display: flex; gap: 20px; border-bottom: 1px solid var(--line); }
+.tab {
+  background: none; border: 0; padding: 10px 2px; cursor: pointer; color: var(--muted); font-weight: 500;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.empty { padding: 28px 18px; display: flex; flex-direction: column; gap: 4px; text-align: center; color: var(--muted); }
+.empty strong { color: var(--fg); font-weight: 600; }
+
+.slot { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 14px 16px; border-top: 1px solid var(--line); }
+.slot:first-child { border-top: 0; }
+.slot-time { display: flex; flex-direction: column; font-family: var(--font-mono); }
+.slot-time b { font-size: 17px; font-weight: 600; }
+.slot-time span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rehat {
+  padding: 6px 16px; border-top: 1px dashed var(--line); background: var(--accent-soft);
+  color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.slot-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.item { display: flex; flex-direction: column; gap: 3px; min-width: 0; overflow-wrap: anywhere; }
+.item + .item { padding-top: 14px; border-top: 1px dashed var(--line); }
+.kelas { font-weight: 600; }
+.subjek { color: var(--muted); }
+.ganti strong { color: var(--accent); font-weight: 600; }
+.tiada, .catatan { color: var(--muted); font-size: 13px; }
+.chip {
+  align-self: flex-start; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  background: var(--warn-bg); color: var(--warn-fg);
+}
+.item-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; align-items: center; }
+.item-actions .ask { font-size: 13px; color: var(--danger); font-weight: 500; }
+
+form.panel { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+form.panel .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); font-weight: 500; min-width: 0; }
+input[type="text"], select, textarea {
+  min-height: 42px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--fg); width: 100%; min-width: 0;
+}
+textarea { padding: 10px; min-height: 220px; resize: vertical; line-height: 1.5; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.cadangan { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.cadangan:empty { display: none; }
+.pick {
+  min-height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--accent);
+  background: var(--accent-soft); color: var(--fg); cursor: pointer; font-size: 13px; font-weight: 500;
+}
+.pick i { font-style: normal; color: var(--muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+.amaran { color: var(--warn-fg); background: var(--warn-bg); padding: 8px 12px; border-radius: 8px; font-size: 13px; }
+.amaran:empty { display: none; }
+
+.rumusan { padding: 8px 16px 16px; display: flex; flex-direction: column; }
+.rumusan-head, .rumusan-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) 64px; gap: 12px; align-items: center; }
+.rumusan-head { padding: 8px 0; color: var(--muted); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+.rumusan-row { padding: 9px 0; border-top: 1px solid var(--line); }
+.rumusan-row .nama { overflow-wrap: anywhere; font-weight: 500; }
+.bar { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.bar i { display: block; height: 10px; border-radius: 3px; background: var(--accent); min-width: 2px; }
+.bar i.zero { background: var(--line); }
+.bar span, .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+.num { text-align: right; color: var(--muted); }
+.monthbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px 0; }
+.monthbar h2 { flex: 1; text-align: center; }
+.hint { color: var(--muted); font-size: 13px; }
+
+#toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 20;
+  background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: 14px; max-width: 90vw;
+}
+@media (max-width: 480px) {
+  .slot { grid-template-columns: 74px minmax(0, 1fr); gap: 10px; padding: 12px; }
+  .rumusan-head, .rumusan-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 48px; gap: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .tab, .pick { transition: border-color 0.15s, background-color 0.15s, color 0.15s; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Jadual Relif</h1>
+      <p class="sub">Guru ganti harian</p>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="btn" id="btnSalin" data-act="salin" disabled>Salin untuk WhatsApp</button>
+      <button type="button" class="btn primary" id="btnTambah" data-act="tambah" hidden>Tambah relif</button>
+    </div>
+  </header>
+
+  <nav class="datebar" aria-label="Pilih tarikh">
+    <button type="button" class="btn" data-act="prev" aria-label="Hari sebelum">‹</button>
+    <div class="label" id="tarikhLabel" aria-live="polite"></div>
+    <button type="button" class="btn" data-act="next" aria-label="Hari berikut">›</button>
+    <input type="date" id="tarikhPilih" aria-label="Pilih tarikh">
+    <button type="button" class="btn" id="btnHariIni" data-act="today">Hari ini</button>
+  </nav>
+
+  <div class="tabs" role="tablist">
+    <button type="button" class="tab" role="tab" id="tab-harian" data-tab="harian" aria-selected="true">Harian</button>
+    <button type="button" class="tab" role="tab" id="tab-rumusan" data-tab="rumusan" aria-selected="false">Rumusan bulan</button>
+    <button type="button" class="tab" role="tab" id="tab-guru" data-tab="guru" aria-selected="false" hidden>Senarai guru</button>
+  </div>
+
+  <section id="panel-harian" class="wrap" style="gap:16px">
+    <div class="stats" id="stats"></div>
+
+    <form id="borang" class="card panel" hidden autocomplete="off">
+      <h2 id="borangTajuk">Tambah relif</h2>
+      <div class="grid">
+        <label for="f-waktu">Waktu
+          <select id="f-waktu" required></select>
+        </label>
+        <label for="f-kelas">Kelas
+          <input type="text" id="f-kelas" placeholder="cth. 4 Amanah" required>
+        </label>
+        <label for="f-subjek">Mata pelajaran
+          <input type="text" id="f-subjek" placeholder="cth. Matematik">
+        </label>
+        <label for="f-tiada">Guru tiada
+          <input type="text" id="f-tiada" list="dl-guru" required>
+        </label>
+        <label for="f-ganti">Guru ganti
+          <input type="text" id="f-ganti" list="dl-guru" placeholder="Boleh dikosongkan dahulu">
+        </label>
+        <label for="f-catatan">Catatan
+          <input type="text" id="f-catatan" placeholder="cth. tugasan di papan putih">
+        </label>
+      </div>
+      <div class="cadangan" id="cadangan"></div>
+      <p class="amaran" id="amaran" role="status"></p>
+      <div class="actions">
+        <button type="submit" class="btn primary" id="btnSimpan">Simpan</button>
+        <button type="button" class="btn" data-act="batal">Batal</button>
+      </div>
+      <datalist id="dl-guru"></datalist>
+    </form>
+
+    <div class="card" id="senarai"><p class="empty">Memuatkan jadual…</p></div>
+  </section>
+
+  <section id="panel-rumusan" class="card" hidden>
+    <div class="monthbar">
+      <button type="button" class="btn small" data-act="mprev" aria-label="Bulan sebelum">‹</button>
+      <h2 id="bulanLabel"></h2>
+      <button type="button" class="btn small" data-act="mnext" aria-label="Bulan berikut">›</button>
+    </div>
+    <div class="rumusan" id="rumusanIsi"></div>
+  </section>
+
+  <section id="panel-guru" class="card panel" hidden style="padding:16px; display:none; flex-direction:column; gap:12px">
+    <h2>Senarai guru</h2>
+    <p class="hint">Satu nama setiap baris. Nama ini muncul sebagai pilihan semasa mencatat relif dan dalam rumusan bulan.</p>
+    <label for="guruTeks">Nama guru
+      <textarea id="guruTeks" spellcheck="false"></textarea>
+    </label>
+    <div class="actions"><button type="button" class="btn primary" data-act="simpanGuru">Simpan senarai</button></div>
+  </section>
+</div>
+<div id="toast" role="status" hidden></div>
+
+<script>
+(function () {
+  var PERIODS = [
+    { n: 1, t: '07:30–08:00' }, { n: 2, t: '08:00–08:30' }, { n: 3, t: '08:30–09:00' },
+    { n: 4, t: '09:00–09:30' }, { n: 5, t: '09:30–10:00' },
+    { n: 6, t: '10:30–11:00' }, { n: 7, t: '11:00–11:30' }, { n: 8, t: '11:30–12:00' },
+    { n: 9, t: '12:00–12:30' }, { n: 10, t: '12:30–13:00' }
+  ];
+  var HARI = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+  var BULAN = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var iso = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var parse = function (s) { var p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+  var norm = function (s) { return String(s || '').trim().toLowerCase(); };
+  var longDate = function (s) {
+    var d = parse(s);
+    return HARI[d.getDay()] + ', ' + d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear();
+  };
+  var monthLabel = function (s) { var d = parse(s); return BULAN[d.getMonth()] + ' ' + d.getFullYear(); };
+
+  var state = {
+    date: iso(new Date()), tab: 'harian', db: null, canEdit: false,
+    guru: [], entries: [], loaded: false, dbState: 'loading',
+    editId: null, confirmId: null, saving: false
+  };
+  var unsubMonth = null, unsubGuru = null, subKey = '';
+
+  function dayEntries() {
+    return state.entries.filter(function (e) { return e.tarikh === state.date; })
+      .sort(function (a, b) { return (a.waktu - b.waktu) || String(a.kelas).localeCompare(String(b.kelas)); });
+  }
+  function periodTime(n) {
+    var p = PERIODS.filter(function (x) { return x.n === n; })[0];
+    return p ? p.t : '';
+  }
+
+  /* ---------- toast ---------- */
+  var toastTimer = null;
+  function toast(msg) {
+    var el = $('#toast');
+    el.textContent = msg; el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.hidden = true; }, 2600);
+  }
+
+  /* ---------- subscriptions ---------- */
+  function subscribeMonth() {
+    if (!state.db) return;
+    var key = state.date.slice(0, 7);
+    if (key === subKey) return;
+    subKey = key;
+    if (unsubMonth) unsubMonth();
+    state.loaded = false; state.entries = [];
+    var q = state.db.collection('relif').where('tarikh', '>=', key + '-01').where('tarikh', '<=', key + '-31');
+    unsubMonth = q.onSnapshot(function (snap) {
+      state.entries = snap.docs.map(function (d) { var o = d.data() || {}; o.id = d.id; return o; });
+      state.loaded = true;
+      render();
+    }, function () { state.loaded = true; state.dbState = 'error'; render(); });
+  }
+  function subscribeGuru() {
+    unsubGuru = state.db.doc('tetapan/guru').onSnapshot(function (s) {
+      var d = s.exists ? s.data() : null;
+      state.guru = (d && Array.isArray(d.senarai)) ? d.senarai.filter(Boolean) : [];
+      var ta = $('#guruTeks');
+      if (ta && document.activeElement !== ta) ta.value = state.guru.join('\n');
+      renderDatalist(); render();
+    }, function () {});
+  }
+
+  /* ---------- rendering ---------- */
+  function renderDatalist() {
+    $('#dl-guru').innerHTML = state.guru.map(function (g) { return '<option value="' + esc(g) + '"></option>'; }).join('');
+  }
+
+  function renderHeader() {
+    $('#tarikhLabel').textContent = longDate(state.date);
+    $('#tarikhPilih').value = state.date;
+    $('#btnHariIni').hidden = state.date === iso(new Date());
+    $('#btnTambah').hidden = !(state.canEdit && state.db);
+    $('#tab-guru').hidden = !state.canEdit;
+    ['harian', 'rumusan', 'guru'].forEach(function (t) {
+      $('#tab-' + t).setAttribute('aria-selected', state.tab === t ? 'true' : 'false');
+    });
+    $('#panel-harian').hidden = state.tab !== 'harian';
+    $('#panel-rumusan').hidden = state.tab !== 'rumusan';
+    var pg = $('#panel-guru');
+    pg.hidden = state.tab !== 'guru';
+    pg.style.display = state.tab === 'guru' ? 'flex' : 'none';
+  }
+
+  function renderStats(list) {
+    var tiada = {}, belum = 0;
+    list.forEach(function (e) { tiada[norm(e.guruTiada)] = 1; if (!norm(e.guruGanti)) belum++; });
+    var n = Object.keys(tiada).length;
+    $('#stats').innerHTML =
+      '<div class="stat"><b>' + n + '</b><span>guru tiada</span></div>' +
+      '<div class="stat"><b>' + list.length + '</b><span>waktu perlu ganti</span></div>' +
+      '<div class="stat' + (belum ? ' alert' : '') + '"><b>' + belum + '</b><span>belum ada guru ganti</span></div>';
+  }
+
+  function itemHtml(e) {
+    var ganti = (e.guruGanti || '').trim();
+    var html = '<li class="item">' +
+      '<div><span class="kelas">' + esc(e.kelas) + '</span>' + (e.subjek ? ' <span class="subjek">· ' + esc(e.subjek) + '</span>' : '') + '</div>' +
+      (ganti ? '<div class="ganti">Ganti: <strong>' + esc(ganti) + '</strong></div>' : '<span class="chip">Belum ada guru ganti</span>') +
+      '<div class="tiada">Guru tiada: ' + esc(e.guruTiada) + '</div>' +
+      (e.catatan ? '<div class="catatan">' + esc(e.catatan) + '</div>' : '');
+    if (state.canEdit) {
+      if (state.confirmId === e.id) {
+        html += '<div class="item-actions"><span class="ask">Padam rekod ini?</span>' +
+          '<button type="button" class="btn small danger" data-act="delyes" data-id="' + esc(e.id) + '">Ya, padam</button>' +
+          '<button type="button" class="btn small" data-act="delno">Batal</button></div>';
+      } else {
+        html += '<div class="item-actions">' +
+          '<button type="button" class="btn small" data-act="edit" data-id="' + esc(e.id) + '">Ubah</button>' +
+          '<button type="button" class="btn small" data-act="del" data-id="' + esc(e.id) + '">Padam</button></div>';
+      }
+    }
+    return html + '</li>';
+  }
+
+  function renderList() {
+    var el = $('#senarai');
+    if (state.dbState === 'none') {
+      renderStats([]);
+      el.innerHTML = '<div class="empty"><strong>Jadual ini hanya boleh dibuka selepas log masuk.</strong><span>Log masuk ke akaun Claude anda, kemudian buka semula pautan ini.</span></div>';
+      $('#btnSalin').disabled = true; return;
+    }
+    if (state.dbState === 'error') {
+      el.innerHTML = '<div class="empty"><strong>Jadual tidak dapat dimuatkan.</strong><span>Muat semula halaman dan cuba lagi.</span></div>';
+      $('#btnSalin').disabled = true; return;
+    }
+    if (!state.loaded) { el.innerHTML = '<p class="empty">Memuatkan jadual…</p>'; renderStats([]); $('#btnSalin').disabled = true; return; }
+    var list = dayEntries();
+    renderStats(list);
+    $('#btnSalin').disabled = !list.length;
+    if (!list.length) {
+      var tip = state.canEdit
+        ? 'Tekan “Tambah relif” untuk mencatat guru yang tidak hadir dan guru gantinya.'
+        : 'Jadual akan muncul di sini apabila guru ganti ditetapkan.';
+      if (state.canEdit && !state.guru.length) tip += ' Isi tab “Senarai guru” supaya nama boleh dipilih.';
+      el.innerHTML = '<div class="empty"><strong>Tiada relif pada ' + esc(longDate(state.date)) + '.</strong><span>' + esc(tip) + '</span></div>';
+      return;
+    }
+    var out = '', prev = 0;
+    var byW = {};
+    list.forEach(function (e) { (byW[e.waktu] = byW[e.waktu] || []).push(e); });
+    Object.keys(byW).map(Number).sort(function (a, b) { return a - b; }).forEach(function (w) {
+      if (prev && prev <= 5 && w >= 6) out += '<div class="rehat">Rehat</div>';
+      prev = w;
+      out += '<section class="slot"><div class="slot-time"><b>W' + w + '</b><span>' + esc(periodTime(w)) + '</span></div>' +
+        '<ul class="slot-list">' + byW[w].map(itemHtml).join('') + '</ul></section>';
+    });
+    el.innerHTML = out;
+  }
+
+  function renderSummary() {
+    $('#bulanLabel').textContent = monthLabel(state.date);
+    var el = $('#rumusanIsi');
+    if (state.dbState === 'none') { el.innerHTML = '<p class="empty">Log masuk untuk melihat rumusan.</p>'; return; }
+    if (!state.loaded) { el.innerHTML = '<p class="empty">Memuatkan…</p>'; return; }
+    var map = {};
+    var touch = function (name) {
+      var k = norm(name); if (!k) return null;
+      return map[k] = map[k] || { nama: String(name).trim(), ganti: 0, tiada: 0 };
+    };
+    state.guru.forEach(touch);
+    state.entries.forEach(function (e) {
+      var a = touch(e.guruGanti); if (a) a.ganti++;
+      var b = touch(e.guruTiada); if (b) b.tiada++;
+    });
+    var rows = Object.keys(map).map(function (k) { return map[k]; });
+    if (!rows.length) {
+      el.innerHTML = '<p class="empty">Belum ada rekod relif atau senarai guru untuk bulan ini.</p>'; return;
+    }
+    rows.sort(function (a, b) { return (b.ganti - a.ganti) || (b.tiada - a.tiada) || a.nama.localeCompare(b.nama); });
+    var max = Math.max.apply(null, rows.map(function (r) { return r.ganti; }).concat([1]));
+    el.innerHTML = '<div class="rumusan-head"><span>Guru</span><span>Waktu ganti</span><span style="text-align:right">Tiada</span></div>' +
+      rows.map(function (r) {
+        var w = Math.round(r.ganti / max * 100);
+        return '<div class="rumusan-row"><span class="nama">' + esc(r.nama) + '</span>' +
+          '<span class="bar"><i class="' + (r.ganti ? '' : 'zero') + '" style="width:calc(' + w + '% * 0.8)"></i><span>' + r.ganti + '</span></span>' +
+          '<span class="num">' + r.tiada + '</span></div>';
+      }).join('');
+  }
+
+  function render() {
+    renderHeader();
+    if (state.tab === 'harian') renderList();
+    if (state.tab === 'rumusan') renderSummary();
+    if (!$('#borang').hidden) updateAdvice();
+  }
+
+  /* ---------- form ---------- */
+  function fillWaktu() {
+    $('#f-waktu').innerHTML = PERIODS.map(function (p) {
+      return '<option value="' + p.n + '">Waktu ' + p.n + ' · ' + p.t + '</option>';
+    }).join('');
+  }
+  function openForm(entry) {
+    state.editId = entry ? entry.id : null;
+    $('#borangTajuk').textContent = (entry ? 'Ubah relif' : 'Tambah relif') + ' · ' + longDate(state.date);
+    $('#f-waktu').value = String(entry ? entry.waktu : (dayEntries().length ? dayEntries()[dayEntries().length - 1].waktu : 1));
+    $('#f-kelas').value = entry ? (entry.kelas || '') : '';
+    $('#f-subjek').value = entry ? (entry.subjek || '') : '';
+    $('#f-tiada').value = entry ? (entry.guruTiada || '') : '';
+    $('#f-ganti').value = entry ? (entry.guruGanti || '') : '';
+    $('#f-catatan').value = entry ? (entry.catatan || '') : '';
+    $('#borang').hidden = false;
+    state.tab = 'harian'; render();
+    $('#borang').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    $('#f-kelas').focus({ preventScroll: true });
+  }
+  function closeForm() { $('#borang').hidden = true; state.editId = null; }
+
+  function updateAdvice() {
+    var w = Number($('#f-waktu').value);
+    var ganti = norm($('#f-ganti').value), tiada = norm($('#f-tiada').value);
+    var today = dayEntries().filter(function (e) { return e.id !== state.editId; });
+    var absent = {}, busy = {};
+    today.forEach(function (e) {
+      absent[norm(e.guruTiada)] = 1;
+      if (e.waktu === w && norm(e.guruGanti)) busy[norm(e.guruGanti)] = 1;
+    });
+    if (tiada) absent[tiada] = 1;
+    var counts = {};
+    state.entries.forEach(function (e) {
+      if (e.id === state.editId) return;
+      var k = norm(e.guruGanti); if (k) counts[k] = (counts[k] || 0) + 1;
+    });
+    var cands = state.guru.filter(function (g) { var k = norm(g); return !absent[k] && !busy[k]; })
+      .sort(function (a, b) { return ((counts[norm(a)] || 0) - (counts[norm(b)] || 0)) || a.localeCompare(b); })
+      .slice(0, 4);
+    $('#cadangan').innerHTML = cands.length
+      ? '<span>Cadangan, relif paling sedikit bulan ini:</span>' + cands.map(function (g) {
+          return '<button type="button" class="pick" data-act="pick" data-nama="' + esc(g) + '">' + esc(g) + '<i>' + (counts[norm(g)] || 0) + '</i></button>';
+        }).join('')
+      : '';
+    var msg = '';
+    if (ganti) {
+      if (ganti === tiada) msg = 'Guru ganti sama dengan guru yang tiada.';
+      else if (busy[ganti]) msg = $('#f-ganti').value.trim() + ' sudah ganti kelas lain pada waktu ini.';
+      else if (absent[ganti]) msg = $('#f-ganti').value.trim() + ' juga tidak hadir pada tarikh ini.';
+    }
+    $('#amaran').textContent = msg;
+  }
+
+  function saveEntry(ev) {
+    ev.preventDefault();
+    if (state.saving || !state.db) return;
+    var data = {
+      tarikh: state.date,
+      waktu: Number($('#f-waktu').value),
+      kelas: $('#f-kelas').value.trim(),
+      subjek: $('#f-subjek').value.trim(),
+      guruTiada: $('#f-tiada').value.trim(),
+      guruGanti: $('#f-ganti').value.trim(),
+      catatan: $('#f-catatan').value.trim()
+    };
+    if (!data.kelas || !data.guruTiada) return;
+    state.saving = true; $('#btnSimpan').disabled = true;
+    var p = state.editId
+      ? state.db.doc('relif/' + state.editId).set(data)
+      : state.db.collection('relif').add(data);
+    p.then(function () { closeForm(); toast('Relif disimpan'); })
+      .catch(function () { toast('Tidak dapat menyimpan. Cuba lagi.'); })
+      .then(function () { state.saving = false; $('#btnSimpan').disabled = false; render(); });
+  }
+
+  function deleteEntry(id) {
+    state.confirmId = null;
+    state.db.doc('relif/' + id).delete()
+      .then(function () { toast('Relif dipadam'); })
+      .catch(function () { toast('Tidak dapat memadam. Cuba lagi.'); });
+    render();
+  }
+
+  function saveGuru() {
+    var seen = {}, names = [];
+    $('#guruTeks').value.split('\n').forEach(function (l) {
+      var n = l.trim(), k = norm(n);
+      if (n && !seen[k]) { seen[k] = 1; names.push(n); }
+    });
+    state.db.doc('tetapan/guru').set({ senarai: names })
+      .then(function () { toast('Senarai guru disimpan'); })
+      .catch(function () { toast('Tidak dapat menyimpan senarai.'); });
+  }
+
+  /* ---------- WhatsApp text ---------- */
+  function buildText() {
+    var list = dayEntries();
+    var lines = ['*JADUAL RELIF*', longDate(state.date), ''];
+    var last = 0;
+    list.forEach(function (e) {
+      if (e.waktu !== last) {
+        if (last) lines.push('');
+        lines.push('*Waktu ' + e.waktu + '* (' + periodTime(e.waktu) + ')');
+        last = e.waktu;
+      }
+      var ganti = (e.guruGanti || '').trim() || 'BELUM ADA GURU GANTI';
+      lines.push('• ' + e.kelas + (e.subjek ? ' (' + e.subjek + ')' : '') + ': ' + ganti + ' [ganti ' + e.guruTiada + ']' + (e.catatan ? ' - ' + e.catatan : ''));
+    });
+    return lines.join('\n');
+  }
+  function copyText() {
+    var text = buildText();
+    var fallback = function () {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy'); document.body.removeChild(ta);
+        toast(ok ? 'Jadual disalin' : 'Tidak dapat menyalin');
+      } catch (e) { toast('Tidak dapat menyalin'); }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast('Jadual disalin'); }, fallback);
+    } else fallback();
+  }
+
+  /* ---------- navigation ---------- */
+  function setDate(s) {
+    if (!s) return;
+    state.date = s; state.confirmId = null;
+    if ($('#borang').hidden === false) closeForm();
+    subscribeMonth(); render();
+  }
+  function shiftDay(n) { var d = parse(state.date); d.setDate(d.getDate() + n); setDate(iso(d)); }
+  function shiftMonth(n) {
+    var d = parse(state.date);
+    var t = new Date(d.getFullYear(), d.getMonth() + n, 1);
+    var now = new Date();
+    if (t.getFullYear() === now.getFullYear() && t.getMonth() === now.getMonth()) t = now;
+    setDate(iso(t));
+  }
+
+  document.addEventListener('click', function (ev) {
+    var tabBtn = ev.target.closest('[data-tab]');
+    if (tabBtn) { state.tab = tabBtn.getAttribute('data-tab'); render(); return; }
+    var b = ev.target.closest('[data-act]');
+    if (!b) return;
+    var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
+    var entry = id ? state.entries.filter(function (e) { return e.id === id; })[0] : null;
+    if (act === 'prev') shiftDay(-1);
+    else if (act === 'next') shiftDay(1);
+    else if (act === 'today') setDate(iso(new Date()));
+    else if (act === 'mprev') shiftMonth(-1);
+    else if (act === 'mnext') shiftMonth(1);
+    else if (act === 'salin') copyText();
+    else if (act === 'tambah') openForm(null);
+    else if (act === 'batal') { closeForm(); render(); }
+    else if (act === 'edit' && entry) openForm(entry);
+    else if (act === 'del') { state.confirmId = id; render(); }
+    else if (act === 'delno') { state.confirmId = null; render(); }
+    else if (act === 'delyes') deleteEntry(id);
+    else if (act === 'pick') { $('#f-ganti').value = b.getAttribute('data-nama'); updateAdvice(); }
+    else if (act === 'simpanGuru') saveGuru();
+  });
+  $('#tarikhPilih').addEventListener('change', function (e) { setDate(e.target.value); });
+  $('#borang').addEventListener('submit', saveEntry);
+  $('#borang').addEventListener('input', updateAdvice);
+  $('#borang').addEventListener('change', updateAdvice);
+
+  /* ---------- boot ---------- */
+  fillWaktu(); render();
+  (async function boot() {
+    try {
+      if (!window.claude || !window.claude.use) { state.dbState = 'none'; render(); return; }
+      var results = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+      var db = results[0], user = results[1];
+      if (!db) { state.dbState = 'none'; render(); return; }
+      state.db = db;
+      state.canEdit = user ? await user.canEdit() : false;
+      state.dbState = 'ok';
+      subscribeGuru(); subscribeMonth(); render();
+    } catch (e) { state.dbState = 'error'; render(); }
+  })();
+})();
+</script>
+
+</body></html>
