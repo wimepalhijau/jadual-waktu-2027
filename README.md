@@ -7,11 +7,14 @@ Jadual induk dibina dalam **aSc Timetables**; halaman di sini ialah paparan dan 
 
 | Fail | Keterangan |
 |---|---|
-| `jadual-waktu-v1-2027.html` | **JADUAL WAKTU V#1 (2027)** — prototaip gaya aSc: Pelajaran, Kelas, Bilik, Guru, Relations, Jadual, Semak, Sekolah; paparan guru/kelas, cetak, kumpulan serentak, jana automatik. 38 kelas (Tahun 1 ada 8 kelas). |
+| `jadual-waktu-v1-2027.html` | **JADUAL WAKTU V#1 (2027)** — prototaip gaya aSc, dengan butang Borang Subjek Guru dan Borang kosong (PDF): Pelajaran, Kelas, Bilik, Guru, Relations, Jadual, Semak, Sekolah; paparan guru/kelas, cetak, kumpulan serentak, jana automatik. 38 kelas (Tahun 1 ada 8 kelas). |
 | `jadual-waktu-guru-dan-kelas.html` | Jadual Waktu Guru dan Kelas — dijana daripada data aSc (80 guru, 34 kelas), dengan semakan pertindihan. |
 | `jadual-guru-ganti-skpp17.html` | Jadual Guru Ganti SKPP17(1) — berdasarkan Jadual Waktu Guru Versi 5.0 (mula 28.9.26), cadangan guru ganti automatik, muat turun CSV. |
 | `jadual-relif.html` | Jadual Relif — senarai relif harian untuk telefon guru, salin untuk WhatsApp, rumusan bulanan. |
 | `jadual-guru-ganti-papan-notis.html` | Jadual Guru Ganti — gaya lembaran notis bilik guru. |
+| `borang-subjek-guru.html` | Borang Subjek Guru 2027 — ketua panitia isi dan ubah subjek serta kelas setiap guru (enam ruang subjek). Berfungsi dalam versi Artifact Claude. |
+| `borang-subjek-guru-cetak.pdf` | Borang Subjek Guru — versi cetak kosong, A4 satu muka surat. |
+| `borang-subjek-guru-cetak-nama.html` | Borang Subjek Guru — 80 muka surat, nama dan kod setiap guru sudah tercetak. Buka dalam Chrome, tekan Ctrl+P, pilih A4. |
 | `e-guru-ganti-prototaip.html` | e-Guru Ganti — prototaip awal dengan data contoh rekaan. |
 
 ## Cara buka
