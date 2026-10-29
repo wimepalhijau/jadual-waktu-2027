@@ -8,6 +8,7 @@ Jadual induk dibina dalam **aSc Timetables**; halaman di sini ialah paparan dan 
 | Fail | Keterangan |
 |---|---|
 | `jadual-waktu-v1-2027.html` | **JADUAL WAKTU AKTIF 2027** — prototaip gaya aSc, dengan Borang Subjek Guru terbina dalam (ketua panitia isi subjek dan kelas setiap guru, banding dengan jadual) dan butang Borang kosong (PDF): Pelajaran, Kelas, Bilik, Guru, Relations, Jadual, Semak, Sekolah; paparan guru/kelas, cetak, kumpulan serentak, jana automatik. 38 kelas (Tahun 1 ada 8 kelas). |
+| `jadual-waktu-aktif-2027.html` | Salinan JADUAL WAKTU AKTIF 2027 dengan data terkini tertanam (buka terus dalam Chrome). Salinan statik: tidak bersambung dengan versi Claude. |
 | `jadual-waktu-guru-dan-kelas.html` | Jadual Waktu Guru dan Kelas — dijana daripada data aSc (80 guru, 34 kelas), dengan semakan pertindihan. |
 | `jadual-guru-ganti-skpp17.html` | Jadual Guru Ganti SKPP17(1) — berdasarkan Jadual Waktu Guru Versi 5.0 (mula 28.9.26), cadangan guru ganti automatik, muat turun CSV. |
 | `jadual-relif.html` | Jadual Relif — senarai relif harian untuk telefon guru, salin untuk WhatsApp, rumusan bulanan. |
