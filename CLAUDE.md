@@ -77,7 +77,7 @@ Guru
 - Selesai 2026-11-13: pertindihan PJ6 MFZ Selasa 09:10 — 6 AMBER & 6 CRYSTAL digabung dalam satu pelajaran (pilihan pengguna). **Belum dibuat di claude.ai.**
 - BM 1 DIAMOND (ANU) masih 10/12 — tiada slot Isnin yang ikut peraturan guru.
 - Banyak subjek lain belum dijadualkan (lihat `tools/semak.py`). Laporan semak.py ialah anggaran; menu **Semak** dalam aplikasi ialah rujukan utama.
-- Data guru kelas 2027 belum ditarik ke jadual (pengguna akan minta "masukkan guru kelas").
+- Guru kelas & pembantu: **sumber betul ialah JADUAL WAKTU AKTIF 2027** (`classes[].guru` dan `classes[].pgk`), bukan Borang Guru Kelas. Keputusan pengguna 2026-11-13. Borang Guru Kelas (15 kelas sahaja diisi) berbeza di 12 tempat dan ada kelas '1 SAPPHIRE' yang tiada dalam jadual — jangan salin borang ke jadual.
 - Borang Opsyen: data masuk ke jadual hanya bila pengguna minta.
 
 ## GitHub Pages
