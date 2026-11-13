@@ -62,6 +62,8 @@ for ci, cl in enumerate(C):
 for l in L:
     if l[3].startswith("PJ") and end_min(l[2]) > PJ_END:
         issues["PJ tamat selepas 10:40"].append(f"{T[l[0]]['code']} {DAYS[l[1]]} waktu {l[2]+1} {l[3]}")
+    if l[3].startswith("PJ") and l[1] == 0:
+        issues["PJ pada hari Isnin"].append(f"{T[l[0]]['code']} waktu {l[2]+1} {l[3]} " + ", ".join(C[c]['code'] for c in l[4]))
 
 # 5. Peraturan guru
 load = Counter(l[0] for l in L if l[3] != "PER")

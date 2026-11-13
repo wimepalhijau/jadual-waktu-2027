@@ -58,6 +58,7 @@ Kelas & kurikulum
 - Tahun 1 tiada PK, DMZ, PSV, SN, SEJ, RBT. ADM untuk Tahun 1 sahaja. SEJ dan RBT Tahun 4–6.
 - PI(q) 3 waktu = PI(q1) 1 waktu (guru PI(j)/PI(u) kelas itu) + PI(q2) 2 waktu berpasangan.
 - PJ1–PJ6 mesti tamat sebelum 10:40 (boleh selepas rehat).
+- **Tiada PJ pada hari Isnin.**
 - TAS kelas yang ada Pendidikan Moral diletak di waktu terakhir sesi.
 - Tahun 1–3: tidak lebih 4 subjek berbeza sehari.
 - Rehat: Tahun 1 & 4 09:10–09:40; Tahun 2 & 3 09:40–10:10; Tahun 5 & 6 10:10–10:40; Prasekolah 10:00–10:40.
