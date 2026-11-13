@@ -72,7 +72,9 @@ Guru
 
 ## Kerja yang belum selesai (setakat 2026-11-13)
 
-- SSA (Syafia): PJ1 1 CRYSTAL, PJ2 2 AMBER & 2 CRYSTAL, PJ3 3 AMBER & 3 PEARL belum masuk jadual (waktu pagi penuh). Dalam borang, 3 AMBER/3 PEARL masih ditanda PJ2 — patut PJ3.
+- SSA (Syafia): PJ1 1 CRYSTAL, PJ2 2 AMBER & 2 CRYSTAL, PJ3 3 AMBER & 3 PEARL kini sudah ada dalam jadual (disemak 2026-11-13), tetapi SSA masih ada isu rehat selepas 3 waktu. Dalam borang, 3 AMBER/3 PEARL masih ditanda PJ2 — patut PJ3.
+- PJ5 5 AMBER (MAM) masih pada Isnin 10:40 — langgar 'tiada PJ Isnin' dan 'tamat sebelum 10:40'. Pengguna pilih **biarkan dulu** (2026-11-13); pagi Selasa/Rabu 5 AMBER penuh, pilihan tukar dengan BM SUW atau BI DSZ ditolak buat masa ini. Cuba semula selepas lebih banyak subjek dimasukkan.
+- Selesai 2026-11-13: pertindihan PJ6 MFZ Selasa 09:10 — 6 AMBER & 6 CRYSTAL digabung dalam satu pelajaran (pilihan pengguna). **Belum dibuat di claude.ai.**
 - BM 1 DIAMOND (ANU) masih 10/12 — tiada slot Isnin yang ikut peraturan guru.
 - Banyak subjek lain belum dijadualkan (lihat `tools/semak.py`). Laporan semak.py ialah anggaran; menu **Semak** dalam aplikasi ialah rujukan utama.
 - Data guru kelas 2027 belum ditarik ke jadual (pengguna akan minta "masukkan guru kelas").
