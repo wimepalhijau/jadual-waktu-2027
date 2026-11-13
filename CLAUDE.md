@@ -74,7 +74,8 @@ Guru
 
 - SSA (Syafia): PJ1 1 CRYSTAL, PJ2 2 AMBER & 2 CRYSTAL, PJ3 3 AMBER & 3 PEARL kini sudah ada dalam jadual (disemak 2026-11-13), tetapi SSA masih ada isu rehat selepas 3 waktu. Dalam borang, 3 AMBER/3 PEARL masih ditanda PJ2 — patut PJ3.
 - PJ5 5 AMBER (MAM) masih pada Isnin 10:40 — langgar 'tiada PJ Isnin' dan 'tamat sebelum 10:40'. Pengguna pilih **biarkan dulu** (2026-11-13); pagi Selasa/Rabu 5 AMBER penuh, pilihan tukar dengan BM SUW atau BI DSZ ditolak buat masa ini. Cuba semula selepas lebih banyak subjek dimasukkan.
-- Selesai 2026-11-13: pertindihan PJ6 MFZ Selasa 09:10 — 6 AMBER & 6 CRYSTAL digabung dalam satu pelajaran (pilihan pengguna). **Belum dibuat di claude.ai.**
+- Pertindihan PJ6 MFZ Selasa 09:10 (6 AMBER & 6 CRYSTAL): pengguna pilih gabung dalam satu pelajaran. Dibuat dalam repo sahaja, tetapi data repo telah diganti dengan data claude.ai (2026-11-13, 13:08) — **perlu dibuat di claude.ai**. Semak.py kini juga tunjuk MAM Jumaat w2, SCD Rabu w3, MAM Khamis w1 bertindih.
+- Bila "kemaskini" dalam sesi yang boleh baca pangkalan data claude.ai (ArtifactData), salin `plan/jadual` terkini ke `data/jadual-waktu-aktif/plan/jadual.json` dahulu.
 - BM 1 DIAMOND (ANU) masih 10/12 — tiada slot Isnin yang ikut peraturan guru.
 - Banyak subjek lain belum dijadualkan (lihat `tools/semak.py`). Laporan semak.py ialah anggaran; menu **Semak** dalam aplikasi ialah rujukan utama.
 - Guru kelas & pembantu: **sumber betul ialah JADUAL WAKTU AKTIF 2027** (`classes[].guru` dan `classes[].pgk`), bukan Borang Guru Kelas. Keputusan pengguna 2026-11-13. Borang Guru Kelas (15 kelas sahaja diisi) berbeza di 12 tempat dan ada kelas '1 SAPPHIRE' yang tiada dalam jadual — jangan salin borang ke jadual.
