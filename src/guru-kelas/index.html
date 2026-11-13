@@ -1,0 +1,147 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Guru Kelas 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: borang sekolah — jalur kepala biru tua, kad per tahun, baris kelas dengan dua pilihan guru */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --ink:#1b2733; --muted:#5d6b78; --line:#d9e0e6;
+  --navy:#2f4f6f; --navy-ink:#ffffff; --tint:#eaf0f5; --ok:#2e7d4f; --ok-bg:#e3f2e8; --warn:#a2560f; --warn-bg:#fbeedd;
+  --display:"Fraunces",Georgia,serif; --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12181e; --surface:#1a222a; --ink:#e6ecf1; --muted:#9aa8b4; --line:#2c3843;
+  --navy:#3d6488; --navy-ink:#ffffff; --tint:#202b35; --ok:#7fd1a0; --ok-bg:#1d3327; --warn:#f0b070; --warn-bg:#3a2a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12181e; --surface:#1a222a; --ink:#e6ecf1; --muted:#9aa8b4; --line:#2c3843;
+  --navy:#3d6488; --navy-ink:#ffffff; --tint:#202b35; --ok:#7fd1a0; --ok-bg:#1d3327; --warn:#f0b070; --warn-bg:#3a2a18; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+header{background:var(--navy);color:var(--navy-ink)}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header .wrap{padding-block:22px 20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;font-weight:600}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,4vw,32px);margin:4px 0 0;text-wrap:balance}
+.progress{min-width:200px;flex:0 1 260px}
+.progress .lbl{display:flex;justify-content:space-between;font-size:13px;font-variant-numeric:tabular-nums;margin-bottom:6px}
+.bar{height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#fff;transition:width .3s}
+main .wrap{padding-block:20px 40px;display:grid;gap:18px}
+.note{font-size:14px;color:var(--muted);margin:0}
+.status{font-size:13px;padding:8px 12px;border-radius:6px;background:var(--tint);color:var(--muted)}
+.status.err{background:var(--warn-bg);color:var(--warn)}
+.year{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.year h2{margin:0;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:10px 14px;background:var(--tint);border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.year h2 span{font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+.head,.row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr) 74px;gap:10px;align-items:center;padding:8px 14px}
+.head{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding-block:8px 2px}
+.row+.row{border-top:1px solid var(--line)}
+.cls{font-weight:700}
+select{width:100%;min-width:0;font:inherit;font-size:14px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+select:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
+select.dup{border-color:var(--warn);background:var(--warn-bg)}
+.chip{font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;text-align:center;white-space:nowrap}
+.chip.done{background:var(--ok-bg);color:var(--ok)}
+.chip.part{background:var(--warn-bg);color:var(--warn)}
+.chip.none{background:var(--tint);color:var(--muted)}
+.mlabel{display:none}
+@media (max-width:620px){
+  .head{display:none}
+  .row{grid-template-columns:1fr auto;gap:6px 10px}
+  .cls{grid-column:1}.chip{grid-column:2;grid-row:1}
+  .field{grid-column:1/-1}
+  .mlabel{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<header><div class="wrap">
+  <div><div class="eyebrow">SK Putrajaya Presint 17(1)</div><h1>Guru Kelas 2027</h1></div>
+  <div class="progress"><div class="lbl"><span>Kelas lengkap</span><b id="count">0 / 32</b></div><div class="bar"><i id="fill"></i></div></div>
+</div></header>
+<main><div class="wrap">
+  <p class="note">Pilih guru kelas dan pembantu guru kelas untuk setiap kelas. Pilihan disimpan terus sebaik sahaja dipilih, dan semua yang membuka halaman ini melihat data yang sama. Kotak berwarna jingga bermaksud nama itu sudah dipilih untuk kelas lain.</p>
+  <div id="status" class="status">Memuatkan data…</div>
+  <div id="years"></div>
+</div></main>
+
+<script>
+const NAMES = ["ABD AZIZ BIN MOHD ZAIN", "ABU BAKAR AZAMI BIN AHMAD ASSAKARI", "AHMAD TAMIZI B. AHMAD", "AISYAH FARANAZ BINTI AWALLUDDIN", "ALIFF RAHMAN BIN OMAR", "ANUAR BIN IBRAHIM", "ARTINI BT. MAIDIN", "CHE SABARIAH BINTI MAT DAUD", "CHE SUHARRA BINTI CHE ALI MOHAMED", "DANIAL HAZIQ BIN ABDULLAH", "DATIN MARIATI BT. WAHAB", "DATIN SERI ZARINA BANU BINTI MUMTAZ AHMAD", "FARIDAH BINTI AB MALEK", "FATIMAH BT MOHD HAIDER", "FATIN NADZIRA BT. FAUZI", "FAUZIAH BINTI HUSIN", "HAWIMAH BINTI HARON", "HAYATI BINTI BAIR", "HAZWAN HAFIZ B. MOHAMAD", "HEZREEN BIN SININ", "IBRAHIM BIN YUSOF", "ISKANDAR RAZIN TSEN B. ABDULLAH", "MD SHAHRIL B. MD SHUKRI", "MOHAMED ZAIYAD BIN YATIM", "MOHD HAZRI B. ABD LATIB", "MOHD KHAIRI BIN HAMID", "MUHAMMAD ADNIN B. ARSHAD", "MUHAMMAD ASYRAF B. MD NAWI", "MUHAMMAD FARHAN B. ZAKARIA", "NAZATULSEMA BT SHA'RI", "NOR ALIA IZYAN BT. MOHD RASLI", "NOR AZWA ASSHIFA' BT. ASSERI", "NOR ILYANI BT KADIRIN", "NORAHIMAH BT. ALI", "NORALIZA BINTI JABRI", "NORHUDA BT AZMAN", "NORUL AKMAL BT. MOHD YUSOF", "NUR ADILA BINTI ABD AZIZ", "NUR FARAHAIN BT. SURIA AFFANDY", "NUR MOHD SYAFID AZUAN AL-AS'SAD BIN SUDIRMAN", "NUR SYAZWANI BT. AHMAD", "NUR ZAWANI BINTI MOHD SAIM", "NURIZZATI BT. ZAHARINUDDIN", "NURUL AIN BT. ALIAS", "NURUL FARINAH BT JAMALUDIN", "NURUL QUDWATUN NISA' BINTI MOHD ZAMBERI", "RAFIDAH BT. MD SHARIF", "RAMIZAH BINTI ABU NAIM", "RAPAHEL BINSING", "RASYADA BINTI RAHIM", "SAMSIAH BINTI YUSOF", "SHAHIRA BT. MOHD ZAMARI", "SHAZANA BT. SABERI", "SHOLEHAH BT CHE DOK", "SITI MADIHAH BT. RUSDI", "SITI NADIAH BT. BAKAR", "SITI SALINIE BT SALLEH", "SITI SARAH BT. YUSOFF", "SUHAILA BT. SAARI", "SUWARNEE BINTI SOLAH", "SYAFIA SYAFINAZ BINTI AHMAD FADZIL", "WAN AZWANI BINTI WAN SULAIMAN", "ZULHUSNI BIN ABU HASSAN", "ZURINA BT MOHD JAMANI", "ZURINA BT. NASIR"];
+const CLASSES = [
+ ["Tahun 1",["AMBER","CRYSTAL","DIAMOND","EMERALD","OPAL","PEARL","RUBY","SAPPHIRE"]],
+ ["Tahun 2",["AMBER","CRYSTAL","DIAMOND","EMERALD"]],
+ ["Tahun 3",["AMBER","CRYSTAL","DIAMOND","EMERALD","OPAL","PEARL"]],
+ ["Tahun 4",["AMBER","CRYSTAL","DIAMOND","EMERALD","OPAL"]],
+ ["Tahun 5",["AMBER","CRYSTAL","DIAMOND","EMERALD","OPAL"]],
+ ["Tahun 6",["AMBER","CRYSTAL","DIAMOND","EMERALD"]],
+];
+const ALL = []; const state = {}; let db = null;
+const yearsEl = document.getElementById("years"), statusEl = document.getElementById("status");
+
+function opts(){ return '<option value="">— Pilih guru —</option>' + NAMES.map(n=>`<option>${n}</option>`).join(""); }
+function build(){
+  const o = opts();
+  CLASSES.forEach(([yr, list], yi)=>{
+    const n = yi+1;
+    const sec = document.createElement("section"); sec.className="year";
+    sec.innerHTML = `<h2>${yr}<span id="y${n}"></span></h2><div class="head"><div>Kelas</div><div>Guru Kelas</div><div>Pembantu Guru Kelas</div><div>Status</div></div>`;
+    list.forEach(c=>{
+      const id = `${n}-${c}`; ALL.push(id); state[id] = {guruKelas:"", pembantu:""};
+      const r = document.createElement("div"); r.className="row";
+      r.innerHTML = `<div class="cls">${n} ${c}</div>
+        <div class="field"><label class="mlabel" for="g-${id}">Guru Kelas</label><select id="g-${id}" data-id="${id}" data-f="guruKelas" aria-label="Guru Kelas ${n} ${c}">${o}</select></div>
+        <div class="field"><label class="mlabel" for="p-${id}">Pembantu Guru Kelas</label><select id="p-${id}" data-id="${id}" data-f="pembantu" aria-label="Pembantu Guru Kelas ${n} ${c}">${o}</select></div>
+        <div class="chip none" id="s-${id}">Belum</div>`;
+      sec.appendChild(r);
+    });
+    yearsEl.appendChild(sec);
+  });
+}
+function render(){
+  const used = {};
+  ALL.forEach(id=>{ ["guruKelas","pembantu"].forEach(f=>{ const v=state[id][f]; if(v) used[v]=(used[v]||0)+1; }); });
+  let done=0; const yc={};
+  ALL.forEach(id=>{
+    const s=state[id], n=id.split("-")[0];
+    ["guruKelas","pembantu"].forEach(f=>{
+      const el=document.getElementById((f==="guruKelas"?"g-":"p-")+id);
+      if(document.activeElement!==el) el.value=s[f]||"";
+      el.classList.toggle("dup", !!s[f] && used[s[f]]>1);
+    });
+    const chip=document.getElementById("s-"+id);
+    const c=(s.guruKelas?1:0)+(s.pembantu?1:0);
+    chip.className="chip "+(c===2?"done":c===1?"part":"none");
+    chip.textContent=c===2?"Lengkap":c===1?"Separuh":"Belum";
+    if(c===2) done++;
+    yc[n]=yc[n]||[0,0]; yc[n][1]++; if(c===2) yc[n][0]++;
+  });
+  Object.entries(yc).forEach(([n,[a,b]])=>document.getElementById("y"+n).textContent=`${a} / ${b} lengkap`);
+  document.getElementById("count").textContent=`${done} / ${ALL.length}`;
+  document.getElementById("fill").style.width=(100*done/ALL.length)+"%";
+}
+function setStatus(t,err){ statusEl.textContent=t; statusEl.classList.toggle("err",!!err); statusEl.hidden=!t; }
+
+build(); render();
+yearsEl.addEventListener("change", async e=>{
+  const el=e.target; if(el.tagName!=="SELECT") return;
+  const id=el.dataset.id, f=el.dataset.f;
+  state[id][f]=el.value; render();
+  if(!db){ setStatus("Tidak dapat menyimpan: sambungan data tiada. Sila log masuk ke claude.ai dan buka semula halaman ini.", true); return; }
+  try{ await db.doc("guruKelas/"+id).set({guruKelas:state[id].guruKelas, pembantu:state[id].pembantu, kelas:id.replace("-"," ")}); setStatus(""); }
+  catch(err){ setStatus("Pilihan untuk "+id.replace("-"," ")+" tidak disimpan. Cikgu mungkin hanya ada akses lihat sahaja; minta pemilik halaman beri akses edit.", true); }
+});
+
+const timer=setTimeout(()=>setStatus("Data lambat dimuatkan. Semak sambungan internet.", true),10000);
+(async()=>{
+  try{ db = await claude.use("db"); }catch(e){ db=null; }
+  if(!db){ clearTimeout(timer); setStatus("Sambungan data tiada. Halaman ini perlu dibuka di claude.ai sambil log masuk untuk menyimpan pilihan.", true); return; }
+  db.collection("guruKelas").onSnapshot(snap=>{
+    clearTimeout(timer);
+    snap.docs.forEach(d=>{ const id=d.id; if(state[id]){ const v=d.data(); state[id]={guruKelas:v.guruKelas||"", pembantu:v.pembantu||""}; } });
+    render(); if(!statusEl.classList.contains("err")) setStatus("");
+  }, err=>{ clearTimeout(timer); setStatus("Data tidak dapat dibaca. Muat semula halaman.", true); });
+})();
+</script>
+
+</body></html>

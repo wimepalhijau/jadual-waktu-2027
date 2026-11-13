@@ -1,0 +1,50 @@
+{
+  "catatan": "",
+  "dihantar": 1793984783831,
+  "guru": "SYAFIA SYAFINAZ BINTI AHMAD FADZIL",
+  "kod": "SSA",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "1 OPAL"
+      ],
+      "kod": "BM",
+      "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "1 DIAMOND"
+      ],
+      "kod": "PJ1",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "2 AMBER",
+        "2 CRYSTAL"
+      ],
+      "kod": "PJ2",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "2 AMBER",
+        "2 CRYSTAL",
+        "3 AMBER",
+        "3 PEARL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "3 AMBER",
+        "3 PEARL"
+      ],
+      "kod": "PJ3",
+      "nama": "Pendidikan Jasmani"
+    }
+  ]
+}

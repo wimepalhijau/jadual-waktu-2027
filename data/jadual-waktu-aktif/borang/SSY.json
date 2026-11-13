@@ -1,0 +1,30 @@
+{
+  "catatan": "",
+  "dihantar": 1793942188084,
+  "guru": "SITI SARAH BT. YUSOFF",
+  "kod": "SSY",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "6 CRYSTAL"
+      ],
+      "kod": "BA",
+      "nama": "Bahasa Arab"
+    },
+    {
+      "kelas": [
+        "6 CRYSTAL"
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
+    },
+    {
+      "kelas": [
+        "6 CRYSTAL"
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
+    }
+  ]
+}

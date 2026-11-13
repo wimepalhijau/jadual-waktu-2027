@@ -1,0 +1,72 @@
+{
+  "catatan": "",
+  "dihantar": 1793983653886,
+  "guru": "SHOLEHAH BT CHE DOK",
+  "kod": "SCD",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "2 DIAMOND"
+      ],
+      "kod": "PJ2",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "2 DIAMOND",
+        "3 DIAMOND",
+        "4 CRYSTAL",
+        "4 DIAMOND",
+        "5 EMERALD",
+        "6 OPAL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "1 EMERALD"
+      ],
+      "kod": "PJ1",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "6 OPAL"
+      ],
+      "kod": "PJ6",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "5 EMERALD"
+      ],
+      "kod": "PJ5",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "4 CRYSTAL",
+        "4 DIAMOND"
+      ],
+      "kod": "PJ4",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "6 AMBER",
+        "6 CRYSTAL"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
+    },
+    {
+      "kelas": [
+        "3 DIAMOND"
+      ],
+      "kod": "PJ3",
+      "nama": "Pendidikan Jasmani"
+    }
+  ]
+}

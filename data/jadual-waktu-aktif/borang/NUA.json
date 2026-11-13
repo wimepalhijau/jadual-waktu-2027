@@ -1,0 +1,23 @@
+{
+  "catatan": "",
+  "dihantar": 1793941285474,
+  "guru": "NURUL AIN BT. ALIAS",
+  "kod": "NUA",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "4 CRYSTAL"
+      ],
+      "kod": "SN",
+      "nama": "Sains"
+    },
+    {
+      "kelas": [
+        "4 CRYSTAL"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
+    }
+  ]
+}

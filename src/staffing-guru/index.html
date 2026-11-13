@@ -1,0 +1,349 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Staffing Guru 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: ledger-style workspace — teacher register on the left, tick sheet on the right; summary tabs below the header */
+:root{
+  --bg:#f3f5f8; --panel:#ffffff; --ink:#18202c; --muted:#5b6678; --line:#d9dee7;
+  --accent:#1f4fa3; --accent-soft:#e3ebf8; --tick:#0f7a55; --tick-soft:#dcf2e8; --warn:#a4560c;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161e; --panel:#19202b; --ink:#e7ebf2; --muted:#9aa5b6; --line:#2c3644;
+  --accent:#8db1f2; --accent-soft:#22324d; --tick:#5fd3a2; --tick-soft:#173a2e; --warn:#f0a65a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161e; --panel:#19202b; --ink:#e7ebf2; --muted:#9aa5b6; --line:#2c3644;
+  --accent:#8db1f2; --accent-soft:#22324d; --tick:#5fd3a2; --tick-soft:#173a2e; --warn:#f0a65a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);margin:2px 0 0;line-height:1.1;text-wrap:balance}
+.hdr-right{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.status{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.ok .dot{background:var(--tick)} .status.busy .dot{background:var(--accent)} .status.bad .dot{background:var(--warn)}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:8px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.btn:focus-visible,.chip:focus-visible,.tab:focus-visible,.t-item:focus-visible,.cls:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{background:none;border:0;padding:10px 14px;color:var(--muted);font-weight:700;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.stats{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-variant-numeric:tabular-nums;font-size:15px}
+/* Isi view */
+.grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
+.reg{background:var(--panel);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;max-height:calc(100vh - 160px);position:sticky;top:12px;min-width:0}
+.reg-top{padding:10px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+input[type=search]{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.filter{display:flex;gap:6px;font-size:12px}
+.filter button{border:1px solid var(--line);background:none;color:var(--muted);border-radius:99px;padding:3px 10px}
+.filter button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.t-list{overflow-y:auto;list-style:none;margin:0;padding:4px}
+.t-item{width:100%;text-align:left;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 8px;border:0;background:none;color:var(--ink);border-radius:6px;font-size:13.5px}
+.t-item:hover{background:var(--bg)}
+.t-item[aria-current="true"]{background:var(--accent-soft)}
+.t-no{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+.t-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t-badge{font-size:11.5px;font-variant-numeric:tabular-nums;padding:1px 7px;border-radius:99px;background:var(--bg);color:var(--muted)}
+.t-badge.done{background:var(--tick-soft);color:var(--tick);font-weight:700}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.sheet-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:flex-start}
+.sheet-head h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0;text-wrap:balance}
+.nav{display:flex;gap:6px}
+.sec-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:7px;padding:6px 10px;font-weight:700;font-size:13.5px;display:inline-flex;gap:6px;align-items:center}
+.chip .n{font-weight:400;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.chip[aria-pressed="true"] .n{color:var(--panel);opacity:.85}
+.subj-blocks{display:flex;flex-direction:column;gap:12px}
+.sblock{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sblock-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;background:var(--accent-soft)}
+.sblock-h strong{font-family:var(--display);font-size:17px}
+.sblock-h .cnt{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sblock-h .rm{border:0;background:none;color:var(--muted);font-size:12.5px;text-decoration:underline}
+.yr{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;padding:8px 12px;border-top:1px solid var(--line);align-items:center}
+.yr-l{display:flex;flex-direction:column;gap:2px}
+.yr-l span{font-weight:700;font-size:13px}
+.yr-l button{border:0;background:none;padding:0;color:var(--accent);font-size:12px;text-align:left;text-decoration:underline}
+.cls-row{display:flex;flex-wrap:wrap;gap:6px}
+.cls{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:6px;padding:4px 9px 4px 7px;font-size:13px;cursor:pointer;user-select:none;background:var(--panel)}
+.cls input{accent-color:var(--tick);margin:0;width:15px;height:15px}
+.cls.on{background:var(--tick-soft);border-color:var(--tick)}
+.cls .other{font-size:10.5px;color:var(--warn);font-weight:700}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+.hint{font-size:13px;color:var(--muted)}
+/* tables */
+.tbl-wrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg);position:sticky;top:0}
+td.num{font-variant-numeric:tabular-nums;color:var(--muted);width:40px}
+td.nm{font-weight:700;min-width:200px}
+.pair{display:block}
+.pair b{display:inline-block;min-width:52px}
+.mx th,.mx td{border-right:1px solid var(--line);text-align:center;padding:4px 5px;white-space:nowrap}
+.mx th.rowh,.mx td.rowh{text-align:left;position:sticky;left:0;background:var(--panel);font-weight:700;z-index:1}
+.mx th.rowh{background:var(--bg);z-index:2}
+.mx td.has{background:var(--tick-soft);color:var(--tick);font-weight:700;font-variant-numeric:tabular-nums}
+.mx td.clash{background:var(--warn);color:var(--panel)}
+.mx th.vert{writing-mode:vertical-rl;transform:rotate(180deg);height:92px;font-size:11px;letter-spacing:.02em;text-transform:none}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20}
+@media (max-width:820px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .reg{position:static;max-height:260px}
+  .yr{grid-template-columns:minmax(0,1fr)}
+  .yr-l{flex-direction:row;gap:10px;align-items:baseline}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">SK Putrajaya Presint 17(1) · Sesi 2027</div>
+      <h1>Staffing Guru</h1>
+    </div>
+    <div class="hdr-right">
+      <div class="status" id="status"><span class="dot"></span><span id="statusTxt">Menyambung…</span></div>
+      <button class="btn primary" id="exportBtn" type="button">Muat turun Excel</button>
+    </div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-isi" aria-selected="true" data-view="isi" type="button">Isi staffing</button>
+    <button class="tab" role="tab" id="tab-ringkasan" aria-selected="false" data-view="ringkasan" type="button">Ringkasan guru</button>
+    <button class="tab" role="tab" id="tab-matriks" aria-selected="false" data-view="matriks" type="button">Matriks subjek × kelas</button>
+  </div>
+
+  <section id="v-isi">
+    <div class="grid">
+      <aside class="reg">
+        <div class="reg-top">
+          <input type="search" id="q" placeholder="Cari nama guru…" aria-label="Cari nama guru">
+          <div class="filter" role="group" aria-label="Tapis">
+            <button type="button" data-f="all" aria-pressed="true">Semua</button>
+            <button type="button" data-f="todo" aria-pressed="false">Belum diisi</button>
+            <button type="button" data-f="done" aria-pressed="false">Sudah diisi</button>
+          </div>
+        </div>
+        <ul class="t-list" id="tlist"></ul>
+      </aside>
+      <div class="sheet" id="sheet"></div>
+    </div>
+  </section>
+
+  <section id="v-ringkasan" hidden>
+    <div class="tbl-wrap"><table id="sumTbl"></table></div>
+  </section>
+
+  <section id="v-matriks" hidden>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="legend">
+        <span><span class="sw" style="background:var(--tick-soft);border:1px solid var(--tick)"></span>Nombor = Bil guru yang mengajar</span>
+        <span><span class="sw" style="background:var(--warn)"></span>Lebih daripada seorang guru (semak)</span>
+        <span>Halakan tetikus pada sel untuk nama guru.</span>
+      </div>
+      <div class="tbl-wrap" style="max-height:72vh;overflow:auto"><table class="mx" id="mxTbl"></table></div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const DATA = {"guru":["HEZREEN BIN SININ","DATIN SERI ZARINA BANU BINTI MUMTAZ AHMAD","NURUL FARINAH BT JAMALUDIN","SAMSIAH BINTI YUSOF","ABD AZIZ BIN MOHD ZAIN","ABU BAKAR AZAMI BIN AHMAD ASSAKARI","AHMAD TAMIZI B. AHMAD","ALIFF RAHMAN BIN OMAR","ANUAR BIN IBRAHIM","ARTINI BT. MAIDIN","ATHIAH BT MOHD HASSAN","CHE SUHARRA BINTI CHE ALI MOHAMED","DANIAL HAZIQ BIN ABDULLAH","DATIN MARIATI BT. WAHAB","FATIMAH BT MOHD HAIDER","FATIN NADZIRA BT. FAUZI","FAUZIAH BINTI HUSIN","HAWIMAH BINTI HARON","HAYATI BINTI BAIR","HAZWAN HAFIZ B. MOHAMAD","IBRAHIM BIN YUSOF","ISKANDAR RAZIN TSEN B. ABDULLAH","MD SHAHRIL B. MD SHUKRI","MOHAMED ZAIYAD BIN YATIM","MOHD HAZRI B. ABD  LATIB","MOHD KHAIRI BIN HAMID","MOHD NAZRI BIN ROZALLY","MUHAMMAD ADNIN B. ARSHAD","MUHAMMAD ASYRAF B. MD NAWI","MUHAMMAD FARHAN B. ZAKARIA","CHE SABARIAH BINTI MAT DAUD","NAZATULSEMA BT SHA'RI","NOR ALIA IZYAN BT. MOHD RASLI","NOR AZWA ASSHIFA' BT. ASSERI","NOR ILYANI BT KADIRIN","NORAHIMAH BT. ALI","NORALIZA BINTI JABRI","NORHUDA BT AZMAN","NORUL AKMAL BT. MOHD YUSOF","NUR ADILA BINTI ABD AZIZ","NUR FARAHAIN BT. SURIA AFFANDY","NUR MOHD SYAFID AZUAN AL-AS'SAD BIN SUDIRMAN","NUR SYAZWANI BT. AHMAD","NUR ZAWANI BINTI MOHD SAIM","NURFAIZAH BINTI MOHMAD MAHYUDIN","NURIZZATI BT. ZAHARINUDDIN","NURUL AIN BT. ALIAS","NURUL QUDWATUN NISA' BINTI MOHD ZAMBERI","RAFIDAH BT. MD SHARIF","RAMIZAH BINTI ABU NAIM","RAPAHEL BINSING","RASYADA BINTI RAHIM","SHAHIRA BT. MOHD ZAMARI","SHAZANA BT. SABERI","SHOLEHAH BT CHE DOK","SITI MADIHAH BT. RUSDI","SITI MAZURA BINTI MD. SAMAT","SITI NADIAH BT. BAKAR","SITI SALINIE BT SALLEH","SITI SARAH BT. YUSOFF","SUHAILA BT. SAARI","SUWARNEE BINTI SOLAH","SYAFIA SYAFINAZ BINTI AHMAD FADZIL","UMI KALTHUM BT MUHAMAD ALI","WAN AZWANI BINTI WAN SULAIMAN","NURUL AIN BINTI ABDUL KARIM","ZULHUSNI BIN ABU HASSAN","ZURINA BT MOHD JAMANI","ZURINA BT. NASIR","FARIDAH BINTI AB MALEK","AISYAH FARANAZ BINTI AWALLUDDIN"],"subjek":["BM","BI","MT","PM","BA","TAS","PSV","DMZ","PI(j)","PI(q)","PI(u)","SEJ","SN","PPK","RBT","PD","OB","PA","LM","PPSS","PK","KI","KK","KB","PJ3","PJ2","PJ1","PJ4","PJ5","PJ6","PER","PI PRA","BY","ICT","ADM"],"kelas":["PRA AMBER","PRA CRYSTAL","1 AMBER","1 CRYSTAL","1 DIAMOND","1 EMERALD","2 AMBER","2 CRYSTAL","2 DIAMOND","2 EMERALD","3 AMBER","3 CRYSTAL","3 DIAMOND","3 EMERALD","3 OPAL","4 AMBER","4 CRYSTAL","4 DIAMOND","4 EMERALD","4 OPAL","5 AMBER","5 CRYSTAL","5 DIAMOND","5 EMERALD","6 AMBER","6 CRYSTAL","6 DIAMOND","6 EMERALD","1 OPAL","1 PEARL","1 RUBY","1 SAPPHIRE","3 PEARL","5 OPAL"]};
+const GURU = DATA.guru.map((n,i)=>({id:"g"+String(i+1).padStart(2,"0"), no:i+1, nama:n}));
+const SUBJEK = DATA.subjek;
+const yrOf = k => k.startsWith("PRA") ? "PRA" : k.split(" ")[0];
+const YRS = ["PRA","1","2","3","4","5","6"];
+const KELAS = YRS.flatMap(y => DATA.kelas.filter(k => yrOf(k)===y));
+const yrLabel = y => y==="PRA" ? "Prasekolah" : "Tahun "+y;
+const TIADA_T1 = new Set(["SN","PK","PSV","DMZ","SEJ","RBT"]); // tiada di Tahun 1
+const yrsFor = s => YRS.filter(y => !(y==="1" && TIADA_T1.has(s)));
+
+const state = {};          // id -> {SUBJ:[kelas...]}
+GURU.forEach(g => state[g.id] = {});
+let current = GURU[0].id, filter = "all", db = null;
+const pending = {}, writing = {}, timers = {};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function setStatus(kind, txt){ const s=$("#status"); s.className="status "+kind; $("#statusTxt").textContent=txt; }
+function toast(t){ const el=$("#toast"); el.textContent=t; el.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>el.hidden=true,2600); }
+
+const subjCount = id => Object.keys(state[id]).length;
+const clsCount = id => Object.values(state[id]).reduce((a,v)=>a+v.length,0);
+
+// who teaches subject s in class k (other than id)
+function teachersOf(s,k){ return GURU.filter(g => (state[g.id][s]||[]).includes(k)); }
+
+function renderStats(){
+  const done = GURU.filter(g=>subjCount(g.id)>0).length;
+  let pairs=0, clash=0;
+  SUBJEK.forEach(s=>KELAS.forEach(k=>{ const n=teachersOf(s,k).length; if(n) pairs++; if(n>1) clash++; }));
+  $("#stats").innerHTML = `<span><b>${done}</b> / ${GURU.length} guru sudah diisi</span><span><b>${pairs}</b> pasangan subjek–kelas diisi</span><span><b>${clash}</b> pasangan ada lebih seorang guru</span>`;
+}
+
+function renderList(){
+  const q = $("#q").value.trim().toUpperCase();
+  const items = GURU.filter(g => (!q || g.nama.includes(q)) &&
+    (filter==="all" || (filter==="done") === (subjCount(g.id)>0)));
+  $("#tlist").innerHTML = items.map(g=>{
+    const s=subjCount(g.id), c=clsCount(g.id);
+    return `<li><button type="button" class="t-item" data-id="${g.id}" aria-current="${g.id===current}">
+      <span class="t-no">${g.no}</span><span class="t-name" title="${esc(g.nama)}">${esc(g.nama)}</span>
+      <span class="t-badge ${s?'done':''}">${s?`${s} subj · ${c} kls`:'—'}</span></button></li>`;
+  }).join("") || `<li class="empty" style="padding:10px">Tiada guru sepadan.</li>`;
+}
+
+function renderSheet(){
+  const g = GURU.find(x=>x.id===current), st = state[current];
+  const idx = GURU.indexOf(g);
+  const chosen = SUBJEK.filter(s=>st[s]);
+  let html = `<div class="sheet-head"><div><div class="eyebrow">Guru ${g.no} daripada ${GURU.length}</div><h2>${esc(g.nama)}</h2></div>
+    <div class="nav"><button class="btn" type="button" id="prevG" ${idx===0?"disabled":""}>‹ Sebelum</button><button class="btn" type="button" id="nextG" ${idx===GURU.length-1?"disabled":""}>Seterusnya ›</button></div></div>
+    <div><p class="sec-label">1 · Tanda subjek yang diajar</p><div class="chips">` +
+    SUBJEK.map(s=>`<button type="button" class="chip" data-subj="${esc(s)}" aria-pressed="${!!st[s]}">${esc(s)}${st[s]?`<span class="n">${st[s].length}</span>`:""}</button>`).join("") +
+    `</div></div><div><p class="sec-label">2 · Tanda kelas bagi setiap subjek</p>`;
+  if(!chosen.length) html += `<p class="empty">Pilih sekurang-kurangnya satu subjek di atas. Senarai kelas akan muncul di sini.</p>`;
+  else html += `<div class="subj-blocks">` + chosen.map(s=>{
+    const on = new Set(st[s]);
+    return `<div class="sblock"><div class="sblock-h"><span><strong>${esc(s)}</strong> <span class="cnt">· ${on.size} kelas</span></span>
+      <button type="button" class="rm" data-rm="${esc(s)}">Buang subjek</button></div>` +
+      yrsFor(s).map(y=>{
+        const ks = KELAS.filter(k=>yrOf(k)===y); if(!ks.length) return "";
+        const all = ks.every(k=>on.has(k));
+        return `<div class="yr"><div class="yr-l"><span>${yrLabel(y)}</span><button type="button" data-all="${esc(s)}|${y}">${all?"Kosongkan":"Tanda semua"}</button></div><div class="cls-row">` +
+          ks.map(k=>{
+            const others = teachersOf(s,k).filter(t=>t.id!==current);
+            const tip = others.length ? `Juga diajar oleh: ${others.map(o=>o.nama).join(", ")}` : "";
+            return `<label class="cls ${on.has(k)?'on':''}" title="${esc(tip)}"><input type="checkbox" data-s="${esc(s)}" data-k="${esc(k)}" ${on.has(k)?"checked":""}>${esc(k.replace(/^PRA /,"PRA "))}${others.length?`<span class="other">+${others.length}</span>`:""}</label>`;
+          }).join("") + `</div></div>`;
+      }).join("") + `</div>`;
+  }).join("") + `</div><p class="hint">Tanda <b style="color:var(--warn)">+1</b> bermaksud subjek itu di kelas tersebut sudah ditanda untuk guru lain.</p>`;
+  html += `</div>`;
+  $("#sheet").innerHTML = html;
+}
+
+function renderSummary(){
+  let h = `<thead><tr><th>Bil</th><th>Nama guru</th><th>Subjek &amp; kelas</th><th>Bil. kelas</th></tr></thead><tbody>`;
+  h += GURU.map(g=>{
+    const st=state[g.id], subs=SUBJEK.filter(s=>st[s]);
+    const cell = subs.length ? subs.map(s=>`<span class="pair"><b>${esc(s)}</b> ${st[s].length?esc(KELAS.filter(k=>st[s].includes(k)).join(", ")):'<i style="color:var(--warn)">kelas belum ditanda</i>'}</span>`).join("") : `<span style="color:var(--muted)">Belum diisi</span>`;
+    return `<tr><td class="num">${g.no}</td><td class="nm">${esc(g.nama)}</td><td>${cell}</td><td class="num">${clsCount(g.id)||""}</td></tr>`;
+  }).join("");
+  $("#sumTbl").innerHTML = h + "</tbody>";
+}
+
+function renderMatrix(){
+  let h = `<thead><tr><th class="rowh">Subjek</th>` + KELAS.map(k=>`<th class="vert">${esc(k)}</th>`).join("") + `</tr></thead><tbody>`;
+  h += SUBJEK.map(s=>`<tr><td class="rowh">${esc(s)}</td>` + KELAS.map(k=>{
+    if(TIADA_T1.has(s) && yrOf(k)==="1") return `<td style="background:var(--bg)"></td>`;
+    const t = teachersOf(s,k);
+    if(!t.length) return `<td></td>`;
+    return `<td class="${t.length>1?'clash':'has'}" title="${esc(t.map(x=>x.no+'. '+x.nama).join('\n'))}">${t.map(x=>x.no).join("/")}</td>`;
+  }).join("") + `</tr>`).join("");
+  $("#mxTbl").innerHTML = h + "</tbody>";
+}
+
+function renderAll(){ renderStats(); renderList(); const v=document.querySelector('.tab[aria-selected="true"]').dataset.view;
+  if(v==="isi") renderSheet(); else if(v==="ringkasan") renderSummary(); else renderMatrix(); }
+
+// ---------- saving ----------
+function queueSave(id){
+  pending[id] = true; clearTimeout(timers[id]);
+  if(!db){ setStatus("bad","Tidak disimpan — sambungan tiada"); return; }
+  setStatus("busy","Menyimpan…");
+  timers[id] = setTimeout(()=>flush(id), 700);
+}
+async function flush(id){
+  if(writing[id]) return;
+  writing[id] = true; pending[id] = false;
+  const g = GURU.find(x=>x.id===id);
+  try{
+    await db.collection("staffing").doc(id).set({nama:g.nama, no:g.no, subjek:JSON.parse(JSON.stringify(state[id]))});
+  }catch(e){ setStatus("bad","Gagal simpan: "+(e && e.code==="permission_denied" ? "tiada kebenaran menulis" : (e&&e.message)||"ralat")); writing[id]=false; return; }
+  writing[id] = false;
+  if(pending[id]) return flush(id);
+  if(!Object.values(pending).some(Boolean) && !Object.values(writing).some(Boolean)) setStatus("ok","Semua perubahan disimpan");
+}
+
+function mutate(fn){ fn(state[current]); queueSave(current); renderAll(); }
+
+// ---------- events ----------
+document.addEventListener("click", e=>{
+  const t = e.target.closest("button"); if(!t) return;
+  if(t.classList.contains("t-item")){ current=t.dataset.id; renderAll(); $("#sheet").scrollIntoView({block:"nearest"}); return; }
+  if(t.classList.contains("tab")){ document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected", x===t));
+    ["isi","ringkasan","matriks"].forEach(v=>$("#v-"+v).hidden = v!==t.dataset.view); renderAll(); return; }
+  if(t.dataset.f){ filter=t.dataset.f; document.querySelectorAll(".filter button").forEach(x=>x.setAttribute("aria-pressed",x===t)); renderList(); return; }
+  if(t.dataset.subj){ const s=t.dataset.subj; mutate(st=>{ if(st[s]) delete st[s]; else st[s]=[]; }); return; }
+  if(t.dataset.rm){ const s=t.dataset.rm; mutate(st=>{ delete st[s]; }); return; }
+  if(t.dataset.all){ const [s,y]=t.dataset.all.split("|"); const ks=KELAS.filter(k=>yrOf(k)===y);
+    mutate(st=>{ const on=new Set(st[s]); const all=ks.every(k=>on.has(k)); ks.forEach(k=> all?on.delete(k):on.add(k)); st[s]=KELAS.filter(k=>on.has(k)); }); return; }
+  if(t.id==="prevG"||t.id==="nextG"){ const i=GURU.findIndex(g=>g.id===current)+(t.id==="nextG"?1:-1); if(GURU[i]){current=GURU[i].id; renderAll(); $("#sheet").scrollIntoView({block:"start"});} return; }
+  if(t.id==="exportBtn"){ exportXlsx(); return; }
+});
+document.addEventListener("change", e=>{
+  const c = e.target; if(!c.matches('input[type=checkbox][data-s]')) return;
+  const s=c.dataset.s, k=c.dataset.k;
+  mutate(st=>{ const on=new Set(st[s]||[]); c.checked?on.add(k):on.delete(k); st[s]=KELAS.filter(x=>on.has(x)); });
+});
+$("#q").addEventListener("input", renderList);
+
+// ---------- export ----------
+async function exportXlsx(){
+  if(typeof XLSX==="undefined"){ toast("Modul Excel belum dimuatkan. Cuba lagi sebentar."); return; }
+  const rows=[["BIL","NAMA GURU","SUBJEK","KELAS","BIL. KELAS"]];
+  GURU.forEach(g=>{ const st=state[g.id]; const subs=SUBJEK.filter(s=>st[s]);
+    if(!subs.length) rows.push([g.no,g.nama,"","",0]);
+    subs.forEach((s,i)=>rows.push([i?"":g.no, i?"":g.nama, s, KELAS.filter(k=>st[s].includes(k)).join(", "), st[s].length])); });
+  const ws1=XLSX.utils.aoa_to_sheet(rows); ws1["!cols"]=[{wch:5},{wch:44},{wch:9},{wch:70},{wch:10}];
+  const mx=[["SUBJEK",...KELAS]];
+  SUBJEK.forEach(s=>mx.push([s,...KELAS.map(k=>teachersOf(s,k).map(t=>t.no).join("/"))]));
+  const ws2=XLSX.utils.aoa_to_sheet(mx); ws2["!cols"]=[{wch:8},...KELAS.map(()=>({wch:7}))];
+  const ws3=XLSX.utils.aoa_to_sheet([["BIL","NAMA GURU"],...GURU.map(g=>[g.no,g.nama])]); ws3["!cols"]=[{wch:5},{wch:44}];
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws1,"STAFING");
+  XLSX.utils.book_append_sheet(wb,ws2,"MATRIKS");
+  XLSX.utils.book_append_sheet(wb,ws3,"NAMA GURU");
+  const buf=XLSX.write(wb,{bookType:"xlsx",type:"array"});
+  const dl = window.claude ? await window.claude.use("downloads") : null;
+  if(!dl){ toast("Muat turun tidak tersedia dalam paparan ini."); return; }
+  try{ await dl.save({filename:"STAFING_GURU_2027.xlsx", data:buf}); toast("Fail Excel disimpan."); }
+  catch(err){ if(err&&err.code==="declined") return; toast("Tidak dapat memuat turun: "+((err&&err.message)||"ralat")); }
+}
+
+// ---------- boot ----------
+renderAll();
+(async()=>{
+  try{ db = window.claude ? await window.claude.use("db") : null; }catch(e){ db=null; }
+  if(!db){ setStatus("bad","Tidak disambung — tanda tidak akan disimpan"); return; }
+  setStatus("busy","Memuatkan data…");
+  db.collection("staffing").onSnapshot(snap=>{
+    snap.docs.forEach(d=>{
+      const id=d.id; if(!state[id]) return;
+      if(pending[id]||writing[id]) return; // keep local edits in flight
+      const v=d.data(); state[id] = v && v.subjek ? JSON.parse(JSON.stringify(v.subjek)) : {};
+    });
+    snap.docChanges().forEach(c=>{ if(c.type==="removed" && state[c.doc.id] && !pending[c.doc.id]) state[c.doc.id]={}; });
+    renderAll();
+    if(!Object.values(pending).some(Boolean) && !Object.values(writing).some(Boolean)) setStatus("ok","Semua perubahan disimpan");
+  }, err=>setStatus("bad","Sambungan terputus: "+((err&&err.message)||"ralat")));
+})();
+</script>
+
+</body></html>

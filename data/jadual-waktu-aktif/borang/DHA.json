@@ -1,0 +1,23 @@
+{
+  "catatan": "",
+  "dihantar": 1793941313986,
+  "guru": "DANIAL HAZIQ BIN ABDULLAH",
+  "kod": "DHA",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "1 CRYSTAL"
+      ],
+      "kod": "BM",
+      "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "4 AMBER"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
+    }
+  ]
+}

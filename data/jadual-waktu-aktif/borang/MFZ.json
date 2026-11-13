@@ -1,0 +1,56 @@
+{
+  "catatan": "",
+  "dihantar": 1793982426209,
+  "guru": "MUHAMMAD FARHAN B. ZAKARIA",
+  "kod": "MFZ",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "3 CRYSTAL"
+      ],
+      "kod": "BM",
+      "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "6 AMBER",
+        "6 CRYSTAL"
+      ],
+      "kod": "PJ6",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "4 OPAL",
+        "5 CRYSTAL",
+        "6 AMBER",
+        "6 CRYSTAL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "5 CRYSTAL"
+      ],
+      "kod": "PJ5",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "4 OPAL"
+      ],
+      "kod": "PJ4",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 PEARL"
+      ],
+      "kod": "PJ1",
+      "nama": "Pendidikan Jasmani"
+    }
+  ]
+}

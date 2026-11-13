@@ -1,9 +1,28 @@
-# Jadual Waktu 2027 · SK Putrajaya Presint 17(1)
+# Jadual Waktu 2027 — SK Putrajaya Presint 17(1)
 
-Kerja jadual waktu guru dan kelas serta jadual guru ganti (relif) sekolah.
-Jadual induk dibina dalam **aSc Timetables**; halaman di sini ialah paparan dan alat sokongan.
+Aplikasi jadual waktu, jadual guru ganti (relif) dan borang guru untuk tahun 2027.
 
-## Kandungan
+**Lihat dalam talian:** https://wimepalhijau.github.io/jadual-waktu-2027/ (paparan sahaja)
+
+Suntingan bersama guru dibuat dalam halaman asal di claude.ai.
+
+## Mula di Claude Code
+
+1. Muat naik semua fail dalam pakej ini ke repo `jadual-waktu-2027` (cawangan `main`).
+2. Di GitHub: **Settings → Pages → Source: Deploy from a branch → `main` dan folder `/docs` → Save**.
+3. Buka repo ini dalam Claude Code. Claude akan membaca `CLAUDE.md` untuk faham projek dan peraturan sekolah.
+4. Taip **"kemaskini"** untuk menjana semula laman dan menghantarnya ke GitHub.
+
+## Arahan teknikal
+
+```bash
+python3 tools/build_pages.py   # jana docs/index.html daripada src + data
+python3 tools/semak.py         # semak peraturan jadual
+```
+
+## Fail lama (dimuat naik sebelum ini)
+
+Fail di akar repo ini ialah versi awal dan salinan statik. Ia disimpan untuk rujukan.
 
 | Fail | Keterangan |
 |---|---|
@@ -16,17 +35,3 @@ Jadual induk dibina dalam **aSc Timetables**; halaman di sini ialah paparan dan 
 | `borang-subjek-guru-cetak.pdf` | Borang Subjek Guru — versi cetak kosong, A4 satu muka surat. |
 | `borang-subjek-guru-cetak-nama.html` | Borang Subjek Guru — 80 muka surat, nama dan kod setiap guru sudah tercetak. Buka dalam Chrome, tekan Ctrl+P, pilih A4. |
 | `e-guru-ganti-prototaip.html` | e-Guru Ganti — prototaip awal dengan data contoh rekaan. |
-
-## Cara buka
-
-Muat turun fail `.html` dan buka dalam pelayar (Chrome/Edge).
-Ciri yang menyimpan data bersama (contohnya rekod relif) hanya berfungsi dalam versi Artifact Claude yang asal.
-
-## Peraturan jadual (ringkas)
-
-- Rehat: Tahun 1 & 4 09:10–09:40 · Tahun 2 & 3 09:40–10:10 · Tahun 5 & 6 10:10–10:40 · Prasekolah 10:00–10:40
-- Bahasa Melayu seminggu: Tahun 1 = 10, Tahun 2–3 = 11, Tahun 4–6 = 9
-- Tahun 1: BI 8, MT 7, Alam dan Manusia 4 (guru berpasangan), PJ1 3
-- Tasmik (TAS) kelas yang ada Pendidikan Moral di waktu terakhir; PJ1–PJ6 sebelum rehat
-
-> Repositori ini **private** kerana mengandungi nama guru.

@@ -1,0 +1,57 @@
+{
+  "catatan": "",
+  "dihantar": 1793982854556,
+  "guru": "MUHAMMAD ASYRAF B. MD NAWI",
+  "kod": "MAM",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "6 DIAMOND",
+        "6 EMERALD"
+      ],
+      "kod": "PJ6",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "6 DIAMOND",
+        "6 EMERALD"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "5 AMBER",
+        "5 OPAL"
+      ],
+      "kod": "PJ5",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "4 AMBER",
+        "5 AMBER",
+        "5 OPAL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "1 OPAL",
+        "1 RUBY"
+      ],
+      "kod": "PJ1",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "4 AMBER"
+      ],
+      "kod": "PJ4",
+      "nama": "Pendidikan Jasmani"
+    }
+  ]
+}
