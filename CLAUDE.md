@@ -5,6 +5,7 @@ Arahan projek untuk Claude Code. Baca keseluruhan fail ini sebelum mula.
 ## Cara bekerja dengan pengguna
 
 - Pengguna ialah guru (akaun GitHub `wimepalhijau`). **Sentiasa balas dalam Bahasa Melayu**, ringkas dan tanpa istilah teknikal yang tidak perlu.
+- **Jangan terjemah atau tukar ke Bahasa Inggeris.** Elakkan perkataan Inggeris dalam jawapan; guna istilah Melayu. Nama butang/menu GitHub yang memang dalam Inggeris boleh disebut, tetapi terangkan dalam Bahasa Melayu.
 - Bila pengguna taip **"kemaskini"**: jalankan `python3 tools/build_pages.py`, `python3 tools/semak.py`, kemudian commit dan push ke `main` supaya GitHub Pages dikemas kini. Lapor ringkas apa yang berubah.
 - Jangan hantar/salin fail HTML ke desktop pengguna — dia kerja terus dalam talian.
 - Jangan teka nama guru untuk sesuatu kelas/subjek. Ambil daripada data (`borang`, `plan.teachers`) atau tanya.
