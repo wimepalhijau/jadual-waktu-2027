@@ -2503,17 +2503,21 @@ async function savePdf(){
     const b=document.querySelector('[data-a="savepdf"]');if(b){b.disabled=false;b.textContent=old||'Simpan PDF'}
   }
 }
+/* Dalam claude.ai dialog cetak disekat; Cetak menyimpan fail cetak yang membuka dialog pencetak sendiri apabila dibuka. */
+const inClaude=()=>!!(window.claude&&window.claude.use);
 function doPrint(){
-  toast('Pilih pencetak dalam dialog cetak. Jika dialog tidak muncul, tekan Ctrl+P.');
+  if(inClaude()){toast('Fail cetak sedang disediakan. Buka fail itu — pilihan pencetak akan terbuka sendiri.');saveFile();return}
+  toast('Pilih pencetak dalam dialog cetak.');
   try{window.print()}catch(e){}
 }
+const printTip=()=>inClaude()?'Tekan Cetak: fail cetak akan dimuat turun. Buka fail itu dan pilihan pencetak terbuka sendiri.':'Tekan Cetak untuk memilih pencetak.';
 function anaTitle(t){const sc=D.school||{};return`<div style="margin:0 0 8px"><b style="font-size:15px">${esc(U(sc.name||''))}</b><br><span style="font-size:13px">${esc(t)}</span></div>`}
 function anaPrint(k){
   const sc=D.school||{},G=build();
   const opts=[['a_gst','Guru · Subjek · Tahun'],['a_guru','Guru ikut subjek'],['a_sub','Subjek ikut guru'],['a_kelas','Kelas yang guru ajar'],['a_akelas','Analisa setiap kelas'],['a_induk','Jadual induk']];
   const bar=`<div class="noprint"><div class="bar" style="flex-wrap:wrap"><div class="seg" role="group" aria-label="Apa yang dicetak">${opts.map(([v,l])=>`<button data-pv="${v}" aria-pressed="${k===v}">${l}</button>`).join('')}</div>
     <span class="grow"></span>${orientBar(k==='a_induk'?'l':'p')}<button class="btn" data-a="pvback">Kembali</button></div>
-    <p class="note" style="margin:0 0 6px">Untuk mencetak, tekan Ctrl+P atau buka menu pelayar dan pilih Cetak. Arah kertas dipilih di atas. ${k==='a_induk'?'Landskap sesuai untuk jadual induk.':'Jadual panjang disambung ke halaman berikutnya.'}</p></div>`;
+    <p class="note" style="margin:0 0 6px">${printTip()} Arah kertas dipilih di atas. ${k==='a_induk'?'Landskap sesuai untuk jadual induk.':'Jadual panjang disambung ke halaman berikutnya.'}</p></div>`;
   const{T,Sx}=anaData();let body='';
   if(k==='a_gst')body=`<section class="sec">${anaTitle('ANALISA GURU, SUBJEK DAN TAHUN')}${gstView(true)}</section>`;
   if(k==='a_guru'||k==='a_kelas'){
@@ -2551,7 +2555,7 @@ function senaraiPrint(k){
   const tarikh=new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'long',year:'numeric'});
   const bar=`<div class="noprint"><div class="bar" style="flex-wrap:wrap"><div class="seg" role="group" aria-label="Apa yang dicetak"><button data-pv="s_kelas" aria-pressed="${k==='s_kelas'}">Senarai kelas</button><button data-pv="s_guru" aria-pressed="${k==='s_guru'}">Senarai guru</button></div>
     <span class="grow"></span>${orientBar('p')}<button class="btn" data-a="pvback">Kembali</button></div>
-    <p class="note" style="margin:0 0 6px">Untuk mencetak, tekan Cetak atau Ctrl+P. Senarai ini diambil terus daripada data jadual semasa.</p></div>`;
+    <p class="note" style="margin:0 0 6px">${printTip()} Senarai ini diambil terus daripada data jadual semasa.</p></div>`;
   const td='style="padding:3px 6px;font-size:12px"',th='style="padding:4px 6px;font-size:12px;text-align:left"';
   if(k==='s_kelas'){
     const yrs={};D.classes.forEach((c,i)=>{const y=yearOf(i);yrs[y]=(yrs[y]||0)+1});
@@ -2618,7 +2622,7 @@ function previewView(){
     ${rb('style','style','Gaya:<br>'+gl)}${rb('mono','col','Warna',S.pvMono?'':' aria-pressed="true"')}<div class="ori">${orientBar('l').replace(/<button class="btn pri" data-a="doprint"[\s\S]*$/,'')}</div><span class="sp"></span>
     ${rb('close','close','Tutup<br>pratonton')}</div>`;
   return`<div class="noprint">${bar}
-    <p class="note" style="margin:0 0 6px">${one?'Butang Halaman memaparkan satu jadual pada satu masa; Cetak tetap mencetak semua '+N+' halaman.':'Setiap jadual mengisi satu halaman.'} Jika dialog cetak tidak muncul, tekan Ctrl+P.</p>${pick}</div>`+
+    <p class="note" style="margin:0 0 6px">${one?'Butang Halaman memaparkan satu jadual pada satu masa; Cetak tetap mencetak semua '+N+' halaman.':'Setiap jadual mengisi satu halaman.'}${inClaude()?' Cetak akan memuat turun fail cetak; buka fail itu untuk memilih pencetak.':''}</p>${pick}</div>`+
     items.map(([m,i,n],k)=>`<section class="sec${one&&k!==S.pvPg?' pvhide':''}">${ttFor(G,m,i)}</section>`).join('');
 }
 function render(){
