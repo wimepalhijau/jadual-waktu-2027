@@ -839,7 +839,7 @@ function ascWHTML(G,mode,i,ed){
 function ascHTML(G,mode,i,ed){
   const rr=mode==='kelas'?restOf(i):-1,rx=mode==='kelas'?restEx(yearOf(i)):0;
   const pk=mode==='kelas'&&pkY1(i)?pkRest(i):null;
-  const tm=ascTimes(mode,i),cols=tm.map((t,k)=>pk&&k===PK.p?`<th class="rh"><em>${PK.code} &amp; REHAT</em>${h12(pk.pk.s)}<br>${h12(pk.r.e)}</th>`:k===rr?`<th class="rh"><em>REHAT</em>${h12(PER[k].s-rx)}<br>${t.e}</th>`:`<th class="${k%2?'b':'a'}">${mode==='kelas'?`<em>${t.n}</em>`:''}${t.s}<br>${t.e}</th>`).join('');
+  const tm=ascTimes(mode,i),cols=tm.map((t,k)=>pk&&k===PK.p?`<th class="rh"><em>${PK.code}</em>${h12(pk.pk.s)}<br>${h12(pk.pk.e)}</th><th class="rh"><em>REHAT</em>${h12(pk.r.s)}<br>${h12(pk.r.e)}</th>`:k===rr?`<th class="rh"><em>REHAT</em>${h12(PER[k].s-rx)}<br>${t.e}</th>`:`<th class="${k%2?'b':'a'}">${mode==='kelas'?`<em>${t.n}</em>`:''}${t.s}<br>${t.e}</th>`).join('');
   const head=`<tr><th class="aw">${mode==='kelas'?'WAKTU<br><small>HARI</small>':'WAKTU'}</th>${cols}</tr>`;
   let rows='',legend='';
   if(mode==='guru'){
@@ -864,7 +864,10 @@ function ascHTML(G,mode,i,ed){
     rows=DAYS.map((dn,d)=>{let cells='',p=0;
       while(p<PER.length){const es=at(d,p);
         if(!es.length&&p===r&&allR){if(d===0)cells+=`<td rowspan="${DAYS.length}" class="arh arv"><span>${pk?`${PK.code}<br><br>`:''}R<br>E<br>H<br>A<br>T</span></td>`;p++;continue}
-        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>${pk?PK.code+' '+esc(pkWho(i,d).map(t=>D.teachers[t].code).join('/'))+' · ':''}R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
+        if(pk&&p===PK.p){const ds=ed?` data-s="${d},${p}"`:'',w=pkWho(i,d).map(t=>D.teachers[t].code).join(' / ');
+          cells+=`<td${ds} class="arh${ed?' ed':''}"><span>${PK.code}${w?`<br><small>${esc(w)}</small>`:''}</span></td>`;
+          if(d===0)cells+=`<td rowspan="${DAYS.length}" class="arh arv"><span>R<br>E<br>H<br>A<br>T</span></td>`;p++;continue}
+        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
         let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
         const ds=ed?` data-s="${d},${p}" class="ed"`:'';
         const by={};es.forEach(e=>{(by[e.sub]=by[e.sub]||[]).push(e.t);T.add(e.t);SB.add(e.sub)});
@@ -912,7 +915,8 @@ function ttHTML0(G){
   if(S.gaya==='asc')return ascHTML(G,mode,i,ed);
   const y1=PK.on&&mode==='kelas'&&yearOf(i)===PK.tahun;
   const head=`<tr><th class="dl"></th>${PER.map((p,k)=>{const t=mode==='kelas'?lessonTime(k,[i]):p;
-    return`<th class="ph"><span>${y1&&k===PK.p?PK.code:p.n}</span>${h12(t.s)}<br>${h12(t.e)}</th>`}).join('')}</tr>`;
+    if(y1&&k===PK.p){const q=pkRest(i);return`<th class="ph"><span>${PK.code}</span>${h12(q.pk.s)}<br>${h12(q.pk.e)}</th><th class="ph"><span>REHAT</span>${h12(q.r.s)}<br>${h12(q.r.e)}</th>`}
+    return`<th class="ph"><span>${p.n}</span>${h12(t.s)}<br>${h12(t.e)}</th>`}).join('')}</tr>`;
   const rows=DAYS.map((dn,d)=>{
     let cells='',k=0,pi=0;
     while(k<PER.length){
@@ -925,7 +929,10 @@ function ttHTML0(G){
         cells+=mode==='kelas'
           ?`<td colspan="${span}"${ds}><div class="lc ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><i>${esc(info.small)}</i></div></td>`
           :`<td colspan="${span}"${ds}><div class="lt ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><small${info.shift?' style="font-size:8.5px;font-weight:700;opacity:1"':''}>${info.shift?esc(tmTxt(info.tm)):esc(U(sn?sn.name:''))}</small><i>${esc(info.small)}</i></div></td>`
-      }else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">${y1?`${PK.code} ${esc(pkWho(i,d).map(t=>D.teachers[t].code).join('/'))} ${tmTxt(pkRest(i).pk)}<br>`:''}REHAT<br><span style="font-weight:400">${y1?tmTxt(pkRest(i).r):`${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}`}</span></td>`:`<td${ds}></td>`;
+      }else if(y1&&pi===PK.p){const st='text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)';
+        cells+=`<td${ds} class="rest" style="${st}">${PK.code}<br><span style="font-weight:400">${esc(pkWho(i,d).map(t=>D.teachers[t].code).join(' / '))}</span></td>`;
+        if(d===0)cells+=`<td rowspan="${DAYS.length}" class="rest" style="${st};vertical-align:middle">R<br>E<br>H<br>A<br>T</td>`}
+      else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">REHAT<br><span style="font-weight:400">${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}</span></td>`:`<td${ds}></td>`;
       k+=span;pi+=span}
     return`<tr><th class="dl">${dn}</th>${cells}</tr>`}).join('');
   let L=Object.values(leg);
