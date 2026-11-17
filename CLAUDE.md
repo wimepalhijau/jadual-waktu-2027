@@ -80,7 +80,7 @@ Guru
 - Banyak subjek lain belum dijadualkan (lihat `tools/semak.py`). Laporan semak.py ialah anggaran; menu **Semak** dalam aplikasi ialah rujukan utama.
 - Guru kelas & pembantu: **sumber betul ialah JADUAL WAKTU AKTIF 2027** (`classes[].guru` dan `classes[].pgk`), bukan Borang Guru Kelas. Keputusan pengguna 2026-11-13. Borang Guru Kelas (15 kelas sahaja diisi) berbeza di 12 tempat dan ada kelas '1 SAPPHIRE' yang tiada dalam jadual — jangan salin borang ke jadual.
 - Borang Opsyen: data masuk ke jadual hanya bila pengguna minta. **Kecuali Matematik:** guru MT setiap kelas sentiasa ikut isian Borang Opsyen (Cikgu Iskandar IRT, Ketua Panitia MT) — keputusan pengguna 2026-11-17. Semak dengan `opsyen/semak_mt.py` (dalam scratchpad sesi) atau bandingkan rows `s=MT` dengan `borang/<kod>.subjek MT`.
-- MT 2 DIAMOND & 2 EMERALD kini kedua-duanya NOA (ikut opsyen), jadi tidak boleh serentak untuk pemulihan (Noraliza NJA) — pengguna dimaklumkan 2026-11-17; tunggu keputusan.
+- Pemulihan 2 DIAMOND & 2 EMERALD: 6 BM + 4 MT serentak, guru berbeza setiap kelas, Noraliza (NJA) ajar murid pemulihan. Opsyen 2026-11-17 09:2x: MT 2 DIAMOND = NOA, 2 EMERALD = FAU, 1 RUBY = NOA. Borang jadual sudah ikut; pelajaran MT yang sudah dijadualkan (2E masih NOA, 1R masih FAU) belum ditukar — tunggu keputusan pengguna.
 
 ## GitHub Pages
 
