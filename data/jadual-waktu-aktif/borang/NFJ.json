@@ -1,17 +1,1 @@
-{
-  "catatan": "",
-  "dihantar": 1793941142997,
-  "guru": "NURUL FARINAH BT JAMALUDIN",
-  "kod": "NFJ",
-  "oleh": "DATIN MARIATI",
-  "subjek": [
-    {
-      "kelas": [
-        "4 OPAL",
-        "5 OPAL"
-      ],
-      "kod": "MT",
-      "nama": "Matematik"
-    }
-  ]
-}
+{"catatan": "", "dihantar": 1793941142997, "guru": "NURUL FARINAH BT JAMALUDIN", "kod": "NFJ", "oleh": "DATIN MARIATI", "subjek": [{"kelas": ["4 OPAL", "3 PEARL"], "kod": "MT", "nama": "Matematik"}]}
