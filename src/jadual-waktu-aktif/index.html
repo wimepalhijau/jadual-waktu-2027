@@ -981,10 +981,10 @@ function jListHTML(){
   const T=D.teachers,tn=c=>{const t=T.find(x=>x.code===c);return t?t.name:(c||'')};
   if(S.jList==='kelas'){let y=null,h='';D.classes.forEach((c,i)=>{const yy=yearOf(i);if(yy!==y){y=yy;h+=`<div class="yrh">${esc(yearTxt(yy))}</div>`}
       h+=`<button type="button" class="jli" data-jopen="kelas|${i}" aria-current="${S.jMode==='kelas'&&S.jSel===i}"><b>${esc(c.name)}</b><span>Guru kelas: ${esc(tn(c.guru)||'—')}</span><span>Pembantu: ${esc(tn(c.pgk)||'—')}</span></button>`});
-    return`<div class="jlist"><h3>Senarai nama kelas (${D.classes.length}) · tekan untuk lihat jadual</h3><div class="jlg">${h}</div></div>`}
+    return`<div class="jlist"><div class="bar" style="margin:0;flex-wrap:wrap"><h3>Senarai nama kelas (${D.classes.length}) · tekan untuk lihat jadual</h3><span class="grow"></span><button type="button" class="btn" data-pv="s_kelas">Cetak senarai kelas</button></div><div class="jlg">${h}</div></div>`}
   const gk={};D.classes.forEach(c=>{if(c.guru)gk[c.guru]='Guru kelas '+c.name;if(c.pgk&&!gk[c.pgk])gk[c.pgk]='Pembantu '+c.name});
   const ord=T.map((t,i)=>i).sort((a,b)=>T[a].name.localeCompare(T[b].name,'ms'));
-  return`<div class="jlist"><h3>Senarai nama guru (${T.length}) · tekan untuk lihat jadual</h3><div class="jlg">${ord.map(i=>`<button type="button" class="jli" data-jopen="guru|${i}" aria-current="${S.jMode==='guru'&&S.jSel===i}"><b>${esc(T[i].name)}</b><span>${esc(T[i].code)}${gk[T[i].code]?' · '+esc(gk[T[i].code]):''}</span></button>`).join('')}</div></div>`;
+  return`<div class="jlist"><div class="bar" style="margin:0;flex-wrap:wrap"><h3>Senarai nama guru (${T.length}) · tekan untuk lihat jadual</h3><span class="grow"></span><button type="button" class="btn" data-pv="s_guru">Cetak senarai guru</button></div><div class="jlg">${ord.map(i=>`<button type="button" class="jli" data-jopen="guru|${i}" aria-current="${S.jMode==='guru'&&S.jSel===i}"><b>${esc(T[i].name)}</b><span>${esc(T[i].code)}${gk[T[i].code]?' · '+esc(gk[T[i].code]):''}</span></button>`).join('')}</div></div>`;
 }
 function ttText(G){
   const mode=S.jMode,arr=mode==='kelas'?D.classes:D.teachers,i=S.jSel;if(!arr[i])return'';
@@ -2546,8 +2546,33 @@ function anaPrint(k){
       return`<section class="sec">${anaTitle('JADUAL INDUK '+U(dn))}<table style="font-size:9px;width:100%"><thead>${hd}</thead><tbody>${rows}</tbody></table></section>`}).join('')}
   return bar+body;
 }
+function senaraiPrint(k){
+  const T=D.teachers,tn=c=>{const t=T.find(x=>x.code===c);return t?t.name:(c||'')};
+  const tarikh=new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'long',year:'numeric'});
+  const bar=`<div class="noprint"><div class="bar" style="flex-wrap:wrap"><div class="seg" role="group" aria-label="Apa yang dicetak"><button data-pv="s_kelas" aria-pressed="${k==='s_kelas'}">Senarai kelas</button><button data-pv="s_guru" aria-pressed="${k==='s_guru'}">Senarai guru</button></div>
+    <span class="grow"></span>${orientBar('p')}<button class="btn" data-a="pvback">Kembali</button></div>
+    <p class="note" style="margin:0 0 6px">Untuk mencetak, tekan Cetak atau Ctrl+P. Senarai ini diambil terus daripada data jadual semasa.</p></div>`;
+  const td='style="padding:3px 6px;font-size:12px"',th='style="padding:4px 6px;font-size:12px;text-align:left"';
+  if(k==='s_kelas'){
+    const yrs={};D.classes.forEach((c,i)=>{const y=yearOf(i);yrs[y]=(yrs[y]||0)+1});
+    const ringkas=Object.keys(yrs).map(Number).sort((a,b)=>a-b).map(y=>`<td ${td}><b>${esc(yearTxt(y))}</b><br>${yrs[y]} kelas</td>`).join('');
+    const rows=D.classes.map((c,i)=>`<tr><td ${td}>${i+1}</td><td ${td}><b>${esc(c.name)}</b></td><td ${td}>${esc(tn(c.guru)||'—')}</td><td ${td}>${esc(tn(c.pgk)||'—')}</td></tr>`).join('');
+    return bar+`<section class="sec">${anaTitle('SENARAI NAMA KELAS · '+tarikh)}
+      <p style="margin:0 0 6px;font-size:13px"><b>Jumlah kelas: ${D.classes.length}</b></p>
+      <table style="margin:0 0 10px"><tbody><tr>${ringkas}</tr></tbody></table>
+      <table style="width:100%"><thead><tr><th ${th}>Bil</th><th ${th}>Kelas</th><th ${th}>Guru Kelas</th><th ${th}>Pembantu Guru Kelas</th></tr></thead><tbody>${rows}</tbody></table></section>`}
+  const peran={};D.classes.forEach(c=>{if(c.guru)(peran[c.guru]=peran[c.guru]||[]).push('Guru kelas '+c.name);if(c.pgk)(peran[c.pgk]=peran[c.pgk]||[]).push('Pembantu '+c.name)});
+  const ld=T.map(()=>0);(D.lessons||[]).forEach(l=>{if(l[3]!=='PER'&&l[3]!=='BY'&&ld[l[0]]!=null)ld[l[0]]++});
+  const ord=T.map((t,i)=>i).sort((a,b)=>T[a].name.localeCompare(T[b].name,'ms'));
+  const nPen=T.filter(t=>t.pentadbir).length,nGK=T.filter(t=>D.classes.some(c=>c.guru===t.code)).length,nPB=T.filter(t=>D.classes.some(c=>c.pgk===t.code)).length;
+  const rows=ord.map((i,n)=>{const t=T[i],r=[...(t.pentadbir?['Pentadbir']:[]),...(peran[t.code]||[])];return`<tr><td ${td}>${n+1}</td><td ${td}><b>${esc(t.name)}</b></td><td ${td}>${esc(t.code)}</td><td ${td}>${esc(r.join(', ')||'—')}</td><td ${td} style="text-align:right">${ld[i]}</td></tr>`}).join('');
+  return bar+`<section class="sec">${anaTitle('SENARAI NAMA GURU · '+tarikh)}
+    <p style="margin:0 0 6px;font-size:13px"><b>Jumlah guru: ${T.length}</b> · Pentadbir: ${nPen} · Guru kelas: ${nGK} · Pembantu guru kelas: ${nPB}</p>
+    <table style="width:100%"><thead><tr><th ${th}>Bil</th><th ${th}>Nama Guru</th><th ${th}>Kod</th><th ${th}>Peranan</th><th ${th} style="text-align:right">Waktu mengajar seminggu</th></tr></thead><tbody>${rows}</tbody></table></section>`;
+}
 function previewView(){
   if(String(S.preview).startsWith('a_'))return anaPrint(S.preview);
+  if(String(S.preview).startsWith('s_'))return senaraiPrint(S.preview);
   if(S.preview==='relifs')return rsPrint();
   if(S.preview==='relifar')return arPrint();
   if(S.preview==='relifboard')return arBoard();
