@@ -1,16 +1,1 @@
-{
-  "catatan": "",
-  "dihantar": 1793941050092,
-  "guru": "NORUL AKMAL BT. MOHD YUSOF",
-  "kod": "NAM",
-  "oleh": "DATIN MARIATI",
-  "subjek": [
-    {
-      "kelas": [
-        "5 CRYSTAL"
-      ],
-      "kod": "MT",
-      "nama": "Matematik"
-    }
-  ]
-}
+{"catatan": "", "dihantar": 1793941050092, "guru": "NORUL AKMAL BT. MOHD YUSOF", "kod": "NAM", "oleh": "DATIN MARIATI", "subjek": [{"kelas": ["5 CRYSTAL", "1 EMERALD", "6 EMERALD", "5 EMERALD"], "kod": "MT", "nama": "Matematik"}]}
