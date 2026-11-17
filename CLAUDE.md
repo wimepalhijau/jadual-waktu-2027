@@ -57,11 +57,11 @@ Kelas & kurikulum
 - Tahun 1: BI 8 (2+2+2+2), MT 7 (2+2+3), ADM 4 (dua guru serentak), PJ1 3. Tahun 2–6: MT 2+2+2, BI 2+2+2+3, PJ 1+1 hari berselang.
 - Tahun 1 tiada PK, DMZ, PSV, SN, SEJ, RBT. ADM untuk Tahun 1 sahaja. SEJ dan RBT Tahun 4–6.
 - PI(q) 3 waktu = PI(q1) 1 waktu (guru PI(j)/PI(u) kelas itu) + PI(q2) 2 waktu berpasangan.
-- PJ1–PJ6 mesti tamat sebelum 10:40 (boleh selepas rehat).
+- PJ1–PJ6 mesti tamat sebelum 10:40 (boleh selepas rehat); Tahun 1 hingga 10:55.
 - **Tiada PJ pada hari Isnin.**
 - TAS kelas yang ada Pendidikan Moral diletak di waktu terakhir sesi.
 - Tahun 1–3: tidak lebih 4 subjek berbeza sehari.
-- **Pembentukan Karakter (PKR) Tahun 1**: setiap hari 09:10–09:25, diajar oleh **guru subjek waktu sebelumnya** (waktu 3, 08:40–09:10) kelas itu pada hari itu (tiada pelajaran PKR dalam data; aplikasi kira sendiri `pkList()`, tindihan guru PKR dilapor dalam Semak). `PK.on=true, guru:false`. Rehat Tahun 1 jadi 09:25–09:55 dan semua waktu Tahun 1 selepas rehat anjak 15 minit lewat (pilihan pengguna 2026-11-17). Kesan: PJ Tahun 1 di waktu 6 kini tamat 10:55 (langgar had 10:40).
+- **Pembentukan Karakter (PKR) Tahun 1**: setiap hari 09:10–09:25, diajar oleh **guru subjek waktu sebelumnya** (waktu 3, 08:40–09:10) kelas itu pada hari itu (tiada pelajaran PKR dalam data; aplikasi kira sendiri `pkList()`, tindihan guru PKR dilapor dalam Semak). `PK.on=true, guru:false`. Rehat Tahun 1 jadi 09:25–09:55 dan semua waktu Tahun 1 selepas rehat anjak 15 minit lewat (pilihan pengguna 2026-11-17). PJ Tahun 1 boleh tamat paling lewat **10:55** (peraturan dilonggarkan oleh pengguna 2026-11-17; tahun lain kekal 10:40).
 - Rehat: Tahun 1 & 4 09:10–09:40; Tahun 2 & 3 09:40–10:10; Tahun 5 & 6 10:10–10:40; Prasekolah 10:00–10:40.
 
 Guru

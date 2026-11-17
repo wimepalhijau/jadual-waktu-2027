@@ -1690,7 +1690,9 @@ function trRows(G){const out=[],ld=tLoads(D.lessons);D.teachers.forEach((t,i)=>D
     const kc=p=>{const es=G.tch[i][d][p].filter(e=>e.sub!=='PER'&&e.sub!=='BY');return es.length?[...new Set(es.flatMap(e=>e.cls||[]))].sort():null};
     for(let p=1;p<PER.length;p++){const a=kc(p-1),b=kc(p);if(a&&b&&a.length&&b.length&&a.join(',')!==b.join(','))out.push({t:i,d,from:p-1,sw:true,a,b})}}));return out}
 function tlRows(G){const out=[];D.teachers.forEach((t,i)=>{if(tEnd(i)==null)return;DAYS.forEach((dn,d)=>PER.forEach((_,p)=>{if(tLate(i,p)&&G.tch[i][d][p].some(e=>e.sub!=='PER'))out.push({t:i,d,p})}))});return out}
-function pjLate(p,cs){return PER[p]&&(cs&&cs.length?lessonTime(p,cs).e:PER[p].e)>PJ_END}
+/* Tahun 1 (anjak 15 minit kerana PKR): PJ boleh tamat paling lewat 10:55 (keputusan pengguna 17 Nov 2026). */
+const PJ_END_T1=655;
+function pjLate(p,cs){if(!PER[p])return false;const y1=PK.on&&cs&&cs.length&&y1Only(cs);return(cs&&cs.length?lessonTime(p,cs).e:PER[p].e)>(y1?PJ_END_T1:PJ_END)}
 /* PJ tidak boleh pada hari Isnin (hari 0). */
 function pjBad(d,p,cs){return d===0||pjLate(p,cs)}
 /* Hari PJ sesebuah kelas mesti berselang: tidak pada dua hari berturutan. */
@@ -1891,7 +1893,7 @@ function janaView(){
   <p>Susun semula seluruh sekolah. Bilangan pelajaran setiap kelas dan guru, panjang hari setiap kelas dan waktu rehat tidak berubah. Pelajaran serentak kekal serentak dan waktu berganda kekal berganda.</p>
   <ul style="padding-left:18px;margin:0 0 10px;display:grid;gap:4px">
     <li>Guru tidak boleh bertindih, termasuk tindihan separuh waktu kerana kelas Tahun 1 anjak 15 minit selepas rehat.</li>
-    <li>PJ1 hingga PJ6 diletakkan paling lewat tamat pada 10:40 pagi dan tidak pada hari Isnin.</li>
+    <li>PJ1 hingga PJ6 diletakkan paling lewat tamat pada 10:40 pagi (Tahun 1: 10:55 pagi) dan tidak pada hari Isnin.</li>
     <li>Guru yang ada had waktu habis mengajar (menu Guru, Edit) diusahakan tidak mengajar selepas waktu itu.</li>
     <li>Guru yang ada waktu kosong di hadapan (menu Guru, Edit) diusahakan tidak mengajar pada waktu pertama itu.</li>
     <li><b>Wajib:</b> guru tidak mengajar lebih ${TRUN} waktu berturutan (tiada 4 waktu berturut), dan selepas ${TRUN} waktu berturutan mesti kosong sekurang-kurangnya ${TGAP} waktu sebelum mengajar lagi. Guru yang mengajar ${TBERAT} waktu seminggu atau lebih cukup kosong 1 waktu.</li>
