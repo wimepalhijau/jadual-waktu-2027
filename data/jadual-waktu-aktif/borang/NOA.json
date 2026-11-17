@@ -1,1 +1,18 @@
-{"catatan": "", "dihantar": 1793940951825, "guru": "NORHUDA BT AZMAN", "kod": "NOA", "oleh": "DATIN MARIATI", "subjek": [{"kelas": ["1 CRYSTAL", "2 DIAMOND", "1 RUBY"], "kod": "MT", "nama": "Matematik"}]}
+{
+  "catatan": "",
+  "dihantar": 1793940951825,
+  "guru": "NORHUDA BT AZMAN",
+  "kod": "NOA",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "2 DIAMOND",
+        "1 RUBY"
+      ],
+      "kod": "MT",
+      "nama": "Matematik"
+    }
+  ]
+}
