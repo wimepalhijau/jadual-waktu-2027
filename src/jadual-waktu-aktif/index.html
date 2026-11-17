@@ -1753,8 +1753,11 @@ function janaSetup(only){
   const tOcc=D.teachers.map(()=>DAYS.map(()=>Array(NP).fill(0)));
   const tSh=D.teachers.map(()=>DAYS.map(()=>Array(NP).fill(0)));
   fixed.forEach(i=>{const l=D.lessons[i];if(tOcc[l[0]]){tOcc[l[0]][l[1]][l[2]]++;if(PK.on&&l[3]!==PK.code&&l[2]>PK.p&&y1Only(l[4]))tSh[l[0]][l[1]][l[2]]++}});
+  /* PKR: guru yang mengajar Tahun 1 pada waktu sebelum PKR menyambung PKR, jadi tidak boleh ada kelas lain pada waktu PK.p. */
+  const pkA=D.teachers.map(()=>DAYS.map(()=>0));
+  if(PK.on)fixed.forEach(i=>{const l=D.lessons[i];if(pkA[l[0]]&&l[2]===PK.p-1&&l[3]!=='PER'&&l[3]!=='BY'&&y1Only(l[4]))pkA[l[0]][l[1]]++});
   blocks.forEach(b=>{b.y1=y1Only(b.cls)});
-  const J={blocks,rest,last,pm,tOcc,tSh,fixed,NP,ND,conf:0,pref:0,dup:{},fam:{},dn:{},exc:0,adj:0,pjd:{},td:D.teachers.map(()=>DAYS.map(()=>0)),tex:0,tl:0,tf:0,run:0,tc:D.teachers.map(()=>DAYS.map(()=>Array(PER.length).fill(0))),tk:D.teachers.map(()=>DAYS.map(()=>PER.map(()=>[]))),cs:D.classes.map(()=>DAYS.map(()=>Array(NP).fill(''))),kr:0,k4:0,pk:0,pcl:{},cap:D.classes.map((_,c)=>hadOn(c)?HAD.max:99)};
+  const J={blocks,rest,last,pm,tOcc,tSh,pkA,fixed,NP,ND,conf:0,pref:0,dup:{},fam:{},dn:{},exc:0,adj:0,pjd:{},td:D.teachers.map(()=>DAYS.map(()=>0)),tex:0,tl:0,tf:0,run:0,tc:D.teachers.map(()=>DAYS.map(()=>Array(PER.length).fill(0))),tk:D.teachers.map(()=>DAYS.map(()=>PER.map(()=>[]))),cs:D.classes.map(()=>DAYS.map(()=>Array(NP).fill(''))),kr:0,k4:0,pk:0,pcl:{},cap:D.classes.map((_,c)=>hadOn(c)?HAD.max:99)};
   /* group lists for swaps */
   blocks.forEach(b=>{b.fix=(!!only&&!b.cls.every(c=>only[c]))||b.tpl.some(x=>{for(let k=0;k<b.len;k++)if(isLocked(x.t,b.d,b.s+k))return true;return false})});
   const grp={};blocks.forEach((b,i)=>{if(!b.fix)(grp[b.ck+'#'+b.len]=grp[b.ck+'#'+b.len]||[]).push(i)});
@@ -1769,16 +1772,19 @@ function janaSetup(only){
 /* add (+1) or remove (-1) a block; returns delta of conflicts */
 /* conflicts = same-waktu overlaps + Year 1 shifted lesson overlapping the next waktu of another class */
 function janaConf(J){let n=0;
-  J.tOcc.forEach((td,t)=>td.forEach((o,d)=>{const h=J.tSh[t][d];for(let p=0;p<J.NP;p++){if(o[p]>1)n+=o[p]-1;if(p+1<J.NP)n+=h[p]*(o[p+1]-h[p+1])}}));
+  J.tOcc.forEach((td,t)=>td.forEach((o,d)=>{const h=J.tSh[t][d];for(let p=0;p<J.NP;p++){if(o[p]>1)n+=o[p]-1;if(p+1<J.NP)n+=h[p]*(o[p+1]-h[p+1])}
+    if(J.pkA&&J.pkA[t]&&J.pkA[t][d]>0&&o[PK.p]>0)n++}));
   return n}
 function janaAdd(J,b,sg){
   let dc=0;const T=new Set(b.tpl.map(x=>x.t));
+  const pkT=PK.on&&J.pkA&&b.s<=PK.p&&b.s+b.len-1>=PK.p-1?[...T].filter(t=>J.tOcc[t]&&J.pkA[t]):[],pkF=t=>J.pkA[t][b.d]>0&&J.tOcc[t][b.d][PK.p]>0?1:0,pk0=pkT.map(pkF);
   T.forEach(t=>{for(let k=0;k<b.len;k++){const o=J.tOcc[t];if(!o)continue;const p=b.s+k,c=o[b.d][p],h=J.tSh[t][b.d];
     const sh=PK.on&&b.y1&&p>PK.p;
     /* half-overlap delta: neighbours at p-1 / p+1 are unaffected by this lesson */
     const hd=sh?(p+1<J.NP?o[b.d][p+1]-h[p+1]:0):(p>0?h[p-1]:0);
     dc+=sg*hd;
     if(sg>0){if(c>=1)dc++;o[b.d][p]=c+1;if(sh)h[p]++}else{if(c>=2)dc--;o[b.d][p]=c-1;if(sh)h[p]--}}});
+  if(pkT.length){if(b.y1&&b.s<=PK.p-1&&b.s+b.len-1>=PK.p-1&&b.tpl.every(x=>x.sub!=='PER'&&x.sub!=='BY'))pkT.forEach(t=>{J.pkA[t][b.d]+=sg});pkT.forEach((t,j)=>{dc+=pkF(t)-pk0[j]})}
   T.forEach(t=>{const row=J.tc[t]&&J.tc[t][b.d];if(!row)return;const gp=J.tg?J.tg[t]:TGAP,e0=runEx(row,gp);for(let k=0;k<b.len;k++)row[b.s+k]+=sg;J.run+=runEx(row,gp)-e0});
   T.forEach(t=>{const row=J.tk&&J.tk[t]&&J.tk[t][b.d];if(!row)return;let cs=b.tpl.filter(x=>x.t===t&&!/^(PER|BY)$/.test(x.sub)).flatMap(x=>x.cls||[]);if(!cs.length)return;const key=[...new Set(cs)].sort().join('+'),e0=swEx(row);
     for(let k=0;k<b.len;k++){const a=row[b.s+k];if(!a)continue;if(sg>0)a.push(key);else{const ix=a.indexOf(key);if(ix>=0)a.splice(ix,1)}}J.run+=swEx(row)-e0});
@@ -1899,6 +1905,7 @@ function janaView(){
   <p>Susun semula seluruh sekolah. Bilangan pelajaran setiap kelas dan guru, panjang hari setiap kelas dan waktu rehat tidak berubah. Pelajaran serentak kekal serentak dan waktu berganda kekal berganda.</p>
   <ul style="padding-left:18px;margin:0 0 10px;display:grid;gap:4px">
     <li>Guru tidak boleh bertindih, termasuk tindihan separuh waktu kerana kelas Tahun 1 anjak 15 minit selepas rehat.</li>
+    <li>Guru yang mengajar Tahun 1 pada 8:40–9:10 menyambung Pembentukan Karakter (9:10–9:25), jadi tidak diberi kelas lain pada 9:10 hari itu.</li>
     <li>PJ1 hingga PJ6 diletakkan paling lewat tamat pada 10:40 pagi (Tahun 1: 10:55 pagi) dan tidak pada hari Isnin.</li>
     <li>Guru yang ada had waktu habis mengajar (menu Guru, Edit) diusahakan tidak mengajar selepas waktu itu.</li>
     <li>Guru yang ada waktu kosong di hadapan (menu Guru, Edit) diusahakan tidak mengajar pada waktu pertama itu.</li>
@@ -1958,6 +1965,8 @@ function genBorang(){
   const keep=D.lessons.filter(l=>!l[4].length||!l[4].every(inG));
   const tB=D.teachers.map(()=>DAYS.map(()=>Array(NP).fill(0))),cB=D.classes.map(()=>DAYS.map(()=>Array(NP).fill(0)));
   const tK=D.teachers.map(()=>DAYS.map(()=>Array(NP).fill(-1)));
+  const tY=D.teachers.map(()=>DAYS.map(()=>0)),y1c=c=>PK.on&&yearOf(c)===PK.tahun,pkCov=(s,n)=>s<=PK.p-1&&s+n-1>=PK.p-1,pkHit=(s,n)=>s<=PK.p&&s+n-1>=PK.p;
+  keep.forEach(l=>{if(tY[l[0]]&&l[2]===PK.p-1&&l[4].length&&l[4].every(y1c)&&!/^(PER|BY)$/.test(l[3]))tY[l[0]][l[1]]++});
   keep.forEach(l=>{if(tB[l[0]])tB[l[0]][l[1]][l[2]]++;if(tK[l[0]]&&l[4].length&&!/^(PER|BY)$/.test(l[3]))tK[l[0]][l[1]][l[2]]=l[4][0];l[4].forEach(c=>{if(cB[c])cB[c][l[1]][l[2]]=1})});
   const subDay=D.classes.map(()=>DAYS.map(()=>new Set())),pjDay=D.classes.map(()=>new Set());
   const blocks=[];
@@ -1984,11 +1993,12 @@ function genBorang(){
       for(let s=0;s+b.len-1<=endOf(d);s++){let ok=true,tc=0;
         for(let k=0;k<b.len;k++){if(cB[b.c][d][s+k]){ok=false;break}b.tpl.forEach(x=>{if(tB[x.t][d][s+k]||tOff(x.t,d,s+k))tc++})}
         if(!ok)continue;if(b.pj&&pjLate(s+b.len-1,[b.c]))continue;
+        if(PK.on)b.tpl.forEach(x=>{if(y1c(b.c)&&pkCov(s,b.len)&&tB[x.t][d][PK.p])tc++;if(!y1c(b.c)&&pkHit(s,b.len)&&tY[x.t][d])tc++});
         let sw=0;b.tpl.forEach(x=>{const r=tK[x.t][d],a=s>0?r[s-1]:-1,z=s+b.len<NP?r[s+b.len]:-1;if(a>=0&&a!==b.c)sw++;if(z>=0&&z!==b.c)sw++});
         const sc=tc*1000+sw*60+s*3+d+Math.random();if(!best||sc<best.sc)best={d,s,sc,tc}}}
     return best}
   const gen=[];
-  function put(b,d,s,tc){for(let k=0;k<b.len;k++){cB[b.c][d][s+k]=1;b.tpl.forEach(x=>{tB[x.t][d][s+k]++;tK[x.t][d][s+k]=b.c;gen.push([x.t,d,s+k,x.sub,[b.c]])})}
+  function put(b,d,s,tc){if(y1c(b.c)&&pkCov(s,b.len))b.tpl.forEach(x=>{tY[x.t][d]++});for(let k=0;k<b.len;k++){cB[b.c][d][s+k]=1;b.tpl.forEach(x=>{tB[x.t][d][s+k]++;tK[x.t][d][s+k]=b.c;gen.push([x.t,d,s+k,x.sub,[b.c]])})}
     subDay[b.c][d].add(b.sub);if(b.pj)pjDay[b.c].add(d);rep.conf+=tc}
   const left=[];
   blocks.forEach(b=>{const x=cand(b,true);if(x)put(b,x.d,x.s,x.tc);else left.push(b)});
@@ -2177,6 +2187,8 @@ function bilDo(c,q,bs,bt){
       const free=[];grid.forEach(k=>{const[d,p]=k.split(',').map(Number);
         if(G.cls[c][d][p].length)return;
         if(tpl.some(l=>G.tch[l[0]][d][p].length))return;
+        /* PKR: guru Tahun 1 waktu sebelum PKR mesti kosong pada waktu PKR, dan sebaliknya. */
+        if(PK.on&&tpl.some(l=>(pkY1(c)&&p===PK.p-1&&G.tch[l[0]][d][PK.p].length)||(!pkY1(c)&&p===PK.p&&G.pk&&G.pk[l[0]]&&G.pk[l[0]][d])))return;
         free.push([d,p,days.has(d)?1:0,/^PJ\d/.test(r.sub)&&(pjBad(d,p,[c])||pjAdjTry(c,d))?1:0])});
       if(!free.length)break;
       free.sort((a,b)=>a[3]-b[3]||a[2]-b[2]||a[0]-b[0]||a[1]-b[1]);
