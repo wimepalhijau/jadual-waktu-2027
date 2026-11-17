@@ -153,6 +153,10 @@ body.pv .ak-nt{display:flex;gap:10px;align-items:stretch}body.pv .ak-nt>div{flex
 .aw2-t thead th{font-weight:700;font-size:11px;text-align:center;line-height:1.25;padding:2px 1px 6px;height:50px;vertical-align:bottom;background:#fff}
 .aw2-t thead th em{display:block;font-style:normal;font-weight:400;font-size:6px;margin-bottom:6px}
 .aw2-t th.dw{width:104px}
+.aw2-t th.pkc,.aw2-t th.rhc{width:52px}
+.aw2-t td.aw2-rh{background:#f3f3f3;text-align:center;vertical-align:middle}
+.aw2-rh span{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:700;font-size:20px;letter-spacing:.35em}
+.aw2-t thead th.rhc em{font-size:8px;font-weight:700}
 .aw2-t th.dn{font-weight:400;text-align:left;padding-left:4px;font-size:16px;height:74px;background:#fff}
 .aw2-t td{height:74px;vertical-align:top;background:#fff}
 .aw2-c{height:100%;min-height:74px;display:flex;flex-direction:column;position:relative}
@@ -791,15 +795,17 @@ function aw2Col(sb){if(sb==='PER')return['#c5a8f5','#000'];if(sb==='BY')return['
 function ascWHTML(G,mode,i,ed){
   const s=D.school||{},kel=mode==='kelas',tm=ascTimes(mode,i),r=kel?restOf(i):-1,rx=kel?restEx(yearOf(i)):0;
   const pk=kel&&pkY1(i)?pkRest(i):null;
-  const head=`<tr><th class="dw"></th>${tm.map((t,k)=>pk&&k===PK.p?`<th><em>${PK.code} · REHAT</em><span style="font-size:.78em;line-height:1.25;display:block">${PK.code} ${h12(pk.pk.s)}–${h12(pk.pk.e)}<br>REHAT ${h12(pk.r.s)}–${h12(pk.r.e)}</span></th>`:`<th><em>${t.n}</em>${k===r&&rx?h12(PER[k].s-rx):t.s}<br>${t.e}</th>`).join('')}</tr>`;
+  const head=`<tr><th class="dw"></th>${tm.map((t,k)=>pk&&k===PK.p?`<th class="pkc"><em>${PK.code}</em>${h12(pk.pk.s)}<br>${h12(pk.pk.e)}</th><th class="rhc"><em>REHAT</em>${h12(pk.r.s)}<br>${h12(pk.r.e)}</th>`:`<th${kel&&k===r?' class="rhc"':''}><em>${kel&&k===r?'REHAT':t.n}</em>${k===r&&rx?h12(PER[k].s-rx):t.s}<br>${t.e}</th>`).join('')}</tr>`;
   const gk=kel?D.teachers.findIndex(t=>t.code===D.classes[i].guru):-1;
   const at=(d,p)=>{if(!kel)return G.tch[i][d][p];let es=G.cls[i][d][p];if(!es.length&&gk>=0){const x=G.tch[gk][d][p].filter(e=>e.sub==='BY'&&!e.cls.length);if(x.length)es=[{t:gk,sub:'BY',cls:[]}]}return es};
   const who=e=>kel?(D.teachers[e.t]?D.teachers[e.t].code:'?'):(e.cls||[]).map(c=>D.classes[c]?D.classes[c].name:'?').join(', ');
   const sig=es=>es.map(e=>e.sub+'|'+who(e)).sort().join(';');
-  const L={};
+  const L={},allR=!ed&&r>=0&&DAYS.every((_,d)=>!at(d,r).length);
   const rows=DAYS.map((dn,d)=>{let cells='',p=0;
-    while(p<PER.length){const es=at(d,p),ds=ed?` data-s="${d},${p}" class="ed"`:'';
-      if(!es.length&&pk&&p===PK.p){cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>${esc(pkWho(i,d).map(t=>D.teachers[t].code).join(' / '))}${pkWho(i,d).length?' · ':''}REHAT ${h12(pk.r.s)}</i></div></div></td>`;p++;continue}
+    while(p<PER.length){if(pk&&p===PK.p+1&&!cells.includes('aw2-rh')&&d===0)cells+=`<td rowspan="${DAYS.length}" class="aw2-rh"><span>REHAT</span></td>`;
+      const es=at(d,p),ds=ed?` data-s="${d},${p}" class="ed"`:'';
+      if(!es.length&&pk&&p===PK.p){cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b style="font-size:20px">${PK.code}</b><i>${esc(pkWho(i,d).map(t=>D.teachers[t].code).join(' / '))}</i></div></div></td>`;p++;continue}
+      if(!es.length&&kel&&!pk&&p===r&&allR){if(d===0)cells+=`<td rowspan="${DAYS.length}" class="aw2-rh"><span>REHAT</span></td>`;p++;continue}
       if(!es.length&&!kel&&p===PK.p&&G.pk&&G.pk[i]&&G.pk[i][d]){const cs=G.pk[i][d];cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>${esc(U(cs.map(c=>D.classes[c].name).join(', ')))} ${tmTxt(lessonTime(PK.p,cs))}</i></div></div></td>`;p++;continue}
       if(!es.length){cells+=`<td${ds}></td>`;p++;continue}
       let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&p!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
