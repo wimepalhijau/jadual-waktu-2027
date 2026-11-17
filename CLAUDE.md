@@ -82,6 +82,11 @@ Guru
 - Borang Opsyen: data masuk ke jadual hanya bila pengguna minta. **Kecuali Matematik:** guru MT setiap kelas sentiasa ikut isian Borang Opsyen (Cikgu Iskandar IRT, Ketua Panitia MT) — keputusan pengguna 2026-11-17. Semak dengan `opsyen/semak_mt.py` (dalam scratchpad sesi) atau bandingkan rows `s=MT` dengan `borang/<kod>.subjek MT`.
 - Pemulihan 2 DIAMOND & 2 EMERALD: 6 BM + 4 MT serentak, guru berbeza setiap kelas, Noraliza (NJA) ajar murid pemulihan. Opsyen 2026-11-17 09:2x: MT 2 DIAMOND = NOA, 2 EMERALD = FAU, 1 RUBY = NOA. Pelajaran MT sudah ditukar (v351). Serentak BM/MT 2D/2E belum dibuat: tidak muat selagi slot 3C/4C NJA kekal; slot 3C/4C NJA pun sudah tidak sepadan dengan BM/MT 3 CRYSTAL/4 CRYSTAL selepas Jana 09:22 — tunggu jawapan pengguna tentang peraturan pemulihan 3C/4C.
 
+## Borang Guru PAI 2027 (dalam talian)
+
+- https://claude.ai/artifact/8wNrLFyhvXZxHfuJae2Tt7 — untuk Ustazah Nur Syazwani (NSA) isi guru PI(j), PI(u), PI(q1), PI(q2) ×2, TAS ×2, BA setiap kelas. Koleksi `pai`, id = `1-AMBER`, medan `PIj,PIu,PIq1,PIq2a,PIq2b,TASa,TASb,BA` (kod guru), `catatan`, `oleh`, `masa`.
+- Pengguna mahu isian ini dimasukkan ke `borang` jadual (subjek ikut kod: PI(j), PI(u), PI(q1), PI(q2), TAS, BA) bila sudah diisi.
+
 ## GitHub Pages
 
 - Repo: `wimepalhijau/jadual-waktu-2027` (public, cawangan `main`).
