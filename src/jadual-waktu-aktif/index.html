@@ -163,6 +163,7 @@ body.pv .ak-nt{display:flex;gap:10px;align-items:stretch}body.pv .ak-nt>div{flex
 .aw2-c.split .aw2-p b{font-size:14px;padding-top:3px}.aw2-c.split .aw2-p i{font-size:8px;padding-bottom:1px}
 .aw2-c.lk::after{content:'🔒';position:absolute;top:1px;right:2px;font-size:11px}
 .aw2-c.bad{outline:3px solid #e00;outline-offset:-3px}
+.aw2-nt{font-size:10px;font-weight:700;color:#335;margin:2px 0 0}
 .aw2-ft{display:flex;justify-content:space-between;font-size:7px;color:#335;margin:1px 0 0}
 .aw2-low{display:flex;gap:20px;align-items:flex-end;justify-content:space-between}
 .aw2-lg{border-collapse:collapse;width:70%;font-size:12.5px;font-weight:700;margin-top:4px}
@@ -449,7 +450,9 @@ const PER=Array.from({length:12},(_,k)=>{const st=460+30*k,en=st+30,f=x=>String(
 const LESSONS=PER;
 /* Year 1: PKR 15 minutes in the first half of waktu 4 (09:10-09:25), rehat 09:25-09:55,
    and every waktu after rehat starts 15 minutes later than the other classes. */
-const PK={code:'PKR',tahun:1,p:3,min:15,on:false}; /* PKR removed: 15-minute Year 1 shift is off */
+const PK={code:'PKR',name:'Pembentukan Karakter',tahun:1,p:3,min:15,on:true,guru:false}; /* PKR semula (17 Nov 2026): Tahun 1 setiap hari 09:10-09:25, tiada guru (tiada pelajaran dalam data); rehat 09:25-09:55; waktu selepas rehat 15 minit lewat. */
+const pkY1=i=>PK.on&&yearOf(i)===PK.tahun;
+const pkRest=i=>{const a=lessonTime(PK.p,[i]),b=lessonTime(PK.p+1,[i]);return{pk:a,r:{s:a.e,e:b.s}}};
 
 function defaults(){return{
   groups:[],
@@ -539,7 +542,7 @@ function norm(o){o.groups=o.groups||[];
   /* Pembentukan Karakter: every day, 15 minutes just before Year 1 rehat, taught by the class teacher. */
   /* Pembentukan Karakter was deleted: remove the subject and its lessons (once). */
   if(!o.once.hapusPKR){o.once.hapusPKR=1;o.subjects=o.subjects.filter(x=>x.code!=='PKR');o.lessons=(o.lessons||[]).filter(l=>l[3]!=='PKR');if(o.kur)Object.keys(o.kur).forEach(y=>{if(o.kur[y]&&o.kur[y].PKR!=null)delete o.kur[y].PKR})}
-  (o.classes||[]).forEach((c,ci)=>{if(!PK.on||!/^\s*1\s/.test(c.name||''))return;
+  (o.classes||[]).forEach((c,ci)=>{if(!PK.on||!PK.guru||!/^\s*1\s/.test(c.name||''))return;
     const ti=(o.teachers||[]).findIndex(t=>t.code===c.guru);if(ti<0)return;
     o.lessons=o.lessons||[];
     for(let d=0;d<5;d++)if(!o.lessons.some(l=>l[1]===d&&l[3]===PK.code&&l[4].includes(ci)))o.lessons.push([ti,d,PK.p,PK.code,[ci]])});
@@ -776,7 +779,8 @@ function aw2Col(sb){if(sb==='PER')return['#c5a8f5','#000'];if(sb==='BY')return['
   const sj=subj(sb),h=sj?sj.h:215,l=(h>200&&h<280)?40:62;return[`hsl(${h} 72% ${l}%)`,l<50?'#fff':'#000']}
 function ascWHTML(G,mode,i,ed){
   const s=D.school||{},kel=mode==='kelas',tm=ascTimes(mode,i),r=kel?restOf(i):-1,rx=kel?restEx(yearOf(i)):0;
-  const head=`<tr><th class="dw"></th>${tm.map((t,k)=>`<th><em>${t.n}</em>${k===r&&rx?h12(PER[k].s-rx):t.s}<br>${t.e}</th>`).join('')}</tr>`;
+  const pk=kel&&pkY1(i)?pkRest(i):null;
+  const head=`<tr><th class="dw"></th>${tm.map((t,k)=>pk&&k===PK.p?`<th><em>${PK.code}</em>${h12(pk.pk.s)}<br>${h12(pk.r.e)}</th>`:`<th><em>${t.n}</em>${k===r&&rx?h12(PER[k].s-rx):t.s}<br>${t.e}</th>`).join('')}</tr>`;
   const gk=kel?D.teachers.findIndex(t=>t.code===D.classes[i].guru):-1;
   const at=(d,p)=>{if(!kel)return G.tch[i][d][p];let es=G.cls[i][d][p];if(!es.length&&gk>=0){const x=G.tch[gk][d][p].filter(e=>e.sub==='BY'&&!e.cls.length);if(x.length)es=[{t:gk,sub:'BY',cls:[]}]}return es};
   const who=e=>kel?(D.teachers[e.t]?D.teachers[e.t].code:'?'):(e.cls||[]).map(c=>D.classes[c]?D.classes[c].name:'?').join(', ');
@@ -784,6 +788,7 @@ function ascWHTML(G,mode,i,ed){
   const L={};
   const rows=DAYS.map((dn,d)=>{let cells='',p=0;
     while(p<PER.length){const es=at(d,p),ds=ed?` data-s="${d},${p}" class="ed"`:'';
+      if(!es.length&&pk&&p===PK.p){cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>REHAT ${h12(pk.r.s)}</i></div></div></td>`;p++;continue}
       if(!es.length){cells+=`<td${ds}></td>`;p++;continue}
       let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&p!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
       const by={};es.forEach(e=>{(by[e.sub]=by[e.sub]||[]);const w=who(e);if(w&&!by[e.sub].includes(w))by[e.sub].push(w)});
@@ -795,6 +800,9 @@ function ascWHTML(G,mode,i,ed){
   const ks=Object.keys(L).sort((a,b)=>(a==='PER')-(b==='PER')||(a==='BY')-(b==='BY')||a.localeCompare(b)),tot=ks.reduce((a,k)=>a+L[k].n,0);
   const lrows=ks.map(k=>{const sj=subj(k),nm=sj?sj.name:k,w=kel?[...L[k].t].filter(t=>D.teachers[t]).map(t=>D.teachers[t].name).join(', '):[...L[k].w].join(', ');
     return`<tr><td>${esc(k)}</td><td class="nm">${esc(U(k==='PER'?'PERHIMPUNAN':nm))}</td><td class="nm">${k==='PER'||k==='BY'?'':esc(U(w))}</td><td class="n">${L[k].n}</td></tr>`}).join('');
+  const pkRow=pk?`<tr><td>${PK.code}</td><td class="nm">${esc(U(PK.name))}</td><td class="nm">TIADA GURU (${tmTxt(pk.pk)})</td><td class="n">${DAYS.length}</td></tr>`:'';
+  const tY1=!kel&&PK.on&&D.lessons.some(l=>l[0]===i&&l[2]>PK.p&&y1Only(l[4]));
+  const pkNote=pk?`<div class="aw2-nt">Tahun 1: ${esc(PK.name)} ${tmTxt(pk.pk)} setiap hari, rehat ${tmTxt(pk.r)}. Waktu selepas rehat bermula 15 minit lewat (masa sebenar di kepala jadual).</div>`:tY1?`<div class="aw2-nt">Kelas Tahun 1 selepas rehat bermula 15 minit lewat daripada masa di kepala jadual.</div>`:'';
   const logo=s.logo?`<img src="${s.logo}" alt="">`:'<span>LOGO</span>';
   let gkTxt,nm;
   if(kel){const c=D.classes[i],t=D.teachers.find(x=>x.code===c.guru),pg=c.pgk&&D.teachers.find(x=>x.code===c.pgk);nm=c.name;
@@ -804,14 +812,15 @@ function ascWHTML(G,mode,i,ed){
     <div class="aw2-sk">${esc(U(s.name||''))}</div>
     <div class="aw2-tt">JADUAL WAKTU ${kel?'KELAS':'GURU'} ${esc(U(s.versi||''))}</div><div class="aw2-bm">${s.bermula?'BERMULA: '+esc(U(s.bermula)):''}</div>
     <div class="aw2-gk">${gkTxt}</div><div class="aw2-nm"${!kel&&nm.length>22?' style="font-size:17px"':''}>${esc(U(nm))}</div></div>
-    <table class="aw2-t"><thead>${head}</thead><tbody>${rows}</tbody></table>
+    <table class="aw2-t"><thead>${head}</thead><tbody>${rows}</tbody></table>${pkNote}
     <div class="aw2-ft"><span>Unit Jadual Waktu ${esc(U(s.name||''))}</span><span>aSc Timetables</span></div>
     <div class="aw2-low"><table class="aw2-lg"><thead><tr><th>SUBJEK</th><th>NAMA SUBJEK</th><th>${kel?'NAMA GURU':'KELAS'}</th><th class="n">JUM</th></tr></thead>
-      <tbody>${lrows}</tbody><tfoot><tr><td></td><td></td><td></td><td class="n">${tot}</td></tr></tfoot></table>
+      <tbody>${lrows}${pkRow}</tbody><tfoot><tr><td></td><td></td><td></td><td class="n">${tot}</td></tr></tfoot></table>
     <div class="aw2-sah"><div class="s0">Disahkan Oleh;</div>${esc(U(s.pengesah||''))}<br>${esc(U(s.jawatan||''))}<br>${esc(U(s.name||''))}</div></div></div>`}
 function ascHTML(G,mode,i,ed){
   const rr=mode==='kelas'?restOf(i):-1,rx=mode==='kelas'?restEx(yearOf(i)):0;
-  const tm=ascTimes(mode,i),cols=tm.map((t,k)=>k===rr?`<th class="rh"><em>REHAT</em>${h12(PER[k].s-rx)}<br>${t.e}</th>`:`<th class="${k%2?'b':'a'}">${mode==='kelas'?`<em>${t.n}</em>`:''}${t.s}<br>${t.e}</th>`).join('');
+  const pk=mode==='kelas'&&pkY1(i)?pkRest(i):null;
+  const tm=ascTimes(mode,i),cols=tm.map((t,k)=>pk&&k===PK.p?`<th class="rh"><em>${PK.code} &amp; REHAT</em>${h12(pk.pk.s)}<br>${h12(pk.r.e)}</th>`:k===rr?`<th class="rh"><em>REHAT</em>${h12(PER[k].s-rx)}<br>${t.e}</th>`:`<th class="${k%2?'b':'a'}">${mode==='kelas'?`<em>${t.n}</em>`:''}${t.s}<br>${t.e}</th>`).join('');
   const head=`<tr><th class="aw">${mode==='kelas'?'WAKTU<br><small>HARI</small>':'WAKTU'}</th>${cols}</tr>`;
   let rows='',legend='';
   if(mode==='guru'){
@@ -834,8 +843,8 @@ function ascHTML(G,mode,i,ed){
     const allR=!ed&&r>=0&&DAYS.every((_,d)=>!at(d,r).length);
     rows=DAYS.map((dn,d)=>{let cells='',p=0;
       while(p<PER.length){const es=at(d,p);
-        if(!es.length&&p===r&&allR){if(d===0)cells+=`<td rowspan="${DAYS.length}" class="arh arv"><span>R<br>E<br>H<br>A<br>T</span></td>`;p++;continue}
-        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
+        if(!es.length&&p===r&&allR){if(d===0)cells+=`<td rowspan="${DAYS.length}" class="arh arv"><span>${pk?`${PK.code}<br><br>`:''}R<br>E<br>H<br>A<br>T</span></td>`;p++;continue}
+        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>${pk?PK.code+' · ':''}R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
         let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
         const ds=ed?` data-s="${d},${p}" class="ed"`:'';
         const by={};es.forEach(e=>{(by[e.sub]=by[e.sub]||[]).push(e.t);T.add(e.t);SB.add(e.sub)});
@@ -849,7 +858,7 @@ function ascHTML(G,mode,i,ed){
     for(let j=0;j<sh;j++){const a=sl[j],b=sl[j+sh];sr.push(`<tr><td class="g">${esc(a[0])}</td><td class="g">${esc(U(a[1]))}</td><td class="y">${b?esc(b[0]):''}</td><td class="y">${b?esc(U(b[1])):''}</td></tr>`)}
     legend=`<div class="ak-lg"><table class="ak-g"><thead><tr><th colspan="2">Nama Guru</th><th colspan="2">Nama Guru</th></tr></thead><tbody>${tr.join('')}</tbody></table>
       <table class="ak-s"><thead><tr><th colspan="2">M. PELAJARAN</th><th colspan="2">M. PELAJARAN</th></tr></thead><tbody>${sr.join('')}</tbody></table></div>
-      <div class="ak-nt"><div class="ak-n1">Bacaan Yasin bermula pada pukul 7.40 pagi hingga 8.10 pagi setiap hari Jumaat.</div>
+      <div class="ak-nt">${pk?`<div class="ak-n1">${esc(PK.name)} (${PK.code}) ${tmTxt(pk.pk)} setiap hari, tiada guru. Rehat ${tmTxt(pk.r)}; waktu selepas rehat bermula 15 minit lewat.</div>`:''}<div class="ak-n1">Bacaan Yasin bermula pada pukul 7.40 pagi hingga 8.10 pagi setiap hari Jumaat.</div>
       <div class="ak-n2">Murid-murid dikehendaki hadir ke sekolah sebelum jam 7.30 pagi.</div></div>`;
   }
   const s=D.school||{};
@@ -896,7 +905,7 @@ function ttHTML0(G){
         cells+=mode==='kelas'
           ?`<td colspan="${span}"${ds}><div class="lc ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><i>${esc(info.small)}</i></div></td>`
           :`<td colspan="${span}"${ds}><div class="lt ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><small${info.shift?' style="font-size:8.5px;font-weight:700;opacity:1"':''}>${info.shift?esc(tmTxt(info.tm)):esc(U(sn?sn.name:''))}</small><i>${esc(info.small)}</i></div></td>`
-      }else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">REHAT<br><span style="font-weight:400">${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}</span></td>`:`<td${ds}></td>`;
+      }else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">${y1?`${PK.code} ${tmTxt(pkRest(i).pk)}<br>`:''}REHAT<br><span style="font-weight:400">${y1?tmTxt(pkRest(i).r):`${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}`}</span></td>`:`<td${ds}></td>`;
       k+=span;pi+=span}
     return`<tr><th class="dl">${dn}</th>${cells}</tr>`}).join('');
   let L=Object.values(leg);
@@ -1666,9 +1675,9 @@ function trRows(G){const out=[],ld=tLoads(D.lessons);D.teachers.forEach((t,i)=>D
     const kc=p=>{const es=G.tch[i][d][p].filter(e=>e.sub!=='PER'&&e.sub!=='BY');return es.length?[...new Set(es.flatMap(e=>e.cls||[]))].sort():null};
     for(let p=1;p<PER.length;p++){const a=kc(p-1),b=kc(p);if(a&&b&&a.length&&b.length&&a.join(',')!==b.join(','))out.push({t:i,d,from:p-1,sw:true,a,b})}}));return out}
 function tlRows(G){const out=[];D.teachers.forEach((t,i)=>{if(tEnd(i)==null)return;DAYS.forEach((dn,d)=>PER.forEach((_,p)=>{if(tLate(i,p)&&G.tch[i][d][p].some(e=>e.sub!=='PER'))out.push({t:i,d,p})}))});return out}
-function pjLate(p){return PER[p]&&PER[p].e>PJ_END}
+function pjLate(p,cs){return PER[p]&&(cs&&cs.length?lessonTime(p,cs).e:PER[p].e)>PJ_END}
 /* PJ tidak boleh pada hari Isnin (hari 0). */
-function pjBad(d,p){return d===0||pjLate(p)}
+function pjBad(d,p,cs){return d===0||pjLate(p,cs)}
 /* Hari PJ sesebuah kelas mesti berselang: tidak pada dua hari berturutan. */
 function tdRows(G){const out=[];D.teachers.forEach((t,i)=>DAYS.forEach((dn,d)=>{let n=0;PER.forEach((_,p)=>{if(G.tch[i][d][p].some(e=>e.sub!=='PER'))n++});if(n>TCAP)out.push({t:i,d,n})}));return out}
 function pjAdjTry(c,d){const has=x=>D.lessons.some(l=>l[1]===x&&l[4].includes(c)&&/^PJ\d/.test(l[3]));return !has(d)&&(has(d-1)||has(d+1))}
@@ -1789,7 +1798,7 @@ function janaPref(J,b){
   let c=0;
   b.tpl.forEach(x=>{for(let k=0;k<b.len;k++)if(tOff(x.t,b.d,b.s+k))c+=2});
   b.tpl.forEach(x=>{
-    if(/^PJ\d/.test(x.sub))x.cls.forEach(cl=>{for(let k=0;k<b.len;k++)if(pjBad(b.d,b.s+k))c++});
+    if(/^PJ\d/.test(x.sub))x.cls.forEach(cl=>{for(let k=0;k<b.len;k++)if(pjBad(b.d,b.s+k,[cl]))c++});
     if(x.sub==='TAS')x.cls.forEach(cl=>{const at=b.s+b.len-1===J.last[cl][b.d];if(J.pm[cl]?!at:at)c++})});
   return c;
 }
@@ -1800,7 +1809,7 @@ function extraSemak(G){const o=offRows(G),r=roomRows(G),lk=(D.locks||[]).length;
 function janaStats(J){
   let pj=0,pjAll=0,tas=0,tasAll=0,tasN=0;
   J.blocks.forEach(b=>b.tpl.forEach(x=>{
-    if(/^PJ\d/.test(x.sub))x.cls.forEach(cl=>{pjAll+=b.len;for(let k=0;k<b.len;k++)if(pjBad(b.d,b.s+k))pj++});
+    if(/^PJ\d/.test(x.sub))x.cls.forEach(cl=>{pjAll+=b.len;for(let k=0;k<b.len;k++)if(pjBad(b.d,b.s+k,[cl]))pj++});
     if(x.sub==='TAS')x.cls.forEach(cl=>{const at=b.s+b.len-1===J.last[cl][b.d];if(J.pm[cl]){tasAll++;if(!at)tas++}else if(at)tasN++})}));
   const conf=janaConf(J);
   return{pj,pjAll,tas,tasAll,tasN,conf,dup:J.dupc||0,exc:J.exc||0,adj:J.adj||0,tex:J.tex||0,tl:J.tl||0,tf:J.tf||0,run:J.run||0,k4:J.k4||0,pk:J.pk||0,rm:J.rmx||0,off:J.blocks.reduce((n,b)=>{b.tpl.forEach(x=>{for(let k=0;k<b.len;k++)if(tOff(x.t,b.d,b.s+k))n++});return n},0)};
@@ -1951,7 +1960,7 @@ function genBorang(){
       if(b.pj&&(d===0||[...pjDay[b.c]].some(x=>Math.abs(x-d)===1)&&strict))continue;
       for(let s=0;s+b.len-1<=endOf(d);s++){let ok=true,tc=0;
         for(let k=0;k<b.len;k++){if(cB[b.c][d][s+k]){ok=false;break}b.tpl.forEach(x=>{if(tB[x.t][d][s+k]||tOff(x.t,d,s+k))tc++})}
-        if(!ok)continue;if(b.pj&&pjLate(s+b.len-1))continue;
+        if(!ok)continue;if(b.pj&&pjLate(s+b.len-1,[b.c]))continue;
         let sw=0;b.tpl.forEach(x=>{const r=tK[x.t][d],a=s>0?r[s-1]:-1,z=s+b.len<NP?r[s+b.len]:-1;if(a>=0&&a!==b.c)sw++;if(z>=0&&z!==b.c)sw++});
         const sc=tc*1000+sw*60+s*3+d+Math.random();if(!best||sc<best.sc)best={d,s,sc,tc}}}
     return best}
@@ -2145,7 +2154,7 @@ function bilDo(c,q,bs,bt){
       const free=[];grid.forEach(k=>{const[d,p]=k.split(',').map(Number);
         if(G.cls[c][d][p].length)return;
         if(tpl.some(l=>G.tch[l[0]][d][p].length))return;
-        free.push([d,p,days.has(d)?1:0,/^PJ\d/.test(r.sub)&&(pjBad(d,p)||pjAdjTry(c,d))?1:0])});
+        free.push([d,p,days.has(d)?1:0,/^PJ\d/.test(r.sub)&&(pjBad(d,p,[c])||pjAdjTry(c,d))?1:0])});
       if(!free.length)break;
       free.sort((a,b)=>a[3]-b[3]||a[2]-b[2]||a[0]-b[0]||a[1]-b[1]);
       const[d,p]=free[0];tpl.forEach(l=>D.lessons.push([l[0],d,p,r.sub,[c]]));need--}
@@ -2333,7 +2342,7 @@ function anaKelasData(c,G){
     if(k===restOf(c))issues.push(`${dn}: pelajaran pada waktu rehat (${[...new Set(es.map(e=>e.sub))].join(', ')})`)}));
   const r=restOf(c);
   Object.values(subs).forEach(x=>{
-    if(/^PJ\d/.test(x.sub))[...x.slots].forEach(k=>{const[d,p]=k.split(',').map(Number);if(pjBad(d,p))issues.push(d===0?`${x.sub} pada hari ${DAYS[d]} (PJ tidak boleh hari Isnin)`:`${x.sub} ${DAYS[d]} waktu ${p+1} tamat selepas 10:40`)});
+    if(/^PJ\d/.test(x.sub))[...x.slots].forEach(k=>{const[d,p]=k.split(',').map(Number);if(pjBad(d,p,[c]))issues.push(d===0?`${x.sub} pada hari ${DAYS[d]} (PJ tidak boleh hari Isnin)`:`${x.sub} ${DAYS[d]} waktu ${p+1} tamat selepas 10:40`)});
     Object.entries(x.days).forEach(([d,ks])=>{const a=[...ks].sort((u,v)=>u-v);let runs=1;for(let i=1;i<a.length;i++)if(a[i]!==a[i-1]+1)runs++;
       if(runs>1&&x.sub!=='PER')issues.push(`${x.sub} berulang pada ${DAYS[d]} (waktu ${a.map(n=>n+1).join(', ')})`)})});
   const kur=kurOf(c);

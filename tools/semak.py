@@ -60,7 +60,9 @@ for ci, cl in enumerate(C):
 
 # 4. PJ selepas 10:40
 for l in L:
-    if l[3].startswith("PJ") and end_min(l[2]) > PJ_END:
+    # Tahun 1: PKR 09:10-09:25 + rehat 09:25-09:55, waktu selepas rehat anjak 15 minit
+    sh = 15 if l[4] and all(year(c) == 1 for c in l[4]) and l[2] > 3 else 0
+    if l[3].startswith("PJ") and end_min(l[2]) + sh > PJ_END:
         issues["PJ tamat selepas 10:40"].append(f"{T[l[0]]['code']} {DAYS[l[1]]} waktu {l[2]+1} {l[3]}")
     if l[3].startswith("PJ") and l[1] == 0:
         issues["PJ pada hari Isnin"].append(f"{T[l[0]]['code']} waktu {l[2]+1} {l[3]} " + ", ".join(C[c]['code'] for c in l[4]))
