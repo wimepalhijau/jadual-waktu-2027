@@ -453,6 +453,15 @@ const LESSONS=PER;
 const PK={code:'PKR',name:'Pembentukan Karakter',tahun:1,p:3,min:15,on:true,guru:false}; /* PKR semula (17 Nov 2026): Tahun 1 setiap hari 09:10-09:25, tiada guru (tiada pelajaran dalam data); rehat 09:25-09:55; waktu selepas rehat 15 minit lewat. */
 const pkY1=i=>PK.on&&yearOf(i)===PK.tahun;
 const pkRest=i=>{const a=lessonTime(PK.p,[i]),b=lessonTime(PK.p+1,[i]);return{pk:a,r:{s:a.e,e:b.s}}};
+/* PKR diajar oleh guru subjek sebelumnya (waktu PK.p-1) kelas Tahun 1 itu pada hari itu. */
+function pkList(){const out=[];if(!PK.on)return out;
+  (D.classes||[]).forEach((cl,c)=>{if(yearOf(c)!==PK.tahun)return;
+    for(let d=0;d<DAYS.length;d++){const ts=[...new Set((D.lessons||[]).filter(l=>l[1]===d&&l[2]===PK.p-1&&l[4].includes(c)&&l[3]!=='PER'&&l[3]!=='BY').map(l=>l[0]))];
+      out.push({c,d,ts})}});return out}
+function pkWho(c,d){const x=pkList().find(o=>o.c===c&&o.d===d);return x?x.ts:[]}
+/* Guru PKR yang juga ada pelajaran lain bertindih dengan masa PKR. */
+function pkClashes(){const out=[];pkList().forEach(o=>{if(!o.ts.length)return;const pt=lessonTime(PK.p,[o.c]);
+  o.ts.forEach(t=>D.lessons.forEach((l,i)=>{if(l[0]!==t||l[1]!==o.d||l[3]==='PER'||l[3]==='BY'||l[4].includes(o.c))return;const lt=lessonTime(l[2],l[4]);if(lt.s<pt.e&&pt.s<lt.e)out.push({t,d:o.d,c:o.c,i})}))});return out}
 
 function defaults(){return{
   groups:[],
@@ -598,7 +607,9 @@ function build(){
     /* Assembly (PER) has no class on the teacher sheet; show it on the class teacher's own class. */
     if(!cs.length&&sub==='PER')D.classes.forEach((c,ci)=>{if(c.guru&&c.guru===D.teachers[t].code)cls[ci][d][p].push({t,sub})})}
   const half=new Set();halfClashes().forEach(pr=>pr.forEach(i=>{const l=D.lessons[i];half.add(l[0]+','+l[1]+','+l[2])}));
-  return{cls,tch,half};
+  const pk={};pkList().forEach(o=>o.ts.forEach(t=>{((pk[t]=pk[t]||{})[o.d]=pk[t][o.d]||[]).push(o.c)}));
+  pkClashes().forEach(x=>{const l=D.lessons[x.i];half.add(l[0]+','+l[1]+','+l[2])});
+  return{cls,tch,half,pk};
 }
 function reindex(v,x){
   if(v==='guru')D.lessons=D.lessons.filter(l=>l[0]!==x).map(l=>[l[0]>x?l[0]-1:l[0],l[1],l[2],l[3],l[4]]);
@@ -788,7 +799,8 @@ function ascWHTML(G,mode,i,ed){
   const L={};
   const rows=DAYS.map((dn,d)=>{let cells='',p=0;
     while(p<PER.length){const es=at(d,p),ds=ed?` data-s="${d},${p}" class="ed"`:'';
-      if(!es.length&&pk&&p===PK.p){cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>REHAT ${h12(pk.r.s)}</i></div></div></td>`;p++;continue}
+      if(!es.length&&pk&&p===PK.p){cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>${esc(pkWho(i,d).map(t=>D.teachers[t].code).join(' / '))}${pkWho(i,d).length?' · ':''}REHAT ${h12(pk.r.s)}</i></div></div></td>`;p++;continue}
+      if(!es.length&&!kel&&p===PK.p&&G.pk&&G.pk[i]&&G.pk[i][d]){const cs=G.pk[i][d];cells+=`<td${ds}><div class="aw2-c"><div class="aw2-p" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>${esc(U(cs.map(c=>D.classes[c].name).join(', ')))} ${tmTxt(lessonTime(PK.p,cs))}</i></div></div></td>`;p++;continue}
       if(!es.length){cells+=`<td${ds}></td>`;p++;continue}
       let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&p!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
       const by={};es.forEach(e=>{(by[e.sub]=by[e.sub]||[]);const w=who(e);if(w&&!by[e.sub].includes(w))by[e.sub].push(w)});
@@ -800,9 +812,10 @@ function ascWHTML(G,mode,i,ed){
   const ks=Object.keys(L).sort((a,b)=>(a==='PER')-(b==='PER')||(a==='BY')-(b==='BY')||a.localeCompare(b)),tot=ks.reduce((a,k)=>a+L[k].n,0);
   const lrows=ks.map(k=>{const sj=subj(k),nm=sj?sj.name:k,w=kel?[...L[k].t].filter(t=>D.teachers[t]).map(t=>D.teachers[t].name).join(', '):[...L[k].w].join(', ');
     return`<tr><td>${esc(k)}</td><td class="nm">${esc(U(k==='PER'?'PERHIMPUNAN':nm))}</td><td class="nm">${k==='PER'||k==='BY'?'':esc(U(w))}</td><td class="n">${L[k].n}</td></tr>`}).join('');
-  const pkRow=pk?`<tr><td>${PK.code}</td><td class="nm">${esc(U(PK.name))}</td><td class="nm">TIADA GURU (${tmTxt(pk.pk)})</td><td class="n">${DAYS.length}</td></tr>`:'';
-  const tY1=!kel&&PK.on&&D.lessons.some(l=>l[0]===i&&l[2]>PK.p&&y1Only(l[4]));
-  const pkNote=pk?`<div class="aw2-nt">Tahun 1: ${esc(PK.name)} ${tmTxt(pk.pk)} setiap hari, rehat ${tmTxt(pk.r)}. Waktu selepas rehat bermula 15 minit lewat (masa sebenar di kepala jadual).</div>`:tY1?`<div class="aw2-nt">Kelas Tahun 1 selepas rehat bermula 15 minit lewat daripada masa di kepala jadual.</div>`:'';
+  const pkT=pk?[...new Set(DAYS.flatMap((_,d)=>pkWho(i,d)))]:[],pkG=!kel&&G.pk&&G.pk[i]?Object.values(G.pk[i]).flat():[];
+  const pkRow=pk?`<tr><td>${PK.code}</td><td class="nm">${esc(U(PK.name))}</td><td class="nm">${esc(U(pkT.length?pkT.map(t=>D.teachers[t].name).join(', '):'Guru waktu sebelumnya'))}</td><td class="n">${DAYS.length}</td></tr>`:pkG.length?`<tr><td>${PK.code}</td><td class="nm">${esc(U(PK.name))}</td><td class="nm">${esc(U([...new Set(pkG)].map(c=>D.classes[c].name).join(', ')))}</td><td class="n">${pkG.length}</td></tr>`:'';
+  const tY1=!kel&&PK.on&&(pkG.length||D.lessons.some(l=>l[0]===i&&l[2]>PK.p&&y1Only(l[4])));
+  const pkNote=pk?`<div class="aw2-nt">Tahun 1: ${esc(PK.name)} ${tmTxt(pk.pk)} setiap hari oleh guru waktu sebelumnya, rehat ${tmTxt(pk.r)}. Waktu selepas rehat bermula 15 minit lewat (masa sebenar di kepala jadual).</div>`:tY1?`<div class="aw2-nt">${pkG.length?`${PK.code} (${esc(PK.name)}) ${tmTxt(lessonTime(PK.p,[pkG[0]]))} disambung oleh guru waktu sebelumnya. `:''}Kelas Tahun 1 selepas rehat bermula 15 minit lewat daripada masa di kepala jadual.</div>`:'';
   const logo=s.logo?`<img src="${s.logo}" alt="">`:'<span>LOGO</span>';
   let gkTxt,nm;
   if(kel){const c=D.classes[i],t=D.teachers.find(x=>x.code===c.guru),pg=c.pgk&&D.teachers.find(x=>x.code===c.pgk);nm=c.name;
@@ -827,6 +840,7 @@ function ascHTML(G,mode,i,ed){
     const L={};
     rows=DAYS.map((dn,d)=>{let cells='';
       for(let p=0;p<PER.length;p++){const es=G.tch[i][d][p],ds=ed?` data-s="${d},${p}" class="ed"`:'';
+        if(!es.length&&p===PK.p&&G.pk&&G.pk[i]&&G.pk[i][d]){const pc=G.pk[i][d];cells+=`<td${ds}><div class="ab" style="background:#e6dcc0;color:#000"><b>${PK.code}</b><i>${esc(U(pc.map(c=>D.classes[c].name).join(', ')))}</i></div></td>`;continue}
         if(!es.length){cells+=`<td${ds}><div class="ab0"></div></td>`;continue}
         const subs=[...new Set(es.map(x=>x.sub))],cs=[...new Set(es.flatMap(x=>x.cls))].map(c=>D.classes[c]?D.classes[c].name:'?');
         const sj=subj(subs[0]),h=sj?sj.h:215,bad=es.length>1||(G.half&&G.half.has(i+','+d+','+p)),bh=cs.length?ascHash(cs[0]):h;
@@ -840,11 +854,11 @@ function ascHTML(G,mode,i,ed){
     const r=restOf(i),gk=D.teachers.findIndex(t=>t.code===D.classes[i].guru),T=new Set(),SB=new Set();
     const at=(d,p)=>{let es=G.cls[i][d][p];if(!es.length&&gk>=0){const x=G.tch[gk][d][p].filter(e=>e.sub==='BY'&&!e.cls.length);if(x.length)es=[{t:gk,sub:'BY'}]}return es};
     const sig=es=>es.map(e=>e.sub+'|'+e.t).sort().join(';');
-    const allR=!ed&&r>=0&&DAYS.every((_,d)=>!at(d,r).length);
+    const allR=!ed&&!pk&&r>=0&&DAYS.every((_,d)=>!at(d,r).length);
     rows=DAYS.map((dn,d)=>{let cells='',p=0;
       while(p<PER.length){const es=at(d,p);
         if(!es.length&&p===r&&allR){if(d===0)cells+=`<td rowspan="${DAYS.length}" class="arh arv"><span>${pk?`${PK.code}<br><br>`:''}R<br>E<br>H<br>A<br>T</span></td>`;p++;continue}
-        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>${pk?PK.code+' · ':''}R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
+        if(!es.length){const ds=ed?` data-s="${d},${p}" class="ed"`:'';cells+=p===r?`<td${ed?` data-s="${d},${p}"`:''} class="arh${ed?' ed':''}"><span>${pk?PK.code+' '+esc(pkWho(i,d).map(t=>D.teachers[t].code).join('/'))+' · ':''}R E H A T</span></td>`:`<td${ds}></td>`;p++;continue}
         let span=1;if(!ed){const sg=sig(es);while(p+span<PER.length&&p+span!==r&&sig(at(d,p+span))===sg&&es[0].sub!=='PER'&&es[0].sub!=='BY')span++}
         const ds=ed?` data-s="${d},${p}" class="ed"`:'';
         const by={};es.forEach(e=>{(by[e.sub]=by[e.sub]||[]).push(e.t);T.add(e.t);SB.add(e.sub)});
@@ -858,7 +872,7 @@ function ascHTML(G,mode,i,ed){
     for(let j=0;j<sh;j++){const a=sl[j],b=sl[j+sh];sr.push(`<tr><td class="g">${esc(a[0])}</td><td class="g">${esc(U(a[1]))}</td><td class="y">${b?esc(b[0]):''}</td><td class="y">${b?esc(U(b[1])):''}</td></tr>`)}
     legend=`<div class="ak-lg"><table class="ak-g"><thead><tr><th colspan="2">Nama Guru</th><th colspan="2">Nama Guru</th></tr></thead><tbody>${tr.join('')}</tbody></table>
       <table class="ak-s"><thead><tr><th colspan="2">M. PELAJARAN</th><th colspan="2">M. PELAJARAN</th></tr></thead><tbody>${sr.join('')}</tbody></table></div>
-      <div class="ak-nt">${pk?`<div class="ak-n1">${esc(PK.name)} (${PK.code}) ${tmTxt(pk.pk)} setiap hari, tiada guru. Rehat ${tmTxt(pk.r)}; waktu selepas rehat bermula 15 minit lewat.</div>`:''}<div class="ak-n1">Bacaan Yasin bermula pada pukul 7.40 pagi hingga 8.10 pagi setiap hari Jumaat.</div>
+      <div class="ak-nt">${pk?`<div class="ak-n1">${esc(PK.name)} (${PK.code}) ${tmTxt(pk.pk)} setiap hari, diajar oleh guru waktu sebelumnya. Rehat ${tmTxt(pk.r)}; waktu selepas rehat bermula 15 minit lewat.</div>`:''}<div class="ak-n1">Bacaan Yasin bermula pada pukul 7.40 pagi hingga 8.10 pagi setiap hari Jumaat.</div>
       <div class="ak-n2">Murid-murid dikehendaki hadir ke sekolah sebelum jam 7.30 pagi.</div></div>`;
   }
   const s=D.school||{};
@@ -905,7 +919,7 @@ function ttHTML0(G){
         cells+=mode==='kelas'
           ?`<td colspan="${span}"${ds}><div class="lc ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><i>${esc(info.small)}</i></div></td>`
           :`<td colspan="${span}"${ds}><div class="lt ${info.bad?'bad':''}" style="--h:${info.h}"><b>${esc(info.sub)}</b><small${info.shift?' style="font-size:8.5px;font-weight:700;opacity:1"':''}>${info.shift?esc(tmTxt(info.tm)):esc(U(sn?sn.name:''))}</small><i>${esc(info.small)}</i></div></td>`
-      }else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">${y1?`${PK.code} ${tmTxt(pkRest(i).pk)}<br>`:''}REHAT<br><span style="font-weight:400">${y1?tmTxt(pkRest(i).r):`${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}`}</span></td>`:`<td${ds}></td>`;
+      }else cells+=mode==='kelas'&&pi===restOf(i)?`<td${ds} class="rest" style="text-align:center;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--muted)">${y1?`${PK.code} ${esc(pkWho(i,d).map(t=>D.teachers[t].code).join('/'))} ${tmTxt(pkRest(i).pk)}<br>`:''}REHAT<br><span style="font-weight:400">${y1?tmTxt(pkRest(i).r):`${h12(PER[pi].s-restEx(yearOf(i)))}–${h12(PER[pi].e)}`}</span></td>`:`<td${ds}></td>`;
       k+=span;pi+=span}
     return`<tr><th class="dl">${dn}</th>${cells}</tr>`}).join('');
   let L=Object.values(leg);
@@ -1585,7 +1599,8 @@ function semakView(){
   const load=D.teachers.map((t,i)=>{let n=0,occ=0;G.tch[i].forEach(day=>day.forEach(sl=>{n+=sl.length;if(sl.length)occ++}));return{t,n,free:total-occ}});
   const hc=halfClashes(),hcL=hc.map(([a,b])=>{const A=D.lessons[a],B=D.lessons[b],f=l=>`${l[3]} ${l[4].map(c=>D.classes[c].name).join(', ')||''} (${tmTxt(lessonTime(l[2],l[4]))})`;
     return`${D.teachers[A[0]].name}, ${DAYS[A[1]]}: ${f(A)} dan ${f(B)}`});
-  const hcHTML=`<h2 class="sech" style="margin-top:6px">Tindihan separuh waktu (Tahun 1 anjak 15 minit)</h2>${hcL.length
+  pkClashes().forEach(x=>{const B=D.lessons[x.i];hcL.push(`${D.teachers[x.t].name}, ${DAYS[x.d]}: ${PK.code} ${D.classes[x.c].name} (${tmTxt(lessonTime(PK.p,[x.c]))}) dan ${B[3]} ${B[4].map(c=>D.classes[c].name).join(', ')} (${tmTxt(lessonTime(B[2],B[4]))})`)});
+  const hcHTML=`<h2 class="sech" style="margin-top:6px">Tindihan separuh waktu (Tahun 1 anjak 15 minit / guru PKR)</h2>${hcL.length
     ?`<p><span class="bad">${hcL.length} tindihan</span></p><ul>${hcL.slice(0,15).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${hcL.length>15?`<p class="note">Dan ${hcL.length-15} lagi.</p>`:''}`
     :'<p><span class="ok">Tiada</span></p>'}`;
   const yr={};D.lessons.forEach(l=>{yearBad(l[3],l[4]).forEach(c=>{const k=l[3]+'|'+c;yr[k]=(yr[k]||0)+1})});
