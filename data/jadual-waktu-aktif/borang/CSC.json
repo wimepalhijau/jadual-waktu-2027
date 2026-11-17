@@ -1,1 +1,16 @@
-{"catatan": "", "dihantar": 1794877784492, "guru": "CHE SUHARRA BINTI CHE ALI MOHAMED", "kod": "CSC", "oleh": "Borang Opsyen (Ketua Panitia MT)", "subjek": [{"kelas": ["2 AMBER"], "kod": "MT", "nama": "Matematik"}]}
+{
+  "catatan": "",
+  "dihantar": 1794877784492,
+  "guru": "CHE SUHARRA BINTI CHE ALI MOHAMED",
+  "kod": "CSC",
+  "oleh": "Borang Opsyen (Ketua Panitia MT)",
+  "subjek": [
+    {
+      "kelas": [
+        "2 AMBER"
+      ],
+      "kod": "MT",
+      "nama": "Matematik"
+    }
+  ]
+}

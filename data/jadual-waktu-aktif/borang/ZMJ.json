@@ -1,1 +1,25 @@
-{"catatan": "", "dihantar": 1793940974334, "guru": "ZURINA BT MOHD JAMANI", "kod": "ZMJ", "oleh": "DATIN MARIATI", "subjek": [{"kelas": ["6 DIAMOND", "6 OPAL", "3 AMBER"], "kod": "MT", "nama": "Matematik"}]}
+{
+  "catatan": "",
+  "dihantar": 1794878487199,
+  "guru": "ZURINA BT MOHD JAMANI",
+  "kod": "ZMJ",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "3 AMBER",
+        "6 DIAMOND",
+        "6 OPAL"
+      ],
+      "kod": "MT",
+      "nama": "Matematik"
+    },
+    {
+      "kelas": [
+        "2 EMERALD"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
+    }
+  ]
+}
