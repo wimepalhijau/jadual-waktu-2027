@@ -428,6 +428,43 @@ tbody tr.row{cursor:pointer}
   .lg{font-size:11.5px}
   .sig{margin-top:18px}
 }
+
+/* papan pemuka */
+.pp{--pp-v:#6250d6;--pp-v2:#2a78d6;--pp-red:#c9302c;--pp-ok:#0a7d32;--pp-warn:#a86600;--pp-track:#e8e6f4;--pp-card:var(--panel);position:relative;display:grid;gap:12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pp{--pp-v:#9085e9;--pp-v2:#3987e5;--pp-red:#ff7b72;--pp-ok:#4cc26f;--pp-warn:#e0a63a;--pp-track:#2b2f45}}
+:root[data-theme="dark"] .pp{--pp-v:#9085e9;--pp-v2:#3987e5;--pp-red:#ff7b72;--pp-ok:#4cc26f;--pp-warn:#e0a63a;--pp-track:#2b2f45}
+.pp-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:10px 14px}
+.pp-title{display:flex;gap:10px;align-items:center}.pp-title svg{width:34px;height:34px}.pp-title h2{margin:0;font-size:20px;color:var(--pp-v);letter-spacing:.02em}.pp-title p{margin:2px 0 0;font-size:12px;color:var(--muted);font-weight:600}
+.pp-filt{display:flex;flex-wrap:wrap;gap:6px}.pp-chip{border:1px solid var(--ribbon-line);background:transparent;color:var(--fg);border-radius:999px;padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer}.pp-chip[aria-pressed="true"]{background:var(--pp-v);border-color:var(--pp-v);color:#fff}
+.pp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.pp-kpi{display:flex;justify-content:space-between;gap:8px;background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:12px 14px}
+.pp-kl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.pp-kv{font-size:28px;font-weight:700;color:var(--pp-v);line-height:1.15;font-variant-numeric:tabular-nums}.pp-kv small{font-size:15px;color:var(--muted);font-weight:600}.pp-ks{font-size:12px;color:var(--muted)}.pp-ki{font-size:26px}
+.pp-pbar{display:block;width:120px;height:6px;border-radius:3px;background:var(--pp-track);margin-top:6px}.pp-pbar span{display:block;height:6px;border-radius:3px;background:var(--pp-v)}
+.pp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}.pp-span2{grid-column:span 2}.pp-span3{grid-column:span 3}
+@media (max-width:860px){.pp-grid{grid-template-columns:1fr}.pp-span2,.pp-span3{grid-column:auto}}
+.pp-card{background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:12px 14px;min-width:0}
+.pp-card h3{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--fg);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;text-transform:uppercase;letter-spacing:.03em}
+.pp-lgd{font-size:11.5px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;display:inline-flex;gap:6px;align-items:center}
+.pp-lgd i{display:inline-block;width:10px;height:10px;border-radius:3px}.pp-sw1{background:var(--pp-v)}.pp-sw0{background:var(--pp-track)}.pp-refk{width:2px!important;height:12px!important;background:var(--pp-red);border-radius:0!important}
+.pp-bars{display:grid;gap:5px}.pp-br{display:grid;grid-template-columns:62px 1fr 78px;gap:8px;align-items:center;font-size:12px;padding:1px 0;cursor:default}
+.pp-bl{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pp-bt{position:relative;height:12px}.pp-bg,.pp-bf{position:absolute;left:0;top:0;height:12px;border-radius:0 4px 4px 0}
+.pp-bg{background:var(--pp-track)}.pp-bf{background:var(--pp-v)}.pp-b2{background:var(--pp-v2)}.pp-ref{position:absolute;top:-3px;width:2px;height:18px;background:var(--pp-red)}
+.pp-bv{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}.pp-neg{color:var(--pp-red)}.pp-br:hover .pp-bf{filter:brightness(1.12)}
+.pp-st{list-style:none;margin:0;padding:0;display:grid;gap:6px}.pp-st li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;font-size:13px;padding:5px 8px;border-radius:8px;border:1px solid var(--ribbon-line)}
+.pp-ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}.pp-g .pp-ic{background:var(--pp-ok)}.pp-w .pp-ic{background:var(--pp-warn)}.pp-c .pp-ic{background:var(--pp-red)}
+.pp-st b{font-variant-numeric:tabular-nums}
+.pp-ribs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.pp-rib{border:1.5px solid var(--pp-v);border-radius:10px;padding:8px;text-align:center;display:grid;gap:2px}
+.pp-rib span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase}.pp-rib b{font-size:18px;color:var(--pp-v)}.pp-rib em{font-style:normal;font-size:12px;color:var(--fg)}
+.pp-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:4px}
+.pp-cell{border:0;border-radius:6px;padding:7px 6px;text-align:left;font:inherit;font-size:11.5px;cursor:pointer;display:grid;gap:1px;color:#fff}.pp-cell b{font-size:12px}.pp-cell span{font-variant-numeric:tabular-nums}
+.pp-cell.s1{background:#c9302c}.pp-cell.s2{background:#e07b39}.pp-cell.s3{background:#d9a300;color:#1b1b1b}.pp-cell.s4{background:#8a7fe0}.pp-cell.s5{background:#4b3cc4}
+.pp-cell.sm{display:inline-block;width:12px;height:12px;padding:0;border-radius:3px;cursor:default;vertical-align:middle}
+.pp-cell:hover{outline:2px solid var(--fg);outline-offset:1px}
+.pp-leg{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--muted);margin-top:8px}
+.pp-heat{display:grid;gap:3px;font-size:11px}.pp-hh,.pp-hd{color:var(--muted);text-align:center;font-weight:600}.pp-hd{text-align:left}
+.pp-hc{display:block;height:22px;border-radius:4px;background:var(--pp-track)}.pp-leg .pp-hc{width:18px;height:12px}
+.pp-hc.h1{background:#d9d4f7}.pp-hc.h2{background:#b0a6ee}.pp-hc.h3{background:#8577e0}.pp-hc.h4{background:#5e4dcb}.pp-hc.h5{background:#3a2c9c}
+.pp-tip{position:absolute;z-index:20;pointer-events:none;background:var(--fg);color:var(--panel);font-size:12px;padding:6px 9px;border-radius:7px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 </style>
 
 <div class="wrap">
@@ -3374,6 +3411,71 @@ render=function(){const v=S.view;
   if(!S.preview&&(v==='waktuguru'||v==='bertugas'||v==='versi')){ribbon();document.body.classList.remove('pv');mainEl.innerHTML=v==='waktuguru'?waktuGuruView():v==='bertugas'?bertugasView():versiView();return}
   _render();
   if(v==='jadual'&&!S.preview){const x=jadualExtra();if(x){const tb=mainEl.querySelector('.asc,.tw');if(tb&&tb.parentNode)tb.insertAdjacentHTML('beforebegin',x);else mainEl.insertAdjacentHTML('beforeend',x)}}};
+/* ---------- Papan pemuka (dashboard) ---------- */
+ICON.papan='<rect x="3" y="4" width="22" height="20" rx="2.5" fill="#fff" stroke="#6250d6" stroke-width="1.6"/><rect x="7" y="15" width="3" height="6" rx="1" fill="#6250d6"/><rect x="12.5" y="11" width="3" height="10" rx="1" fill="#e34948"/><rect x="18" y="8" width="3" height="13" rx="1" fill="#2a78d6"/>';
+add(GROUPS.utama,'v:semak',['v:papan','Papan']);add(GROUPS.jdl,'v:jadual',['v:papan','Papan']);
+function papanData(){
+  const G=build(),yf=S.ppY==null?'all':S.ppY,inY=c=>yf==='all'||String(yearOf(c))===String(yf);
+  const cls=D.classes.map((c,i)=>i).filter(inY);
+  const need={},have={},clsNeed={},clsHave={},subName=c=>(subj(c)||{}).name||c;
+  const slots={};D.lessons.forEach(l=>{if(l[3]==='PER'||l[3]==='BY')return;l[4].forEach(c=>{const k=c+'|'+l[3];(slots[k]=slots[k]||new Set()).add(l[1]+','+l[2])})});
+  cls.forEach(c=>{const y=yearOf(c),k=(D.kur||{})[y]||{};clsNeed[c]=0;clsHave[c]=0;
+    Object.entries(k).forEach(([s,v])=>{v=+v||0;if(!v)return;const h=Math.min(v,(slots[c+'|'+s]||new Set()).size);need[s]=(need[s]||0)+v;have[s]=(have[s]||0)+h;clsNeed[c]+=v;clsHave[c]+=h})});
+  const subs=Object.keys(need).map(s=>({s,n:subName(s),need:need[s],have:have[s],kurang:need[s]-have[s]})).sort((a,b)=>b.kurang-a.kurang||b.need-a.need);
+  const ld=tLoads(D.lessons),tch=D.teachers.map((t,i)=>({t,i,n:ld[i]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n);
+  const tot=Object.values(need).reduce((a,b)=>a+b,0),got=Object.values(have).reduce((a,b)=>a+b,0);
+  /* masalah */
+  let tindih=0;D.teachers.forEach((t,i)=>DAYS.forEach((dn,d)=>PER.forEach((p,k)=>{const es=G.tch[i][d][k].filter(e=>e.sub!=='PER'&&e.sub!=='BY');if(es.length>1&&new Set(es.map(e=>(e.cls||[]).join())).size>1)tindih++})));
+  const tr=trRows(G),run=tr.filter(x=>!x.sw&&!x.gap).length,gap=tr.filter(x=>x.gap).length,sw=tr.filter(x=>x.sw).length;
+  let pjI=0,pjL=0;D.lessons.forEach(l=>{if(/^PJ/.test(l[3])&&l[4].length){if(l[1]===0)pjI++;else if(pjLate(l[2],l[4]))pjL++}});
+  const half=halfClashes().length+pkClashes().length;
+  /* heat: bilangan guru mengajar setiap hari x waktu */
+  const heat=DAYS.map((_,d)=>PER.map((_,p)=>D.teachers.reduce((n,t,i)=>n+(G.tch[i][d][p].some(e=>e.sub!=='PER'&&e.sub!=='BY')?1:0),0)));
+  return{cls,clsNeed,clsHave,subs,tch,tot,got,tindih,run,gap,sw,pjI,pjL,half,heat}}
+const ppTip=(t)=>` data-tip="${esc(t)}"`;
+function papanView(){
+  const P=papanData(),pct=P.tot?Math.round(P.got/P.tot*100):0,ys=[...new Set(D.classes.map((c,i)=>yearOf(i)).filter(y=>y!=null))].sort((a,b)=>a-b);
+  const yf=S.ppY==null?'all':String(S.ppY);
+  const chip=(v,l)=>`<button class="pp-chip" data-a="ppy" data-y="${v}" aria-pressed="${String(v)===yf}">${l}</button>`;
+  const nT=D.teachers.filter(t=>!t.pentadbir).length,masalah=P.tindih+P.half+P.pjI+P.pjL;
+  const kpi=(lab,val,sub,ic)=>`<div class="pp-kpi"><div><div class="pp-kl">${lab}</div><div class="pp-kv">${val}</div><div class="pp-ks">${sub}</div></div><div class="pp-ki" aria-hidden="true">${ic}</div></div>`;
+  /* bar: subjek (dijadualkan vs keperluan) */
+  const subs=P.subs.filter(x=>x.need>0),mx=Math.max(1,...subs.map(x=>x.need)),bw=100;
+  const subRows=subs.map(x=>`<div class="pp-br"${ppTip(`${x.n} (${x.s}): ${x.have} daripada ${x.need} waktu dijadualkan${x.kurang?` · kurang ${x.kurang}`:''}`)}><span class="pp-bl">${esc(x.s)}</span><span class="pp-bt"><span class="pp-bg" style="width:${x.need/mx*bw}%"></span><span class="pp-bf" style="width:${x.have/mx*bw}%"></span></span><span class="pp-bv">${x.have}/${x.need}${x.kurang?` <b class="pp-neg">−${x.kurang}</b>`:''}</span></div>`).join('');
+  /* kelas: kelengkapan */
+  const clsCells=P.cls.map(c=>{const n=P.clsNeed[c],h=P.clsHave[c],p=n?Math.round(h/n*100):100,step=p>=100?5:p>=90?4:p>=75?3:p>=50?2:1;
+    return`<button class="pp-cell s${step}" data-a="ppcls" data-c="${c}"${ppTip(`${D.classes[c].name}: ${h}/${n} waktu (${p}%)`)}><b>${esc(D.classes[c].name)}</b><span>${p}%</span></button>`}).join('');
+  /* guru: beban */
+  const top=P.tch.slice(0,15),tmx=Math.max(TBERAT+4,...top.map(x=>x.n));
+  const tchRows=top.map(x=>`<div class="pp-br"${ppTip(`${x.t.name} (${x.t.code}): ${x.n} waktu seminggu`)}><span class="pp-bl">${esc(x.t.code)}</span><span class="pp-bt"><span class="pp-bf pp-b2" style="width:${x.n/tmx*100}%"></span><span class="pp-ref" style="left:${TBERAT/tmx*100}%"></span></span><span class="pp-bv">${x.n}</span></div>`).join('');
+  /* heatmap */
+  const hm=Math.max(1,...P.heat.flat()),lvl=v=>v===0?0:Math.min(5,1+Math.floor(v/hm*4.999));
+  const heat=`<div class="pp-heat" style="grid-template-columns:52px repeat(${PER.length},1fr)"><span></span>${PER.map(p=>`<span class="pp-hh">${p.n}</span>`).join('')}${DAYS.map((dn,d)=>`<span class="pp-hd">${dn.slice(0,3)}</span>${PER.map((p,k)=>`<span class="pp-hc h${lvl(P.heat[d][k])}"${ppTip(`${dn} waktu ${p.n} (${p.t}): ${P.heat[d][k]} guru mengajar`)}></span>`).join('')}`).join('')}</div><div class="pp-leg"><span>Sedikit</span>${[1,2,3,4,5].map(i=>`<span class="pp-hc h${i}"></span>`).join('')}<span>Ramai guru</span></div>`;
+  /* masalah */
+  const st=(n,lab,warn)=>`<li class="${n?(warn?'pp-w':'pp-c'):'pp-g'}"><span class="pp-ic" aria-hidden="true">${n?(warn?'!':'✕'):'✓'}</span><span class="pp-ml">${lab}</span><b>${n}</b></li>`;
+  const kurangTop=P.subs.filter(x=>x.kurang>0)[0],tTop=P.tch[0];
+  return`<div class="pp">
+  <div class="pp-head"><div class="pp-title"><svg viewBox="0 0 28 28" aria-hidden="true">${ICON.papan}</svg><div><h2>PAPAN PEMUKA JADUAL WAKTU</h2><p>JADUAL WAKTU AKTIF 2027 · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div></div>
+    <div class="pp-filt" role="group" aria-label="Tapis tahun">${chip('all','Semua')}${ys.map(y=>chip(y,y===0?'Pra':'Tahun '+y)).join('')}</div></div>
+  <div class="pp-kpis">${kpi('Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan','🏫')}${kpi('Guru',nT,'tidak termasuk pentadbir','👩‍🏫')}${kpi('Waktu dijadualkan',`${P.got}<small>/${P.tot}</small>`,'ikut kurikulum','🗓️')}${kpi('Lengkap',pct+'%',`<span class="pp-pbar"><span style="width:${pct}%"></span></span>`,'📈')}${kpi('Isu jadual',masalah,'tindih, PJ, separuh waktu','⚠️')}</div>
+  <div class="pp-grid">
+    <section class="pp-card pp-span2"><h3>Waktu ikut subjek <span class="pp-lgd"><i class="pp-sw1"></i>Dijadualkan <i class="pp-sw0"></i>Keperluan</span></h3><div class="pp-bars">${subRows||'<p class="note">Tiada kurikulum.</p>'}</div></section>
+    <section class="pp-card"><h3>Isu semasa <span class="pp-lgd">seluruh sekolah</span></h3><ul class="pp-st">${st(P.tindih,'Guru bertindih')}${st(P.half,'Tindih separuh waktu / PKR')}${st(P.pjI,'PJ pada hari Isnin')}${st(P.pjL,'PJ tamat selepas had')}${st(P.run,'Guru > 3 waktu berturut',1)}${st(P.gap,'Rehat kurang selepas 3 waktu',1)}${st(P.sw,'Tukar kelas tanpa waktu kosong',1)}</ul><button class="btn" data-v="semak" style="margin-top:8px">Buka Semakan</button>
+      <div class="pp-ribs">${kurangTop?`<div class="pp-rib"><span>Subjek paling kurang</span><b>${esc(kurangTop.s)}</b><em>−${kurangTop.kurang} waktu</em></div>`:''}${tTop?`<div class="pp-rib"><span>Guru paling sibuk</span><b>${esc(tTop.t.code)}</b><em>${tTop.n} waktu</em></div>`:''}</div></section>
+    <section class="pp-card pp-span2"><h3>Kelengkapan kelas <span class="pp-lgd">tekan kelas untuk buka jadualnya</span></h3><div class="pp-cells">${clsCells}</div><div class="pp-leg"><span class="pp-cell s1 sm"></span>&lt;50% <span class="pp-cell s2 sm"></span>50–74% <span class="pp-cell s3 sm"></span>75–89% <span class="pp-cell s4 sm"></span>90–99% <span class="pp-cell s5 sm"></span>100%</div></section>
+    <section class="pp-card"><h3>Beban guru (15 tertinggi) <span class="pp-lgd">seluruh sekolah · <i class="pp-refk"></i>${TBERAT} waktu</span></h3><div class="pp-bars">${tchRows}</div></section>
+    <section class="pp-card pp-span3"><h3>Kepadatan mengajar · bilangan guru di dalam kelas setiap waktu</h3>${heat}</section>
+  </div><div class="pp-tip" role="tooltip" hidden></div></div>`}
+const _renderPP=render;
+render=function(){if(!S.preview&&S.view==='papan'){ribbon();document.body.classList.remove('pv');mainEl.innerHTML=papanView();return}_renderPP()};
+mainEl.addEventListener('click',e=>{if(S.view!=='papan')return;const b=e.target.closest('[data-a]');if(!b)return;
+  if(b.dataset.a==='ppy'){e.stopImmediatePropagation();S.ppY=b.dataset.y==='all'?null:b.dataset.y;render()}
+  else if(b.dataset.a==='ppcls'){e.stopImmediatePropagation();S.view='jadual';S.jMode='kelas';S.jSel=+b.dataset.c;render()}},true);
+mainEl.addEventListener('click',e=>{if(S.view!=='papan')return;const b=e.target.closest('button[data-v]');if(!b)return;e.stopImmediatePropagation();S.view=b.dataset.v;render()},true);
+mainEl.addEventListener('pointermove',e=>{if(S.view!=='papan')return;const tip=mainEl.querySelector('.pp-tip');if(!tip)return;const el=e.target.closest('[data-tip]');
+  if(!el){tip.hidden=true;return}tip.textContent=el.dataset.tip;tip.hidden=false;const r=mainEl.querySelector('.pp').getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top+14;
+  if(x+tip.offsetWidth>r.width)x=e.clientX-r.left-tip.offsetWidth-10;tip.style.left=x+'px';tip.style.top=y+'px'});
+mainEl.addEventListener('pointerleave',()=>{const tip=mainEl.querySelector('.pp-tip');if(tip)tip.hidden=true});
 /* ---------- events ---------- */
 mainEl.addEventListener('click',async e=>{
   if(S.view==='jadual'&&S.edit&&!S.preview){const td=e.target.closest('td[data-s]');
