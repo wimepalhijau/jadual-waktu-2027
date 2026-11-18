@@ -430,40 +430,42 @@ tbody tr.row{cursor:pointer}
 }
 
 /* papan pemuka */
-.pp{--pp-v:#6250d6;--pp-v2:#2a78d6;--pp-red:#c9302c;--pp-ok:#0a7d32;--pp-warn:#a86600;--pp-track:#e8e6f4;--pp-card:var(--panel);position:relative;display:grid;gap:12px}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pp{--pp-v:#9085e9;--pp-v2:#3987e5;--pp-red:#ff7b72;--pp-ok:#4cc26f;--pp-warn:#e0a63a;--pp-track:#2b2f45}}
-:root[data-theme="dark"] .pp{--pp-v:#9085e9;--pp-v2:#3987e5;--pp-red:#ff7b72;--pp-ok:#4cc26f;--pp-warn:#e0a63a;--pp-track:#2b2f45}
-.pp-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:10px 14px}
-.pp-title{display:flex;gap:10px;align-items:center}.pp-title svg{width:34px;height:34px}.pp-title h2{margin:0;font-size:20px;color:var(--pp-v);letter-spacing:.02em}.pp-title p{margin:2px 0 0;font-size:12px;color:var(--muted);font-weight:600}
-.pp-filt{display:flex;flex-wrap:wrap;gap:6px}.pp-chip{border:1px solid var(--ribbon-line);background:transparent;color:var(--fg);border-radius:999px;padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer}.pp-chip[aria-pressed="true"]{background:var(--pp-v);border-color:var(--pp-v);color:#fff}
-.pp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.pp-kpi{display:flex;justify-content:space-between;gap:8px;background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:12px 14px}
-.pp-kl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.pp-kv{font-size:28px;font-weight:700;color:var(--pp-v);line-height:1.15;font-variant-numeric:tabular-nums}.pp-kv small{font-size:15px;color:var(--muted);font-weight:600}.pp-ks{font-size:12px;color:var(--muted)}.pp-ki{font-size:26px}
-.pp-pbar{display:block;width:120px;height:6px;border-radius:3px;background:var(--pp-track);margin-top:6px}.pp-pbar span{display:block;height:6px;border-radius:3px;background:var(--pp-v)}
-.pp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}.pp-span2{grid-column:span 2}.pp-span3{grid-column:span 3}
-@media (max-width:860px){.pp-grid{grid-template-columns:1fr}.pp-span2,.pp-span3{grid-column:auto}}
-.pp-card{background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:12px;padding:12px 14px;min-width:0}
-.pp-card h3{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--fg);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;text-transform:uppercase;letter-spacing:.03em}
-.pp-lgd{font-size:11.5px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;display:inline-flex;gap:6px;align-items:center}
-.pp-lgd i{display:inline-block;width:10px;height:10px;border-radius:3px}.pp-sw1{background:var(--pp-v)}.pp-sw0{background:var(--pp-track)}.pp-refk{width:2px!important;height:12px!important;background:var(--pp-red);border-radius:0!important}
-.pp-bars{display:grid;gap:5px}.pp-br{display:grid;grid-template-columns:62px 1fr 78px;gap:8px;align-items:center;font-size:12px;padding:1px 0;cursor:default}
-.pp-bl{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pp-bt{position:relative;height:12px}.pp-bg,.pp-bf{position:absolute;left:0;top:0;height:12px;border-radius:0 4px 4px 0}
-.pp-bg{background:var(--pp-track)}.pp-bf{background:var(--pp-v)}.pp-b2{background:var(--pp-v2)}.pp-ref{position:absolute;top:-3px;width:2px;height:18px;background:var(--pp-red)}
-.pp-bv{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}.pp-neg{color:var(--pp-red)}.pp-br:hover .pp-bf{filter:brightness(1.12)}
-.pp-st{list-style:none;margin:0;padding:0;display:grid;gap:6px}.pp-st li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;font-size:13px;padding:5px 8px;border-radius:8px;border:1px solid var(--ribbon-line)}
-.pp-ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}.pp-g .pp-ic{background:var(--pp-ok)}.pp-w .pp-ic{background:var(--pp-warn)}.pp-c .pp-ic{background:var(--pp-red)}
-.pp-st b{font-variant-numeric:tabular-nums}
-.pp-ribs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.pp-rib{border:1.5px solid var(--pp-v);border-radius:10px;padding:8px;text-align:center;display:grid;gap:2px}
-.pp-rib span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase}.pp-rib b{font-size:18px;color:var(--pp-v)}.pp-rib em{font-style:normal;font-size:12px;color:var(--fg)}
-.pp-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:4px}
-.pp-cell{border:0;border-radius:6px;padding:7px 6px;text-align:left;font:inherit;font-size:11.5px;cursor:pointer;display:grid;gap:1px;color:#fff}.pp-cell b{font-size:12px}.pp-cell span{font-variant-numeric:tabular-nums}
-.pp-cell.s1{background:#c9302c}.pp-cell.s2{background:#e07b39}.pp-cell.s3{background:#d9a300;color:#1b1b1b}.pp-cell.s4{background:#8a7fe0}.pp-cell.s5{background:#4b3cc4}
-.pp-cell.sm{display:inline-block;width:12px;height:12px;padding:0;border-radius:3px;cursor:default;vertical-align:middle}
-.pp-cell:hover{outline:2px solid var(--fg);outline-offset:1px}
-.pp-leg{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--muted);margin-top:8px}
-.pp-heat{display:grid;gap:3px;font-size:11px}.pp-hh,.pp-hd{color:var(--muted);text-align:center;font-weight:600}.pp-hd{text-align:left}
-.pp-hc{display:block;height:22px;border-radius:4px;background:var(--pp-track)}.pp-leg .pp-hc{width:18px;height:12px}
-.pp-hc.h1{background:#d9d4f7}.pp-hc.h2{background:#b0a6ee}.pp-hc.h3{background:#8577e0}.pp-hc.h4{background:#5e4dcb}.pp-hc.h5{background:#3a2c9c}
+.pp{--pp-t:#0f8f86;--pp-t2:#14b8a6;--pp-tl:#d7f3ef;--pp-track:#e4efee;--pp-bad:#d64545;--pp-warn:#c27c0e;--pp-ok:#0f8f5a;--pp-card:var(--panel);
+  --pp-c1:#2a78d6;--pp-c2:#eb6834;--pp-c3:#1baf7a;--pp-c4:#eda100;--pp-c5:#e87ba4;--pp-c6:#6250d6;position:relative;display:grid;gap:14px;font-family:inherit}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pp{--pp-t:#2dd4bf;--pp-t2:#14b8a6;--pp-tl:#123a37;--pp-track:#22302f;--pp-bad:#ff7b72;--pp-warn:#e0a63a;--pp-ok:#4cc26f;--pp-c1:#3987e5;--pp-c2:#d95926;--pp-c3:#199e70;--pp-c4:#c98500;--pp-c5:#d55181;--pp-c6:#9085e9}}
+:root[data-theme="dark"] .pp{--pp-t:#2dd4bf;--pp-t2:#14b8a6;--pp-tl:#123a37;--pp-track:#22302f;--pp-bad:#ff7b72;--pp-warn:#e0a63a;--pp-ok:#4cc26f;--pp-c1:#3987e5;--pp-c2:#d95926;--pp-c3:#199e70;--pp-c4:#c98500;--pp-c5:#d55181;--pp-c6:#9085e9}
+.pp-hero{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between;padding:18px 20px;border-radius:16px;background:linear-gradient(120deg,var(--pp-tl),transparent 70%),var(--pp-card);border:1px solid var(--ribbon-line)}
+.pp-hero h2{margin:0;font-size:26px;font-weight:700;color:var(--fg);letter-spacing:-.01em}.pp-hero h2::first-letter{color:var(--pp-t)}.pp-hero p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.pp-date{font-size:12.5px;color:var(--muted);border:1px solid var(--ribbon-line);border-radius:9px;padding:6px 10px;background:var(--pp-card)}
+.pp-filt{display:flex;flex-wrap:wrap;gap:6px}.pp-chip{border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--fg);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer}.pp-chip[aria-pressed="true"]{background:var(--pp-t);border-color:var(--pp-t);color:#fff}
+.pp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.pp-kpi{display:flex;gap:12px;align-items:flex-start;background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:16px;padding:14px 16px;box-shadow:0 1px 2px rgba(15,60,58,.05)}
+.pp-kic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--pp-tl);color:var(--pp-t)}.pp-kic svg{width:22px;height:22px}.pp-kic.warn{background:#fbecd6;color:var(--pp-warn)}
+.pp-kb{min-width:0;flex:1}.pp-kl{font-size:12.5px;font-weight:600;color:var(--muted)}.pp-kv{white-space:nowrap;font-size:28px;font-weight:700;color:var(--fg);line-height:1.15;font-variant-numeric:tabular-nums}.pp-kv small{font-size:14px;color:var(--muted);font-weight:600}.pp-ks{font-size:12px;color:var(--muted)}
+.pp-pbar{display:block;height:6px;border-radius:3px;background:var(--pp-track);margin-top:8px}.pp-pbar span{display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--pp-t2),var(--pp-t))}
+.pp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}@media (max-width:860px){.pp-grid{grid-template-columns:1fr}}
+.pp-card{background:var(--pp-card);border:1px solid var(--ribbon-line);border-radius:16px;padding:14px 16px;min-width:0;box-shadow:0 1px 2px rgba(15,60,58,.05)}
+.pp-card h3{margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--fg);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.pp-lgd{font-size:11.5px;font-weight:500;color:var(--muted);display:inline-flex;gap:6px;align-items:center}.pp-lgd i{display:inline-block;width:10px;height:10px;border-radius:3px}.pp-sw1{background:var(--pp-t)}.pp-sw0{background:var(--pp-track)}
+.pp-link{border:0;background:none;color:var(--pp-t);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:0}
+.pp-fr{display:grid;grid-template-columns:1fr 44px 120px 40px;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px}
+.pp-fb{height:30px;border-radius:6px;background:linear-gradient(90deg,var(--pp-t2),var(--pp-t));justify-self:center}.pp-fr b{font-variant-numeric:tabular-nums;text-align:right}.pp-fr span{color:var(--muted)}.pp-fr em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.pp-vb{display:flex;gap:10px;align-items:flex-end;height:190px;padding-top:4px}.pp-vc{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;cursor:default}
+.pp-vt{position:relative;flex:1;width:100%;max-width:46px}.pp-vg,.pp-vf{position:absolute;bottom:0;left:0;right:0;border-radius:6px 6px 0 0}.pp-vg{background:var(--pp-track)}.pp-vf{background:linear-gradient(180deg,var(--pp-t2),var(--pp-t))}
+.pp-vv{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}.pp-vl{font-size:11.5px;color:var(--muted)}.pp-vc:hover .pp-vf{filter:brightness(1.1)}
+.pp-don{display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pp-don svg{width:150px;height:150px}.pp-don circle{cursor:default}.pp-dt{font-size:20px;font-weight:700;fill:var(--fg)}.pp-ds{font-size:10px;fill:var(--muted)}
+.pp-dl{list-style:none;margin:0;padding:0;display:grid;gap:6px;flex:1;min-width:170px;font-size:12.5px}.pp-dl li{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}.pp-dl i{width:10px;height:10px;border-radius:3px}.pp-dl b{font-variant-numeric:tabular-nums}
+.pp-line{width:100%;height:auto}.pp-gl{stroke:var(--ribbon-line);stroke-width:.6;stroke-dasharray:3 3}.pp-ar{fill:var(--pp-t);opacity:.12}.pp-ln{fill:none;stroke:var(--pp-t);stroke-width:2;stroke-linejoin:round}
+.pp-dot{fill:var(--pp-card);stroke:var(--pp-t);stroke-width:2;cursor:default}.pp-dot.pk{fill:var(--pp-t)}.pp-ax{font-size:8.5px;fill:var(--muted)}.pp-pkl{font-size:9.5px;font-weight:700;fill:var(--pp-t)}
+.pp-todo,.pp-act{list-style:none;margin:0;padding:0;display:grid;gap:2px}.pp-todo li,.pp-act li{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--ribbon-line)}.pp-todo li:last-child,.pp-act li:last-child{border-bottom:0}
+.pp-todo div,.pp-act div{flex:1;min-width:0;display:grid}.pp-todo b,.pp-act b{font-size:13px;font-weight:600}.pp-todo small,.pp-act small{font-size:11.5px;color:var(--muted)}
+.pp-cb{flex:none;width:16px;height:16px;border:1.5px solid var(--ribbon-line);border-radius:4px}
+.pp-pill{font-style:normal;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}.pp-pill.bad{background:#fde3e3;color:#a32020}.pp-pill.mid{background:#fdf0d5;color:#8a5a00}.pp-pill.hi{background:#dcefff;color:#1d5fa8}.pp-pill.ok{background:#d9f4e6;color:#0b6b40}
+.pp-tw{overflow-x:auto}.pp-t{width:100%;border-collapse:collapse;font-size:12.5px}.pp-t th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;padding:6px 6px;border-bottom:1px solid var(--ribbon-line)}.pp-t th,.pp-t td{border-left:0;border-right:0;border-top:0}.pp-t thead th{background:none}.pp-t td{padding:7px 6px;border-bottom:1px solid var(--ribbon-line);white-space:nowrap}
+.pp-t tr:last-child td{border-bottom:0}.pp-t .num{text-align:right;font-variant-numeric:tabular-nums}.pp-t tbody tr[data-a]{cursor:pointer}.pp-t tbody tr:hover td{background:var(--pp-tl)}
+.pp-av{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--pp-tl);color:var(--pp-t);font-size:10px;font-weight:700;margin-right:7px;vertical-align:middle}
+.pp-tb{display:block;width:110px;height:7px;border-radius:4px;background:var(--pp-track)}.pp-tb span{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--pp-t2),var(--pp-t))}.pp-tb span.over{background:var(--pp-warn)}
+.pp-ai{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pp-tl);display:grid;place-items:center}.pp-ai svg{width:18px;height:18px}
 .pp-tip{position:absolute;z-index:20;pointer-events:none;background:var(--fg);color:var(--panel);font-size:12px;padding:6px 9px;border-radius:7px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 </style>
 
@@ -3435,37 +3437,61 @@ function papanData(){
 const ppTip=(t)=>` data-tip="${esc(t)}"`;
 function papanView(){
   const P=papanData(),pct=P.tot?Math.round(P.got/P.tot*100):0,ys=[...new Set(D.classes.map((c,i)=>yearOf(i)).filter(y=>y!=null))].sort((a,b)=>a-b);
-  const yf=S.ppY==null?'all':String(S.ppY);
-  const chip=(v,l)=>`<button class="pp-chip" data-a="ppy" data-y="${v}" aria-pressed="${String(v)===yf}">${l}</button>`;
-  const nT=D.teachers.filter(t=>!t.pentadbir).length,masalah=P.tindih+P.half+P.pjI+P.pjL;
-  const kpi=(lab,val,sub,ic)=>`<div class="pp-kpi"><div><div class="pp-kl">${lab}</div><div class="pp-kv">${val}</div><div class="pp-ks">${sub}</div></div><div class="pp-ki" aria-hidden="true">${ic}</div></div>`;
-  /* bar: subjek (dijadualkan vs keperluan) */
-  const subs=P.subs.filter(x=>x.need>0),mx=Math.max(1,...subs.map(x=>x.need)),bw=100;
-  const subRows=subs.map(x=>`<div class="pp-br"${ppTip(`${x.n} (${x.s}): ${x.have} daripada ${x.need} waktu dijadualkan${x.kurang?` · kurang ${x.kurang}`:''}`)}><span class="pp-bl">${esc(x.s)}</span><span class="pp-bt"><span class="pp-bg" style="width:${x.need/mx*bw}%"></span><span class="pp-bf" style="width:${x.have/mx*bw}%"></span></span><span class="pp-bv">${x.have}/${x.need}${x.kurang?` <b class="pp-neg">−${x.kurang}</b>`:''}</span></div>`).join('');
-  /* kelas: kelengkapan */
-  const clsCells=P.cls.map(c=>{const n=P.clsNeed[c],h=P.clsHave[c],p=n?Math.round(h/n*100):100,step=p>=100?5:p>=90?4:p>=75?3:p>=50?2:1;
-    return`<button class="pp-cell s${step}" data-a="ppcls" data-c="${c}"${ppTip(`${D.classes[c].name}: ${h}/${n} waktu (${p}%)`)}><b>${esc(D.classes[c].name)}</b><span>${p}%</span></button>`}).join('');
-  /* guru: beban */
-  const top=P.tch.slice(0,15),tmx=Math.max(TBERAT+4,...top.map(x=>x.n));
-  const tchRows=top.map(x=>`<div class="pp-br"${ppTip(`${x.t.name} (${x.t.code}): ${x.n} waktu seminggu`)}><span class="pp-bl">${esc(x.t.code)}</span><span class="pp-bt"><span class="pp-bf pp-b2" style="width:${x.n/tmx*100}%"></span><span class="pp-ref" style="left:${TBERAT/tmx*100}%"></span></span><span class="pp-bv">${x.n}</span></div>`).join('');
-  /* heatmap */
-  const hm=Math.max(1,...P.heat.flat()),lvl=v=>v===0?0:Math.min(5,1+Math.floor(v/hm*4.999));
-  const heat=`<div class="pp-heat" style="grid-template-columns:52px repeat(${PER.length},1fr)"><span></span>${PER.map(p=>`<span class="pp-hh">${p.n}</span>`).join('')}${DAYS.map((dn,d)=>`<span class="pp-hd">${dn.slice(0,3)}</span>${PER.map((p,k)=>`<span class="pp-hc h${lvl(P.heat[d][k])}"${ppTip(`${dn} waktu ${p.n} (${p.t}): ${P.heat[d][k]} guru mengajar`)}></span>`).join('')}`).join('')}</div><div class="pp-leg"><span>Sedikit</span>${[1,2,3,4,5].map(i=>`<span class="pp-hc h${i}"></span>`).join('')}<span>Ramai guru</span></div>`;
-  /* masalah */
-  const st=(n,lab,warn)=>`<li class="${n?(warn?'pp-w':'pp-c'):'pp-g'}"><span class="pp-ic" aria-hidden="true">${n?(warn?'!':'✕'):'✓'}</span><span class="pp-ml">${lab}</span><b>${n}</b></li>`;
-  const kurangTop=P.subs.filter(x=>x.kurang>0)[0],tTop=P.tch[0];
+  const yf=S.ppY==null?'all':String(S.ppY),chip=(v,l)=>`<button class="pp-chip" data-a="ppy" data-y="${v}" aria-pressed="${String(v)===yf}">${l}</button>`;
+  const nT=D.teachers.filter(t=>!t.pentadbir).length,isu=P.tindih+P.half+P.pjI+P.pjL;
+  const cp=c=>P.clsNeed[c]?Math.round(P.clsHave[c]/P.clsNeed[c]*100):100;
+  const ic={kelas:'<path d="M4 12l10-6 10 6v10H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 22v-6h6v6" fill="none" stroke="currentColor" stroke-width="2"/>',guru:'<circle cx="14" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 23c0-5 4-8 8-8s8 3 8 8" fill="none" stroke="currentColor" stroke-width="2"/>',waktu:'<rect x="5" y="6" width="18" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 11h18M10 4v4M18 4v4" stroke="currentColor" stroke-width="2"/>',isu:'<path d="M14 4l11 19H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v5M14 19v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'};
+  const kpi=(k,lab,val,sub,bar,tone)=>`<div class="pp-kpi"><span class="pp-kic ${tone||''}"><svg viewBox="0 0 28 28" aria-hidden="true">${ic[k]}</svg></span><div class="pp-kb"><div class="pp-kl">${lab}</div><div class="pp-kv">${val}</div><div class="pp-ks">${sub}</div>${bar!=null?`<span class="pp-pbar"><span style="width:${bar}%"></span></span>`:''}</div></div>`;
+  /* corong: kelas ikut tahap lengkap */
+  const n=P.cls.length,st=[['Semua kelas',n],['≥ 75% lengkap',P.cls.filter(c=>cp(c)>=75).length],['≥ 90% lengkap',P.cls.filter(c=>cp(c)>=90).length],['100% lengkap',P.cls.filter(c=>cp(c)>=100).length]];
+  const fun=st.map(([l,v],i)=>{const w=n?Math.max(18,v/n*100):18;return`<div class="pp-fr"${ppTip(`${l}: ${v} kelas`)}><div class="pp-fb" style="width:${w}%;opacity:${1-i*.17}"></div><b>${v}</b><span>${l}</span><em>${n?Math.round(v/n*100):0}%</em></div>`}).join('');
+  /* bar menegak: waktu ikut tahun */
+  const byY=ys.filter(y=>yf==='all'||String(y)===yf).map(y=>{const cs=P.cls.filter(c=>yearOf(c)===y);return{y,need:cs.reduce((a,c)=>a+P.clsNeed[c],0),have:cs.reduce((a,c)=>a+P.clsHave[c],0)}}).filter(x=>x.need>0);
+  const bmx=Math.max(1,...byY.map(x=>x.need));
+  const vbars=`<div class="pp-vb">${byY.map(x=>`<div class="pp-vc"${ppTip(`${x.y===0?'Prasekolah':'Tahun '+x.y}: ${x.have}/${x.need} waktu dijadualkan`)}><span class="pp-vv">${x.have}</span><div class="pp-vt"><div class="pp-vg" style="height:${x.need/bmx*100}%"></div><div class="pp-vf" style="height:${x.have/bmx*100}%"></div></div><span class="pp-vl">${x.y===0?'Pra':'T'+x.y}</span></div>`).join('')}</div>`;
+  /* donut: komposisi waktu dijadualkan ikut kumpulan subjek */
+  const grp=s=>/^(BM|BI|BA|BC|BT)$/.test(s)?'Bahasa':/^(MT|SN|RBT)$/.test(s)?'Matematik & Sains':/^(PI|TAS|PM)/.test(s)?'Agama & Moral':/^(PJ|PK)/.test(s)?'PJ & Kesihatan':/^(PSV|DMZ)$/.test(s)?'Seni & Muzik':'Lain-lain';
+  const gN=['Bahasa','Matematik & Sains','Agama & Moral','PJ & Kesihatan','Seni & Muzik','Lain-lain'],gC=['--pp-c1','--pp-c2','--pp-c3','--pp-c4','--pp-c5','--pp-c6'],gv={};
+  P.subs.forEach(x=>{const g=grp(x.s);gv[g]=(gv[g]||0)+x.have});const gt=gN.reduce((a,g)=>a+(gv[g]||0),0)||1;
+  let acc=0;const R=42,Cc=2*Math.PI*R;
+  const arcs=gN.map((g,i)=>{const v=gv[g]||0;if(!v)return'';const len=v/gt*Cc,gap=Math.min(2,len*.3),o=acc;acc+=len;return`<circle r="${R}" cx="60" cy="60" fill="none" stroke="var(${gC[i]})" stroke-width="16" stroke-dasharray="${len-gap} ${Cc-len+gap}" stroke-dashoffset="${-o}" transform="rotate(-90 60 60)"${ppTip(`${g}: ${v} waktu (${Math.round(v/gt*100)}%)`)}/>`}).join('');
+  const donut=`<div class="pp-don"><svg viewBox="0 0 120 120" role="img" aria-label="Komposisi waktu ikut kumpulan subjek">${arcs}<text x="60" y="58" text-anchor="middle" class="pp-dt">${P.got}</text><text x="60" y="73" text-anchor="middle" class="pp-ds">waktu</text></svg><ul class="pp-dl">${gN.map((g,i)=>gv[g]?`<li><i style="background:var(${gC[i]})"></i>${g}<b>${Math.round(gv[g]/gt*100)}%</b></li>`:'').join('')}</ul></div>`;
+  /* garisan: purata guru mengajar setiap waktu */
+  const avg=PER.map((_,p)=>P.heat.reduce((a,r)=>a+r[p],0)/DAYS.length),lmx=Math.max(1,...avg),W=300,Hh=120,px=i=>16+i*(W-32)/(PER.length-1),py=v=>Hh-18-v/lmx*(Hh-34);
+  const pts=avg.map((v,i)=>`${px(i).toFixed(1)},${py(v).toFixed(1)}`).join(' '),pk=avg.indexOf(lmx);
+  const line=`<svg viewBox="0 0 ${W} ${Hh}" class="pp-line" role="img" aria-label="Purata guru mengajar ikut waktu">${[0,.5,1].map(f=>`<line x1="16" x2="${W-16}" y1="${py(lmx*f)}" y2="${py(lmx*f)}" class="pp-gl"/>`).join('')}<polygon points="16,${Hh-18} ${pts} ${W-16},${Hh-18}" class="pp-ar"/><polyline points="${pts}" class="pp-ln"/>${avg.map((v,i)=>`<circle cx="${px(i)}" cy="${py(v)}" r="${i===pk?4.5:3}" class="pp-dot${i===pk?' pk':''}"${ppTip(`Waktu ${PER[i].n} (${PER[i].t}): purata ${v.toFixed(1)} guru mengajar`)}/>`).join('')}${PER.map((p,i)=>`<text x="${px(i)}" y="${Hh-3}" text-anchor="middle" class="pp-ax">${p.n}</text>`).join('')}<text x="${px(pk)}" y="${py(lmx)-9}" text-anchor="middle" class="pp-pkl">${Math.round(lmx)}</text></svg>`;
+  /* tindakan */
+  const todo=[];P.subs.filter(x=>x.kurang>0).slice(0,5).forEach(x=>todo.push([`Lengkapkan waktu ${x.n||x.s}`,`Kurang ${x.kurang} waktu · ${x.s}`,x.kurang>=20?'Segera':'',x.kurang]));
+  if(P.pjI)todo.unshift(['Alih PJ dari hari Isnin',`${P.pjI} waktu PJ pada hari Isnin`,'Segera',0]);if(P.pjL)todo.unshift(['Alih PJ yang tamat lewat',`${P.pjL} waktu PJ selepas had`,'Segera',0]);if(P.tindih)todo.unshift(['Selesaikan guru bertindih',`${P.tindih} waktu bertindih`,'Segera',0]);
+  const todoH=todo.slice(0,6).map(([a,b,c])=>`<li><span class="pp-cb" aria-hidden="true"></span><div><b>${esc(a)}</b><small>${esc(b)}</small></div>${c?`<em class="pp-pill bad">${c}</em>`:''}</li>`).join('')||'<li><div><b>Tiada tindakan segera</b></div></li>';
+  /* kelas perlu perhatian */
+  const tn=code=>{const t=D.teachers.find(x=>x.code===code);return t?t.code:'—'};
+  const kr=P.cls.map(c=>({c,p:cp(c),k:P.clsNeed[c]-P.clsHave[c]})).sort((a,b)=>a.p-b.p).slice(0,6);
+  const pill=p=>p>=100?'<em class="pp-pill ok">Lengkap</em>':p>=90?'<em class="pp-pill hi">Hampir</em>':p>=75?'<em class="pp-pill mid">Separuh</em>':'<em class="pp-pill bad">Kurang</em>';
+  const krH=kr.map(x=>`<tr data-a="ppcls" data-c="${x.c}"><td><b>${esc(D.classes[x.c].name)}</b></td><td>${esc(tn(D.classes[x.c].guru))}</td><td class="num">${x.p}%</td><td class="num">${x.k}</td><td>${pill(x.p)}</td></tr>`).join('');
+  /* prestasi guru */
+  const top=P.tch.slice(0,8),tmx=Math.max(TBERAT,...top.map(x=>x.n));
+  const GG=build(),tE=i=>GG.tch[i].flat(2).filter(e=>e&&e.sub!=='PER'&&e.sub!=='BY'),tclsN=i=>new Set(tE(i).flatMap(e=>e.cls||[])).size,tsubN=i=>new Set(tE(i).map(e=>e.sub)).size;
+  const tH=top.map(x=>`<tr${ppTip(`${x.t.name}: ${x.n} waktu seminggu`)}><td><span class="pp-av">${esc(x.t.code.slice(0,2))}</span>${esc(x.t.name.split(' ').slice(0,2).join(' '))}</td><td class="num">${x.n}</td><td class="num">${tclsN(x.i)}</td><td class="num">${tsubN(x.i)}</td><td><span class="pp-tb"><span style="width:${x.n/tmx*100}%" class="${x.n>TBERAT?'over':''}"></span></span></td></tr>`).join('');
+  /* aktiviti: versi disimpan */
+  const vers=(typeof VER!=='undefined'?Object.entries(VER):[]).sort((a,b)=>(b[1].savedAt||0)-(a[1].savedAt||0)).slice(0,5);
+  const actH=vers.map(([id,v])=>`<li><span class="pp-ai"><svg viewBox="0 0 28 28">${ICON.versi||''}</svg></span><div><b>${esc(v.nama||id)}</b><small>Versi disimpan · ${v.savedAt?esc(new Date(v.savedAt).toLocaleString('ms-MY',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})):''}</small></div></li>`).join('')||'<li><div><b>Belum ada versi disimpan</b><small>Simpan versi dalam menu Versi</small></div></li>';
+  const today=new Date().toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   return`<div class="pp">
-  <div class="pp-head"><div class="pp-title"><svg viewBox="0 0 28 28" aria-hidden="true">${ICON.papan}</svg><div><h2>PAPAN PEMUKA JADUAL WAKTU</h2><p>JADUAL WAKTU AKTIF 2027 · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div></div>
-    <div class="pp-filt" role="group" aria-label="Tapis tahun">${chip('all','Semua')}${ys.map(y=>chip(y,y===0?'Pra':'Tahun '+y)).join('')}</div></div>
-  <div class="pp-kpis">${kpi('Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan','🏫')}${kpi('Guru',nT,'tidak termasuk pentadbir','👩‍🏫')}${kpi('Waktu dijadualkan',`${P.got}<small>/${P.tot}</small>`,'ikut kurikulum','🗓️')}${kpi('Lengkap',pct+'%',`<span class="pp-pbar"><span style="width:${pct}%"></span></span>`,'📈')}${kpi('Isu jadual',masalah,'tindih, PJ, separuh waktu','⚠️')}</div>
+  <div class="pp-hero"><div><h2>Papan Pemuka Jadual Waktu</h2><p>Kurikulum, guru dan isu jadual dalam satu paparan · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div><div class="pp-date">📅 ${esc(today)}</div></div>
+  <div class="pp-filt" role="group" aria-label="Tapis tahun">${chip('all','Semua tahun')}${ys.map(y=>chip(y,y===0?'Prasekolah':'Tahun '+y)).join('')}</div>
+  <div class="pp-kpis">${kpi('kelas','Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan')}${kpi('guru','Guru',nT,'tidak termasuk pentadbir')}${kpi('waktu','Waktu dijadualkan',`${P.got}<small> / ${P.tot}</small>`,`${pct}% ikut kurikulum`,pct)}${kpi('isu','Isu jadual',isu,isu?'perlu disemak':'tiada isu utama',null,isu?'warn':'')}</div>
   <div class="pp-grid">
-    <section class="pp-card pp-span2"><h3>Waktu ikut subjek <span class="pp-lgd"><i class="pp-sw1"></i>Dijadualkan <i class="pp-sw0"></i>Keperluan</span></h3><div class="pp-bars">${subRows||'<p class="note">Tiada kurikulum.</p>'}</div></section>
-    <section class="pp-card"><h3>Isu semasa <span class="pp-lgd">seluruh sekolah</span></h3><ul class="pp-st">${st(P.tindih,'Guru bertindih')}${st(P.half,'Tindih separuh waktu / PKR')}${st(P.pjI,'PJ pada hari Isnin')}${st(P.pjL,'PJ tamat selepas had')}${st(P.run,'Guru > 3 waktu berturut',1)}${st(P.gap,'Rehat kurang selepas 3 waktu',1)}${st(P.sw,'Tukar kelas tanpa waktu kosong',1)}</ul><button class="btn" data-v="semak" style="margin-top:8px">Buka Semakan</button>
-      <div class="pp-ribs">${kurangTop?`<div class="pp-rib"><span>Subjek paling kurang</span><b>${esc(kurangTop.s)}</b><em>−${kurangTop.kurang} waktu</em></div>`:''}${tTop?`<div class="pp-rib"><span>Guru paling sibuk</span><b>${esc(tTop.t.code)}</b><em>${tTop.n} waktu</em></div>`:''}</div></section>
-    <section class="pp-card pp-span2"><h3>Kelengkapan kelas <span class="pp-lgd">tekan kelas untuk buka jadualnya</span></h3><div class="pp-cells">${clsCells}</div><div class="pp-leg"><span class="pp-cell s1 sm"></span>&lt;50% <span class="pp-cell s2 sm"></span>50–74% <span class="pp-cell s3 sm"></span>75–89% <span class="pp-cell s4 sm"></span>90–99% <span class="pp-cell s5 sm"></span>100%</div></section>
-    <section class="pp-card"><h3>Beban guru (15 tertinggi) <span class="pp-lgd">seluruh sekolah · <i class="pp-refk"></i>${TBERAT} waktu</span></h3><div class="pp-bars">${tchRows}</div></section>
-    <section class="pp-card pp-span3"><h3>Kepadatan mengajar · bilangan guru di dalam kelas setiap waktu</h3>${heat}</section>
+    <section class="pp-card"><h3>Aliran kelengkapan kelas</h3>${fun}</section>
+    <section class="pp-card"><h3>Waktu dijadualkan ikut tahun <span class="pp-lgd"><i class="pp-sw1"></i>Dijadualkan <i class="pp-sw0"></i>Keperluan</span></h3>${vbars}</section>
+    <section class="pp-card"><h3>Komposisi waktu ikut kumpulan subjek</h3>${donut}</section>
+    <section class="pp-card"><h3>Purata guru mengajar ikut waktu <span class="pp-lgd">Isnin–Jumaat</span></h3>${line}</section>
+    <section class="pp-card"><h3>Tindakan perlu <button class="pp-link" data-v="semak">Lihat semua →</button></h3><ul class="pp-todo">${todoH}</ul></section>
+    <section class="pp-card"><h3>Kelas perlu perhatian <button class="pp-link" data-v="jadual">Buka jadual →</button></h3><div class="pp-tw"><table class="pp-t"><thead><tr><th>Kelas</th><th>Guru kelas</th><th class="num">Lengkap</th><th class="num">Kurang</th><th>Status</th></tr></thead><tbody>${krH}</tbody></table></div></section>
+    <section class="pp-card"><h3>Beban guru <span class="pp-lgd">8 tertinggi · had ${TBERAT}</span></h3><div class="pp-tw"><table class="pp-t"><thead><tr><th>Guru</th><th class="num">Waktu</th><th class="num">Kelas</th><th class="num">Subjek</th><th>Beban</th></tr></thead><tbody>${tH}</tbody></table></div></section>
+    <section class="pp-card"><h3>Aktiviti terkini <button class="pp-link" data-v="versi">Lihat semua →</button></h3><ul class="pp-act">${actH}</ul></section>
   </div><div class="pp-tip" role="tooltip" hidden></div></div>`}
+
 const _renderPP=render;
 render=function(){if(!S.preview&&S.view==='papan'){ribbon();document.body.classList.remove('pv');mainEl.innerHTML=papanView();return}_renderPP()};
 mainEl.addEventListener('click',e=>{if(S.view!=='papan')return;const b=e.target.closest('[data-a]');if(!b)return;
