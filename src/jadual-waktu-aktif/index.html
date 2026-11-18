@@ -3438,7 +3438,7 @@ const ppTip=(t)=>` data-tip="${esc(t)}"`;
 function papanView(){
   const P=papanData(),pct=P.tot?Math.round(P.got/P.tot*100):0,ys=[...new Set(D.classes.map((c,i)=>yearOf(i)).filter(y=>y!=null))].sort((a,b)=>a-b);
   const yf=S.ppY==null?'all':String(S.ppY),chip=(v,l)=>`<button class="pp-chip" data-a="ppy" data-y="${v}" aria-pressed="${String(v)===yf}">${l}</button>`;
-  const nT=D.teachers.filter(t=>!t.pentadbir).length,isu=P.tindih+P.half+P.pjI+P.pjL;
+  const nT=D.teachers.length,nP=D.teachers.filter(t=>t.pentadbir).length,isu=P.tindih+P.half+P.pjI+P.pjL;
   const cp=c=>P.clsNeed[c]?Math.round(P.clsHave[c]/P.clsNeed[c]*100):100;
   const ic={kelas:'<path d="M4 12l10-6 10 6v10H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 22v-6h6v6" fill="none" stroke="currentColor" stroke-width="2"/>',guru:'<circle cx="14" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 23c0-5 4-8 8-8s8 3 8 8" fill="none" stroke="currentColor" stroke-width="2"/>',waktu:'<rect x="5" y="6" width="18" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 11h18M10 4v4M18 4v4" stroke="currentColor" stroke-width="2"/>',isu:'<path d="M14 4l11 19H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v5M14 19v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'};
   const kpi=(k,lab,val,sub,bar,tone)=>`<div class="pp-kpi"><span class="pp-kic ${tone||''}"><svg viewBox="0 0 28 28" aria-hidden="true">${ic[k]}</svg></span><div class="pp-kb"><div class="pp-kl">${lab}</div><div class="pp-kv">${val}</div><div class="pp-ks">${sub}</div>${bar!=null?`<span class="pp-pbar"><span style="width:${bar}%"></span></span>`:''}</div></div>`;
@@ -3480,7 +3480,7 @@ function papanView(){
   return`<div class="pp">
   <div class="pp-hero"><div><h2>Papan Pemuka Jadual Waktu</h2><p>Kurikulum, guru dan isu jadual dalam satu paparan · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div><div class="pp-date">📅 ${esc(today)}</div></div>
   <div class="pp-filt" role="group" aria-label="Tapis tahun">${chip('all','Semua tahun')}${ys.map(y=>chip(y,y===0?'Prasekolah':'Tahun '+y)).join('')}</div>
-  <div class="pp-kpis">${kpi('kelas','Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan')}${kpi('guru','Guru',nT,'tidak termasuk pentadbir')}${kpi('waktu','Waktu dijadualkan',`${P.got}<small> / ${P.tot}</small>`,`${pct}% ikut kurikulum`,pct)}${kpi('isu','Isu jadual',isu,isu?'perlu disemak':'tiada isu utama',null,isu?'warn':'')}</div>
+  <div class="pp-kpis">${kpi('kelas','Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan')}${kpi('guru','Guru',nT,`termasuk ${nP} pentadbir`)}${kpi('waktu','Waktu dijadualkan',`${P.got}<small> / ${P.tot}</small>`,`${pct}% ikut kurikulum`,pct)}${kpi('isu','Isu jadual',isu,isu?'perlu disemak':'tiada isu utama',null,isu?'warn':'')}</div>
   <div class="pp-grid">
     <section class="pp-card"><h3>Aliran kelengkapan kelas</h3>${fun}</section>
     <section class="pp-card"><h3>Waktu dijadualkan ikut tahun <span class="pp-lgd"><i class="pp-sw1"></i>Dijadualkan <i class="pp-sw0"></i>Keperluan</span></h3>${vbars}</section>
