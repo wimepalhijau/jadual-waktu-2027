@@ -467,6 +467,37 @@ tbody tr.row{cursor:pointer}
 .pp-tb{display:block;width:110px;height:7px;border-radius:4px;background:var(--pp-track)}.pp-tb span{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--pp-t2),var(--pp-t))}.pp-tb span.over{background:var(--pp-warn)}
 .pp-ai{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pp-tl);display:grid;place-items:center}.pp-ai svg{width:18px;height:18px}
 .pp-tip{position:absolute;z-index:20;pointer-events:none;background:var(--fg);color:var(--panel);font-size:12px;padding:6px 9px;border-radius:7px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+/* sistem guru ganti */
+.rg{--rg-n:#1e3a8a;--rg-n2:#2747a8;--rg-b:#2563eb;--rg-g:#16a34a;--rg-p:#7c3aed;--rg-r:#dc2626;--rg-y:#fffbea;--rg-card:var(--panel);--rg-ln:var(--ribbon-line);display:grid;grid-template-columns:minmax(0,1fr);gap:12px;min-width:0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rg{--rg-y:#2b2814;--rg-n:#1c2f6b;--rg-n2:#25409a}}:root[data-theme="dark"] .rg{--rg-y:#2b2814;--rg-n:#1c2f6b;--rg-n2:#25409a}
+.rg-hd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(90deg,var(--rg-n),var(--rg-n2));color:#fff;border-radius:12px;padding:12px 16px}
+.rg-logo{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--rg-n);display:grid;place-items:center}.rg-logo svg{width:24px;height:24px}
+.rg-tt{display:grid}.rg-tt b{font-size:18px}.rg-tt span{font-size:11.5px;opacity:.85}.rg-hr{display:grid;justify-items:end;gap:3px}.rg-hr b{font-size:13px}
+.rg-st{font-size:11px;font-weight:700;background:#fde68a;color:#78350f;border-radius:5px;padding:2px 7px}.rg-st.ok{background:#bbf7d0;color:#14532d}
+.rg-mb{min-width:0;overflow:hidden}.rg-mb .seg{max-width:100%;overflow-x:auto;flex-wrap:nowrap;font-size:12px}.rg-mb .seg button{white-space:nowrap}
+.rg-g{display:grid;grid-template-columns:minmax(250px,300px) minmax(0,1fr);gap:14px;align-items:start}@media (max-width:860px){.rg-g{grid-template-columns:minmax(0,1fr)}}
+.rg-c1,.rg-c2{display:grid;gap:14px;min-width:0}
+.rg-card{background:var(--rg-card);border:1px solid var(--rg-ln);border-radius:10px;padding:14px 16px;box-shadow:0 1px 3px rgba(20,40,90,.06);min-width:0}
+.rg-card h3{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--rg-ln);font-size:14.5px;font-weight:700;color:var(--fg)}
+.rg-i{color:var(--rg-b);font-size:14px}.rg-i.rd{color:var(--rg-r)}.rg-bd{font-style:normal;font-size:11px;font-weight:700;background:#fde2e2;color:#b42318;border-radius:5px;padding:2px 8px}
+.rg-l{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:10px 0 4px}.rg-l:first-of-type{margin-top:0}
+.rg-in{width:100%;box-sizing:border-box;border:1px solid var(--rg-ln);border-radius:6px;padding:8px 10px;font:inherit;font-size:13.5px;background:var(--rg-card);color:var(--fg)}textarea.rg-in{resize:vertical}
+.rg-in:focus{outline:2px solid var(--rg-b);outline-offset:-1px}
+.rg-ro{border:1px solid var(--rg-ln);border-radius:6px;padding:8px 10px;font-size:13.5px;background:var(--hover,#f2f4f7);color:var(--muted)}
+.rg-dt{display:flex;gap:6px;align-items:center}.rg-dt .dbw{flex:1}.rg-dt .dbx{width:100%;justify-content:center;padding:8px 10px;font-size:13.5px;border-radius:6px}.rg-nv{width:34px;height:36px;border:1px solid var(--rg-ln);border-radius:6px;background:var(--rg-card);color:var(--fg);font-size:18px;cursor:pointer}
+.rg-b{border:0;border-radius:7px;padding:9px 14px;font:inherit;font-size:13px;font-weight:700;color:#fff;cursor:pointer;display:inline-flex;gap:6px;align-items:center;justify-content:center}.rg-b.sm{padding:7px 12px;font-size:12.5px}
+.rg-b.blue{background:var(--rg-b);width:100%;margin-top:14px}.rg-b.blue.sm{width:auto;margin:0}.rg-b.green{background:var(--rg-g)}.rg-b.purple{background:var(--rg-p)}.rg-b.ghost{background:none;color:var(--muted);border:1px solid var(--rg-ln)}
+.rg-b:disabled{opacity:.45;cursor:not-allowed}.rg-b:not(:disabled):hover{filter:brightness(1.08)}
+.rg-act{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rg-tw{overflow-x:auto}.rg-t{width:100%;border-collapse:collapse;font-size:13px}.rg-t th,.rg-t td{border-left:0;border-right:0;border-top:0}
+.rg-t thead th{background:var(--hover,#f5f7fb);color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;text-align:left;padding:9px 10px;border-bottom:1px solid var(--rg-ln)}
+.rg-t td{padding:10px;border-bottom:1px solid var(--rg-ln);vertical-align:middle}.rg-t tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--hover,#f5f7fb) 60%,transparent)}
+.rg-t .c{text-align:center}.mu,.rg .mu{color:var(--muted);font-size:12.5px}.rg-t .rd{color:var(--rg-r);font-weight:600}.rg-t .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;white-space:nowrap}
+.rg-del{border:0;background:none;color:var(--rg-r);cursor:pointer;padding:4px;border-radius:5px}.rg-del svg{width:18px;height:18px}.rg-del:hover{background:#fde2e2}
+.rg-jh{align-items:flex-start}.rg-jh>span:first-child{display:grid;gap:2px}.rg-jt{font-size:16px}.rg-jh small{font-weight:400;color:var(--muted);font-size:12px}
+.rg-t .rg-tm{white-space:nowrap;font-size:12.5px;font-variant-numeric:tabular-nums}.rg-j td:nth-child(2){white-space:nowrap}.rg-j td,.rg-j th{padding:8px 8px}.rg-j th.pk,.rg-j td.pk{background:var(--rg-y)!important}.rg-j th.pk{color:#8a6d00}
+.rg-ps{display:flex;align-items:center;gap:6px}.rg-ps>span{color:var(--rg-g);font-size:14px;width:16px;text-align:center}.rg-ps select{flex:1;min-width:150px;border:1px solid var(--rg-ln);border-radius:6px;padding:6px 8px;font:inherit;font-size:12.5px;background:var(--rg-card);color:var(--fg)}
+.rg-j tr.rg-ok td.pk select{border-color:var(--rg-g);font-weight:600}
 /* papan relif */
 .rp-hero{align-items:center}.rp-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rp-arr{width:36px;height:36px;border-radius:10px;border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--pp-t);font-size:22px;line-height:1;cursor:pointer}
 .rp-day{display:grid;text-align:center;min-width:92px}.rp-day b{font-size:17px;color:var(--pp-t)}.rp-day span{font-size:12px;color:var(--muted)}
@@ -1121,6 +1152,56 @@ function sharedRelif(){
   const hb='<div class="bar" style="margin:0 0 6px"><button class="btn" data-a="relifhari">Cetak Jadual Guru Ganti hari ini</button></div>';
   rows.sort((a,b)=>a.pi-b.pi||a.cls.localeCompare(b.cls));
   return h+hb+`<div class="tw"><table><thead><tr><th>Waktu</th><th>Kelas</th><th>Guru ganti</th><th>Ganti untuk</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="mono">${PER[r.pi]?PER[r.pi].n+' · '+(()=>{const c=D.classes.findIndex(k=>k.name===r.cls);return h12(lessonTime(r.pi,c>=0?[c]:[]).s)})():r.pi+1}</td><td>${esc(r.cls)}</td><td>${esc(U(r.by))}</td><td>${esc(U(r.abs))}</td></tr>`).join('')}</tbody></table></div>`}
+/* ---------- Sistem Guru Ganti (borang ringkas: tarikh, guru tidak hadir, cadangan guru ganti) ---------- */
+const RG_SEBAB=['Cuti sakit (MC)','Cuti rehat khas','Cuti tanpa rekod','Kursus','Bengkel','Mesyuarat','Kerja luar','Rasmi','Khas','Lain-lain'];
+function rgOpts(R,r){const P=S.arPick||{},cur=P[r.key],C=arCands(R,r),sn=shortNames();
+  const fr=C.filter(x=>x.free),bz=C.filter(x=>!x.free);
+  const o=x=>`<option value="${x.i}" ${x.i===cur?'selected':''}>${esc(sn[x.i])} · ${esc(D.teachers[x.i].code)}${x.today?` (${x.today} relif)`:''}${x.gk?' ★':''}</option>`;
+  return`<option value="">-</option>${fr.length?`<optgroup label="Guru kosong">${fr.map(o).join('')}</optgroup>`:''}<optgroup label="Lain"><option value="-2" ${cur===-2?'selected':''}>Pengawas</option><option value="-3" ${cur===-3?'selected':''}>Batal kelas</option></optgroup>${bz.length?`<optgroup label="Sedang mengajar (gabung kelas)">${bz.map(o).join('')}</optgroup>`:''}`}
+function relifGanti(rmode){
+  arLoad();const R=arRows(),P=S.arPick||{},d=R.d,dt=new Date(S.rdate+'T00:00:00'),HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],canSave=DBH&&CANW!==false;
+  const absC=arAbsCodes(),done=R.rows.filter(r=>{const p=P[r.key];return p>=0||p===-2||p===-3}).length,cat=S.rsCat||{};
+  const today=dt.toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const head=`<div class="rg-hd"><div class="rg-logo" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="13" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 19c0-2 2-3.3 4-3.3s4 1.3 4 3.3M17 12h4M17 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div class="rg-tt"><b>Sistem Guru Ganti</b><span>Pengurusan relif sekolah · ${esc((D.school&&D.school.name)||'')}</span></div><span class="grow"></span>
+    <div class="rg-hr"><b>${esc(today)}</b><span class="rg-st ${R.rows.length&&done===R.rows.length?'ok':''}">${R.rows.length?`${done}/${R.rows.length} diganti`:'Tiada relif'}</span></div></div>`;
+  const tetapan=`<section class="rg-card"><h3><span class="rg-i">📅</span>Tetapan Tarikh</h3><label class="rg-l">Tarikh relif</label><div class="rg-dt"><button class="rg-nv" data-rg="prev" aria-label="Hari sebelum">‹</button>${dateBox()}<button class="rg-nv" data-rg="next" aria-label="Hari berikut">›</button></div>
+    <label class="rg-l">Hari</label><div class="rg-ro">${HARI[dt.getDay()]}</div></section>`;
+  const input=`<section class="rg-card"><h3><span class="rg-i rd">👤</span>Input Guru Tidak Hadir</h3>
+    <label class="rg-l" for="rg-t">Nama guru</label><select id="rg-t" class="rg-in"><option value="">-- Pilih guru --</option>${D.teachers.filter(t=>!absC.includes(t.code)).slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${esc(t.code)}">${esc(t.name)}</option>`).join('')}</select>
+    <label class="rg-l" for="rg-s">Sebab tidak hadir</label><select id="rg-s" class="rg-in">${RG_SEBAB.map(x=>`<option>${x}</option>`).join('')}</select>
+    <label class="rg-l" for="rg-w">Waktu tidak hadir (pilihan)</label><input id="rg-w" class="rg-in" placeholder="Kosong = sepanjang hari, cth 3-6">
+    <label class="rg-l" for="rg-c">Catatan (pilihan)</label><textarea id="rg-c" class="rg-in" rows="3" placeholder="Contoh: MC 2 hari"></textarea>
+    <button class="rg-b blue" data-rg="add">＋ Tambah ke senarai</button></section>`;
+  const abs=`<section class="rg-card"><h3><span class="rg-i">☰</span>Senarai Guru Tidak Hadir<span class="grow"></span><em class="rg-bd">${absC.length} guru</em></h3>
+    <div class="rg-tw"><table class="rg-t"><thead><tr><th>Nama guru</th><th>Sebab</th><th>Waktu</th><th>Catatan</th><th class="c">Tindakan</th></tr></thead><tbody>${absC.map(c=>{const cu=arCutiOf(c)&&!(S.rsAbs||[]).includes(c);
+      return`<tr><td><b>${esc(tName0(c))}</b></td><td>${esc(arSebab(c)||'-')}</td><td>${esc(arJulat(c)||'Sehari')}</td><td class="mu">${esc(cat[c]||(cu?'Cuti beberapa hari':''))}</td><td class="c">${cu?'<span class="mu">—</span>':`<button class="rg-del" data-rg="del" data-c="${esc(c)}" aria-label="Buang ${esc(tName0(c))}" title="Buang daripada senarai"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>`}</td></tr>`}).join('')||'<tr><td colspan="5" class="mu c">Belum ada guru tidak hadir. Tambah melalui borang di sebelah.</td></tr>'}</tbody></table></div>
+    <div class="rg-act">${absC.length?'<button class="rg-b ghost" data-rg="kosong">Kosongkan pilihan</button>':''}<button class="rg-b green" data-rg="jana" ${R.rows.length?'':'disabled'}>⚙ Jana cadangan guru ganti</button></div></section>`;
+  const sn=shortNames();
+  const jad=`<section class="rg-card"><h3 class="rg-jh"><span><span class="rg-jt">Jadual Guru Ganti</span><small>Tarikh: <b>${esc(dmy(S.rdate))}</b> | Hari: <b>${HARI[dt.getDay()]}</b></small></span><span class="grow"></span>
+    ${canSave?`<button class="rg-b blue sm" data-rg="simpan" ${absC.length?'':'disabled'}>💾 Simpan</button>`:''}<button class="rg-b purple sm" data-rg="jpeg" ${R.rows.length?'':'disabled'}>🖼 Muat turun imej (JPEG)</button></h3>
+    ${d<0?'<p class="mu">Tarikh ini hari hujung minggu. Tiada waktu mengajar.</p>':R.rows.length?`<div class="rg-tw"><table class="rg-t rg-j"><thead><tr><th>Masa</th><th>Kelas</th><th>Mata pelajaran</th><th>Guru asal</th><th class="pk">Pilihan guru ganti</th></tr></thead><tbody>${R.rows.map(r=>{const tm=lessonTime(r.pi,[r.c]),p=P[r.key],ok=p>=0||p===-2||p===-3;
+      return`<tr class="${ok?'rg-ok':''}"><td class="rg-tm">${h12(tm.s)}–${h12(tm.e)}</td><td><b>${esc(D.classes[r.c].name)}</b></td><td>${esc(r.sub)}</td><td class="rd">${esc(sn[r.t])}</td><td class="pk"><span class="rg-ps"><span aria-hidden="true">${ok?'✔':'⇄'}</span><select data-rgk="${esc(r.key)}" aria-label="Guru ganti ${esc(D.classes[r.c].name)} waktu ${esc(PER[r.pi].n)}">${rgOpts(R,r)}</select></span></td></tr>`}).join('')}</tbody></table></div>
+    <p class="mu" style="margin:8px 0 0">★ guru kelas atau pembantu guru kelas. Nombor dalam kurungan ialah bilangan relif guru itu hari ini. Tekan <b>Simpan</b> supaya semua guru nampak.</p>`:`<p class="mu">${absC.length?'Guru tidak hadir ini tiada kelas pada hari itu.':'Tambah guru tidak hadir untuk melihat kelas yang perlu diganti.'}</p>`}</section>`;
+  return`<div class="rg">${head}<div class="rg-mb">${rmode}</div><div class="rg-g"><div class="rg-c1">${tetapan}${input}</div><div class="rg-c2">${abs}${jad}</div></div></div>`}
+async function rgSave(){const keep=new Set(arAbsCodes());await arSave();
+  const st=Object.entries(RELIF||{}).filter(([id,v])=>v&&v.date===S.rdate&&!keep.has(v.absent));for(const[id]of st){try{await DBH.doc('relif/'+id).delete()}catch(e){}}}
+async function rgJpeg(){const R=arRows(),P=S.arPick||{},sn=shortNames(),dt=new Date(S.rdate+'T00:00:00'),HARI=['AHAD','ISNIN','SELASA','RABU','KHAMIS','JUMAAT','SABTU'];
+  const rows=R.rows.map(r=>{const tm=lessonTime(r.pi,[r.c]),p=P[r.key];return[h12(tm.s)+' - '+h12(tm.e),D.classes[r.c].name,r.sub,U(D.teachers[r.t].name),p>=0?U(D.teachers[p].name)+(arJenisOf(r.key)==='Gabung'?' (GABUNG)':''):p===-2?'PENGAWAS':p===-3?'KELAS DIBATALKAN':'-']});
+  const W=[150,130,130,330,360],x0=40,rh=40,top=190,cw=W.reduce((a,b)=>a+b,0)+x0*2,ch=top+rh*(rows.length+1)+120,sc=2;
+  const cv=document.createElement('canvas');cv.width=cw*sc;cv.height=ch*sc;const g=cv.getContext('2d');g.scale(sc,sc);
+  g.fillStyle='#fff';g.fillRect(0,0,cw,ch);g.fillStyle='#1e3a8a';g.fillRect(0,0,cw,96);
+  g.fillStyle='#fff';g.font='bold 30px Arial';g.textAlign='center';g.fillText('JADUAL GURU GANTI',cw/2,48);g.font='16px Arial';g.fillText(U((D.school&&D.school.name)||''),cw/2,78);
+  g.fillStyle='#111';g.font='bold 18px Arial';g.fillText(fmtDate(S.rdate).toUpperCase(),cw/2,130);
+  const absTxt='Guru tidak hadir: '+arAbsCodes().map(c=>U(tName0(c))+(arSebab(c)?' ('+arSebab(c)+')':'')).join(', ');g.font='13px Arial';g.fillStyle='#444';
+  const wrap=(t,y)=>{const ws=t.split(' ');let l='',yy=y;ws.forEach(w=>{if(g.measureText(l+w).width>cw-80){g.fillText(l,cw/2,yy);l='';yy+=17}l+=w+' '});g.fillText(l,cw/2,yy)};wrap(absTxt,156);
+  const hd=['MASA','KELAS','SUBJEK','GURU ASAL','GURU GANTI'];let y=top;g.textAlign='left';
+  g.fillStyle='#e8eefc';g.fillRect(x0,y,cw-x0*2,rh);g.fillStyle='#1e3a8a';g.font='bold 14px Arial';let x=x0;hd.forEach((h,k)=>{g.fillText(h,x+10,y+25);x+=W[k]});
+  rows.forEach((r,i)=>{y+=rh;if(i%2){g.fillStyle='#f6f8fc';g.fillRect(x0,y,cw-x0*2,rh)}x=x0;r.forEach((v,k)=>{g.fillStyle=k===3?'#c0392b':k===4?(v==='-'?'#999':'#0b6b40'):'#111';g.font=(k===1||k===4?'bold ':'')+'14px Arial';let s=String(v);while(g.measureText(s).width>W[k]-16&&s.length>3)s=s.slice(0,-2);g.fillText(s,x+10,y+25);x+=W[k]})});
+  g.strokeStyle='#c9d3e6';g.lineWidth=1;for(let k=0;k<=rows.length+1;k++){g.beginPath();g.moveTo(x0,top+k*rh);g.lineTo(cw-x0,top+k*rh);g.stroke()}
+  g.strokeRect(x0,top,cw-x0*2,rh*(rows.length+1));g.fillStyle='#888';g.font='12px Arial';g.fillText('Dijana: '+new Date().toLocaleString('ms-MY'),x0,ch-30);
+  const blob=await new Promise(res=>cv.toBlob(res,'image/jpeg',.92)),fn='guru-ganti-'+S.rdate+'.jpg';
+  try{const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;if(dl)await dl.save({filename:fn,data:blob});else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click()}}catch(e){if(!(e&&e.code==='declined'))toast('Muat turun tidak berjaya')}}
 /* ---------- Papan relif (dashboard guru ganti harian) ---------- */
 function rpTip(t){return` data-tip="${esc(t)}"`}
 function rpStatus(key){const p=(S.arPick||{})[key];if(p===-2)return['Pengawas','mid'];if(p===-3)return['Batal','mid'];if(p>=0){const j=arJenisOf(key);return[j==='Gabung'?'Gabung':'Diganti','ok']}return['Belum','bad']}
@@ -1185,9 +1266,10 @@ function relifPapan(rmode){
 function relifView(){
   if(!D.teachers.length)return'<p class="note">Tambah guru dahulu.</p>';
   if(S.rt>=D.teachers.length)S.rt=0;
-  if(S.rmode==null)S.rmode='papan';
-  const rmode=`<div class="seg" role="group" aria-label="Jenis relif"><button data-rmode="papan" aria-pressed="${S.rmode==='papan'}">Papan</button><button data-rmode="asc" aria-pressed="${S.rmode==='asc'}">Gaya aSc</button><button data-rmode="biasa" aria-pressed="${S.rmode==='biasa'}">Seorang guru</button><button data-rmode="statik" aria-pressed="${S.rmode==='statik'}">Ramai guru (relif statik)</button><button data-rmode="rekod" aria-pressed="${S.rmode==='rekod'}">Rekod bulanan</button><button data-rmode="sejarah" aria-pressed="${S.rmode==='sejarah'}">Sejarah</button></div>`;
+  if(S.rmode==null)S.rmode='ganti';
+  const rmode=`<div class="seg" role="group" aria-label="Jenis relif"><button data-rmode="ganti" aria-pressed="${S.rmode==='ganti'}">Guru Ganti</button><button data-rmode="papan" aria-pressed="${S.rmode==='papan'}">Papan</button><button data-rmode="asc" aria-pressed="${S.rmode==='asc'}">Gaya aSc</button><button data-rmode="biasa" aria-pressed="${S.rmode==='biasa'}">Seorang guru</button><button data-rmode="statik" aria-pressed="${S.rmode==='statik'}">Ramai guru (relif statik)</button><button data-rmode="rekod" aria-pressed="${S.rmode==='rekod'}">Rekod bulanan</button><button data-rmode="sejarah" aria-pressed="${S.rmode==='sejarah'}">Sejarah</button></div>`;
   if(S.rmode==='papan')return relifPapan(rmode);
+  if(S.rmode==='ganti')return relifGanti(rmode);
   if(S.rmode==='asc'){arLoad();return ascRelifView(rmode)}
   if(S.rmode==='rekod')return`<div class="bar">${rmode}</div>`+rekodView();
   if(S.rmode==='sejarah')return`<div class="bar">${rmode}</div>`+sejarahView();
@@ -1368,7 +1450,7 @@ function arCands(R,row){const{busy,sub,freed}=arBusy(R.G,R.d,R.abs),pi=row.pi,c=
 function arJenisOf(key){const p=(S.arPick||{})[key],j=(S.arJenis||{})[key];if(j)return j;if(p===-2)return'Pengawas';if(p===-3)return'Batal';return p>=0?'Ganti':''}
 function arShift(n){const dt=new Date(S.rdate+'T00:00:00');do{dt.setDate(dt.getDate()+n)}while(dt.getDay()===0||dt.getDay()===6);
   S.rdate=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');arNewDay()}
-function arNewDay(){S.arPick={};S.arJenis={};S.arNota={};S.arSel=null;S.rsAbs=[];S.rsSebab={};S.rsRange={};S.rsPick={};S.rsBy={};S.arLoaded=null}
+function arNewDay(){S.rsCat={};S.arPick={};S.arJenis={};S.arNota={};S.arSel=null;S.rsAbs=[];S.rsSebab={};S.rsRange={};S.rsPick={};S.rsBy={};S.arLoaded=null}
 function arPanelHTML(R){const P=S.arPanel;if(!P)return'';const ed=canEdit(),sn=shortNames();
   const csel=(id,multi)=>`<div class="ar-cl">${D.classes.map(c=>`<label><input type="checkbox" data-arck="${id}" value="${esc(c.name)}"> ${esc(c.name)}</label>`).join('')}</div>`;
   if(P==='kelas'||P==='acara'){const L=(D.acara||[]).map((a,k)=>[a,k]).filter(([a])=>P==='acara'||inRange(S.rdate,a.dari,a.hingga));
@@ -1467,7 +1549,7 @@ function arBoard(){const{rows,absList}=arReportRows(),sn=shortNames(),sc=D.schoo
   return`<div class="noprint"><div class="bar"><span class="grow"></span>${orientBar('l')}<button class="btn" data-a="pvback">Kembali</button></div></div><style>.brd{font-family:Arial,sans-serif;color:#000;background:#fff}.brd h1{font-size:30px;text-align:center;margin:0}.brd .d{text-align:center;font-size:20px;margin:2px 0 10px}.brd table{width:100%;border-collapse:collapse}.brd th{background:#1a3f8c;color:#fff;font-size:16px;padding:6px}.brd td{border:1px solid #888;font-size:18px;padding:6px;text-align:center}.brd tr:nth-child(even) td{background:#eef3fb}@media print{body:has(.brd) .hdr{display:none}}</style>
   <section class="sec brd"><h1>GURU GANTI HARI INI</h1><div class="d">${esc(fmtDate(S.rdate).toUpperCase())} · ${esc(U(sc.name||''))}</div><table><thead><tr><th>Waktu</th><th>Masa</th><th>Kelas</th><th>Guru ganti</th><th>Ganti untuk</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.n)}</td><td>${esc(r.tm)}</td><td><b>${esc(r.c)}</b></td><td><b>${esc(U(r.g))}</b></td><td>${esc(U(r.abs))}</td></tr>`).join('')||'<tr><td colspan="5">Tiada penggantian.</td></tr>'}</tbody></table></section>`}
 async function arSave(){const R=arRows(),per={};R.rows.forEach(r=>{const p=(S.arPick||{})[r.key];if(!(p>=0||p===-2||p===-3))return;(per[r.t]=per[r.t]||[]).push({pi:r.pi,cls:D.classes[r.c].name,by:p>=0?D.teachers[p].code:p===-2?'PENGAWAS':'BATAL',jenis:arJenisOf(r.key),nota:(S.arNota||{})[r.key]||''})});
-  let ok=0,bad=0;for(const t of R.abs){const tt=D.teachers[t];try{await DBH.doc('relif/'+S.rdate+'_'+tt.code).set({date:S.rdate,absent:tt.code,absentName:tt.name,items:per[t]||[],sebab:arSebab(tt.code),julat:arJulat(tt.code),savedAt:Date.now()});ok++}catch(e){bad++}}
+  let ok=0,bad=0;for(const t of R.abs){const tt=D.teachers[t];try{await DBH.doc('relif/'+S.rdate+'_'+tt.code).set({date:S.rdate,absent:tt.code,absentName:tt.name,items:per[t]||[],sebab:arSebab(tt.code),julat:arJulat(tt.code),catatan:(S.rsCat||{})[tt.code]||'',savedAt:Date.now()});ok++}catch(e){bad++}}
   toast(bad?'Sebahagian gagal disimpan':'Disimpan untuk '+ok+' guru tidak hadir')}
 /* Ekspot relif hari itu dan rekod bulan itu ke Excel */
 async function arXlsx(){try{const{rows}=arReportRows(),m=S.rdate.slice(0,7),docs=Object.values(RELIF||{}).filter(v=>String(v.date||'').slice(0,7)===m).sort((a,b)=>a.date.localeCompare(b.date));
@@ -1481,7 +1563,7 @@ async function arXlsx(){try{const{rows}=arReportRows(),m=S.rdate.slice(0,7),docs
 /* muat relif yang telah disimpan untuk tarikh itu ke paparan gaya aSc */
 function arLoad(){if(S.arLoaded===S.rdate)return;S.arLoaded=S.rdate;const docs=Object.values(RELIF||{}).filter(v=>v.date===S.rdate);if(!docs.length)return;
   S.rsAbs=docs.map(v=>v.absent);S.rsSebab=S.rsSebab||{};S.rsRange=S.rsRange||{};S.arPick={};S.arJenis={};S.arNota={};const d=relifDay();
-  docs.forEach(v=>{if(v.sebab)S.rsSebab[v.absent]=v.sebab;if(v.julat)S.rsRange[v.absent]=v.julat;const t=D.teachers.findIndex(x=>x.code===v.absent);
+  S.rsCat=S.rsCat||{};docs.forEach(v=>{if(v.sebab)S.rsSebab[v.absent]=v.sebab;if(v.catatan)S.rsCat[v.absent]=v.catatan;if(v.julat)S.rsRange[v.absent]=v.julat;const t=D.teachers.findIndex(x=>x.code===v.absent);
     (v.items||[]).forEach(it=>{const c=D.classes.findIndex(k=>k.name===it.cls),key=t+'|'+d+'|'+it.pi+'|'+c,b=D.teachers.findIndex(x=>x.code===it.by);if(t<0||c<0)return;
       S.arPick[key]=b>=0?b:it.by==='PENGAWAS'?-2:it.by==='BATAL'?-3:-1;if(it.jenis)S.arJenis[key]=it.jenis;if(it.nota)S.arNota[key]=it.nota})})}
 
@@ -3577,11 +3659,23 @@ mainEl.addEventListener('pointermove',e=>{if(S.view!=='papan'&&!(S.view==='relif
   if(!el){tip.hidden=true;return}tip.textContent=el.dataset.tip;tip.hidden=false;const r=mainEl.querySelector('.pp').getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top+14;
   if(x+tip.offsetWidth>r.width)x=e.clientX-r.left-tip.offsetWidth-10;tip.style.left=x+'px';tip.style.top=y+'px'});
 mainEl.addEventListener('pointerleave',()=>{const tip=mainEl.querySelector('.pp-tip');if(tip)tip.hidden=true});
+mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.preview)return;const b=e.target.closest('[data-rg]');if(!b)return;e.stopImmediatePropagation();const k=b.dataset.rg;
+  if(k==='prev'||k==='next'){arShift(k==='prev'?-1:1);render();return}
+  if(k==='add'){const t=document.getElementById('rg-t').value;if(!t){toast('Pilih nama guru');return}
+    S.rsAbs=[...(S.rsAbs||[]).filter(x=>x!==t),t];S.rsSebab=S.rsSebab||{};S.rsSebab[t]=document.getElementById('rg-s').value;S.rsRange=S.rsRange||{};S.rsRange[t]=document.getElementById('rg-w').value.trim();S.rsCat=S.rsCat||{};S.rsCat[t]=document.getElementById('rg-c').value.trim();render();toast('Ditambah ke senarai');return}
+  if(k==='del'){const c=b.dataset.c,ti=D.teachers.findIndex(x=>x.code===c);S.rsAbs=(S.rsAbs||[]).filter(x=>x!==c);Object.keys(S.arPick||{}).forEach(key=>{if(+key.split('|')[0]===ti)delete S.arPick[key]});render();return}
+  if(k==='jana'){arAuto();render();toast('Cadangan guru ganti dijana. Semak dan tukar jika perlu.');return}
+  if(k==='kosong'){S.arPick={};S.arJenis={};render();return}
+  if(k==='simpan'){rgSave().then(()=>render());return}
+  if(k==='jpeg'){rgJpeg();return}},true);
+mainEl.addEventListener('change',e=>{if(S.view!=='relif'||S.rmode!=='ganti')return;const t=e.target.closest('[data-rgk]');if(!t)return;e.stopImmediatePropagation();
+  const key=t.dataset.rgk,v=t.value;S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[key];
+  if(v===''){delete S.arPick[key]}else{const n=+v;S.arPick[key]=n;if(n>=0){const R=arRows(),r=R.rows.find(x=>x.key===key),c=r&&arCands(R,r).find(x=>x.i===n);if(c&&!c.free)S.arJenis[key]='Gabung'}}render()},true);
 mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='papan'||S.preview)return;const b=e.target.closest('[data-rp]');if(!b)return;e.stopImmediatePropagation();const k=b.dataset.rp;
   if(k==='prev'||k==='next'){arShift(k==='prev'?-1:1);render();return}
-  if(k==='add'){S.rmode='asc';S.arAdd=true;render();return}
-  if(k==='urus'){S.rmode='asc';render();return}
-  if(k==='row'){S.rmode='asc';S.arSel=b.dataset.k;render();return}
+  if(k==='add'){S.rmode='ganti';render();setTimeout(()=>{const x=document.getElementById('rg-t');if(x)x.focus()},50);return}
+  if(k==='urus'){S.rmode='ganti';render();return}
+  if(k==='row'){S.rmode='ganti';render();return}
   if(k==='cetak'){S.preview='relifar';render();window.scrollTo(0,0);return}
   if(k==='board'){S.preview='relifboard';render();window.scrollTo(0,0);return}},true);
 /* ---------- events ---------- */
