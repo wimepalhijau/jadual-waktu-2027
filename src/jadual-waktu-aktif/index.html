@@ -498,6 +498,29 @@ tbody tr.row{cursor:pointer}
 .rg-t .rg-tm{white-space:nowrap;font-size:12.5px;font-variant-numeric:tabular-nums}.rg-j td:nth-child(2){white-space:nowrap}.rg-j td,.rg-j th{padding:8px 8px}.rg-j th.pk,.rg-j td.pk{background:var(--rg-y)!important}.rg-j th.pk{color:#8a6d00}
 .rg-ps{display:flex;align-items:center;gap:6px}.rg-ps>span{color:var(--rg-g);font-size:14px;width:16px;text-align:center}.rg-ps select{flex:1;min-width:150px;border:1px solid var(--rg-ln);border-radius:6px;padding:6px 8px;font:inherit;font-size:12.5px;background:var(--rg-card);color:var(--fg)}
 .rg-j tr.rg-ok td.pk select{border-color:var(--rg-g);font-weight:600}
+body.rgw:not(.pv) .wrap{max-width:min(calc(1320px / var(--zm,1)),100%)!important}
+@media (min-width:1180px){.rg-g.w3{grid-template-columns:minmax(240px,270px) minmax(0,1fr) minmax(330px,380px)}.rg-g.w3 .rg-c3{position:sticky;top:8px;align-self:start}}
+@media (min-width:861px) and (max-width:1179px){.rg-g.w3 .rg-c3{grid-column:1/-1}}
+.rg-c3{min-width:0}
+.rg-rh{font-size:13px;color:var(--rg-n2);font-weight:600;margin:-4px 0 8px}
+.rg-gw{max-height:52vh;overflow:auto;border:1px solid var(--rg-ln);border-radius:6px}
+.rg-gg{border-collapse:collapse;font-size:11.5px;width:100%;table-layout:fixed}.rg-gg th,.rg-gg td{border:1px solid var(--rg-ln)}
+.rg-gg thead th{position:sticky;top:0;z-index:2;background:var(--rg-card);text-align:center;font-weight:700;padding:3px 0;font-size:11px}.rg-gg thead th:first-child,.rg-gg tbody th{width:66px}
+.rg-gg tbody th{text-align:left;padding:2px 5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--rg-card)}
+.rg-gg td{height:22px;background:var(--rg-card);text-align:center;font-size:12px;padding:0}
+.rg-gg .crb th,.rg-gg .crb td{border-bottom:2px solid var(--fg);height:26px;position:sticky;top:22px;z-index:1}
+.rg-gg th.cy,.rg-gg td.cy{background:#ffeb3b}.rg-gg td.pk{background:#f7c5ca}.rg-gg td.cy.pk{background:#e8c84a}.rg-gg td.sb{background:#9fc2f0}.rg-gg td.fr{background:#cfe9cf}.rg-gg td.cur{outline:2.5px solid var(--fg);outline-offset:-2.5px}
+.rg-gg tr.cd{cursor:pointer}.rg-gg tr.cd:hover th{background:var(--hover)}.rg-gg tr.bz th{color:var(--muted);font-weight:500}
+.rg-gg tr.on th,.rg-gg tr.on td{background:#2fb35a!important;color:#fff}.rg-gg tr.on td.cy{background:#ffeb3b!important}
+.rg-gg i.gm{display:inline-block;width:3px;height:11px;background:#2fb35a;margin-left:3px;vertical-align:-1px}
+.rg-lg{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted);margin:8px 0}.rg-lg i{display:inline-block;width:10px;height:10px;border:1px solid var(--rg-ln);margin-right:4px;vertical-align:-1px}.rg-lg i.pk{background:#f7c5ca}.rg-lg i.sb{background:#9fc2f0}.rg-lg i.fr{background:#cfe9cf}.rg-lg i.cy{background:#ffeb3b}.rg-lg i.gm2{background:#2fb35a;width:3px}
+.rg-pb{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.rg-pb .rg-b.ghost{color:var(--fg)}
+.rg-kr{border-top:1px solid var(--rg-ln);padding-top:10px}.rg-kh{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--rg-n2);margin-bottom:6px}.rg-kh b:last-child{text-align:right}
+.rg-kr ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:12.5px}.rg-kr li::before{content:'•';color:var(--muted);margin-right:6px}.rg-kr li.ok::before{content:'✔';color:var(--rg-g)}.rg-kr li.bad{color:var(--rg-r)}.rg-kr li.bad::before{content:'!';color:var(--rg-r);font-weight:700}
+.rg-mt{display:flex;gap:8px;margin-top:10px}.rg-mt span{flex:1;border:1px solid var(--rg-ln);border-radius:6px;padding:5px;text-align:center;font-size:11px;color:var(--muted)}.rg-mt b{display:block;font-size:17px;color:var(--fg)}
+.rg-j tbody tr.rg-sel td{box-shadow:inset 0 2px 0 var(--rg-b),inset 0 -2px 0 var(--rg-b)}.rg-j tbody tr{cursor:pointer}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rg-gg td.pk{background:#7a3b45}:root:not([data-theme="light"]) .rg-gg td.sb{background:#2f5687}:root:not([data-theme="light"]) .rg-gg td.fr{background:#2f5a37}:root:not([data-theme="light"]) .rg-gg th.cy,:root:not([data-theme="light"]) .rg-gg td.cy{background:#8a7a12}:root:not([data-theme="light"]) .rg-gg td.cy.pk{background:#9a6a1a}}
+:root[data-theme="dark"] .rg-gg td.pk{background:#7a3b45}:root[data-theme="dark"] .rg-gg td.sb{background:#2f5687}:root[data-theme="dark"] .rg-gg td.fr{background:#2f5a37}:root[data-theme="dark"] .rg-gg th.cy,:root[data-theme="dark"] .rg-gg td.cy{background:#8a7a12}
 /* papan relif */
 .rp-hero{align-items:center}.rp-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rp-arr{width:36px;height:36px;border-radius:10px;border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--pp-t);font-size:22px;line-height:1;cursor:pointer}
 .rp-day{display:grid;text-align:center;min-width:92px}.rp-day b{font-size:17px;color:var(--pp-t)}.rp-day span{font-size:12px;color:var(--muted)}
@@ -1158,6 +1181,26 @@ function rgOpts(R,r){const P=S.arPick||{},cur=P[r.key],C=arCands(R,r),sn=shortNa
   const fr=C.filter(x=>x.free),bz=C.filter(x=>!x.free);
   const o=x=>`<option value="${x.i}" ${x.i===cur?'selected':''}>${esc(sn[x.i])} · ${esc(D.teachers[x.i].code)}${x.today?` (${x.today} relif)`:''}${x.gk?' ★':''}</option>`;
   return`<option value="">-</option>${fr.length?`<optgroup label="Guru kosong">${fr.map(o).join('')}</optgroup>`:''}<optgroup label="Lain"><option value="-2" ${cur===-2?'selected':''}>Pengawas</option><option value="-3" ${cur===-3?'selected':''}>Batal kelas</option></optgroup>${bz.length?`<optgroup label="Sedang mengajar (gabung kelas)">${bz.map(o).join('')}</optgroup>`:''}`}
+function rgPanel(R){
+  if(R.d<0||!R.rows.length)return`<section class="rg-card rg-cp"><h3><span class="rg-i">▦</span>Jadual guru (calon)</h3><p class="mu" style="margin:0">Tambah guru tidak hadir, kemudian klik satu baris dalam Jadual Guru Ganti untuk melihat guru yang boleh relif.</p></section>`;
+  if(!R.rows.some(r=>r.key===S.arSel))S.arSel=(R.rows.find(r=>!((S.arPick||{})[r.key]>=0||[-2,-3].includes((S.arPick||{})[r.key])))||R.rows[0]).key;
+  const row=R.rows.find(r=>r.key===S.arSel),P=S.arPick||{},cur=P[row.key],sn=shortNames(),{busy,sub,freed}=arBusy(R.G,R.d,R.abs);
+  const C0=arCands(R,row),C=C0.filter(x=>x.i===cur).concat(C0.filter(x=>x.i!==cur));
+  const hd=`<tr><th></th>${PER.map((p,k)=>`<th class="${k===row.pi?'cy':''}">${esc(p.n)}</th>`).join('')}</tr>`;
+  const cr=`<tr class="cr"><th title="${esc(D.classes[row.c].name)}">${esc(D.classes[row.c].name.replace(/^(\d) (\w{0,4}).*$/,'$1 $2'))}</th>${PER.map((_,k)=>{const es=R.G.cls[row.c][R.d][k].filter(e=>e.sub!=='PER'&&e.sub!=='BY'),ab=es.some(e=>R.abs.includes(e.t)&&arIn(e.t,k));
+    return`<td class="${es.length?'pk':''}${k===row.pi?' cur':''}"${es.length?rpTip(`Waktu ${PER[k].n}: ${es.map(e=>e.sub+' '+(D.teachers[e.t]?D.teachers[e.t].code:'')).join(', ')}${ab?' (guru tidak hadir)':''}`):''}>${ab&&k!==row.pi?'←':''}</td>`}).join('')}</tr>`;
+  const trs=C.map(x=>{const t=D.teachers[x.i];return`<tr class="cd${x.i===cur?' on':''}${x.free?'':' bz'}" data-rgc="${x.i}" title="${esc(t.name)}${x.free?'':' (sedang mengajar: pilih untuk gabung kelas)'}"><th>${esc(sn[x.i].slice(0,8))}${x.teach?'<i class="gm"></i>':''}</th>${PER.map((_,k)=>`<td class="${k===row.pi?'cy':''}${busy[x.i][k]?' pk':''}${freed[x.i][k]?' fr':''}${sub[x.i][k]?' sb':''}"></td>`).join('')}</tr>`}).join('');
+  const s=cur>=0?C.find(x=>x.i===cur):C.find(x=>x.free)||C[0],st=arSet();
+  const kr=s?`<div class="rg-kr"><div class="rg-kh"><b>Kriteria</b><b>${esc(U(D.teachers[s.i].name))}</b></div><ul>
+    <li class="${s.free?'ok':'bad'}">${s.free?'Kosong pada waktu ini':'Sedang mengajar (gabung kelas)'}</li><li class="${s.teach?'ok':''}">${s.teach?'Mengajar kelas ini':'Tidak mengajar kelas ini'}</li><li class="${s.gk?'ok':''}">${s.gk?'Guru kelas / pembantu':'Bukan guru kelas'}</li><li class="${s.subj?'ok':''}">${s.subj?'Mengajar subjek '+esc(row.sub):'Tidak mengajar '+esc(row.sub)}</li>
+    <li class="${s.load>=TCAP?'bad':''}">Mengajar ${s.load} waktu hari ini</li><li class="${s.today>st.maxHari?'bad':''}">Relif hari ini: ${s.today} (had ${st.maxHari})</li></ul>
+    <div class="rg-mt"><span>Minggu<b>${s.ss.w}</b></span><span>Bulan<b>${s.ss.m}</b></span><span>Tahun<b>${s.ss.y}</b></span></div></div>`:'';
+  return`<section class="rg-card rg-cp"><h3><span class="rg-i">▦</span>Jadual guru (calon)</h3>
+    <div class="rg-rh">${esc(PER[row.pi].n)}. ${esc(row.sub)} ${esc(sn[row.t])} · <b>${esc(D.classes[row.c].name)}</b></div>
+    <div class="rg-gw"><table class="rg-gg"><thead>${hd}</thead><tbody class="crb">${cr}</tbody><tbody>${trs}</tbody></table></div>
+    <div class="rg-lg"><span><i class="pk"></i>Mengajar</span><span><i class="sb"></i>Relif</span><span><i class="fr"></i>Kelas tiada</span><span><i class="cy"></i>Waktu ini</span><span><i class="gm2"></i>Mengajar kelas ini</span></div>
+    <div class="rg-pb"><button class="rg-b ghost sm" data-rg="pg">Pengawas</button><button class="rg-b ghost sm" data-rg="bt">Batal kelas</button><button class="rg-b ghost sm" data-rg="ks">Kosongkan</button><button class="rg-b blue sm" data-rg="nx">Seterusnya ⬇</button></div>
+    ${kr}</section>`}
 function relifGanti(rmode){
   arLoad();const R=arRows(),P=S.arPick||{},d=R.d,dt=new Date(S.rdate+'T00:00:00'),HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],canSave=DBH&&CANW!==false;
   const absC=arAbsCodes(),done=R.rows.filter(r=>{const p=P[r.key];return p>=0||p===-2||p===-3}).length,cat=S.rsCat||{};
@@ -1181,9 +1224,9 @@ function relifGanti(rmode){
   const jad=`<section class="rg-card"><h3 class="rg-jh"><span><span class="rg-jt">Jadual Guru Ganti</span><small>Tarikh: <b>${esc(dmy(S.rdate))}</b> | Hari: <b>${HARI[dt.getDay()]}</b></small></span><span class="grow"></span>
     ${canSave?`<button class="rg-b blue sm" data-rg="simpan" ${absC.length?'':'disabled'}>💾 Simpan</button>`:''}<button class="rg-b purple sm" data-rg="jpeg" ${R.rows.length?'':'disabled'}>🖼 Muat turun imej (JPEG)</button></h3>
     ${d<0?'<p class="mu">Tarikh ini hari hujung minggu. Tiada waktu mengajar.</p>':R.rows.length?`<div class="rg-tw"><table class="rg-t rg-j"><thead><tr><th>Masa</th><th>Kelas</th><th>Mata pelajaran</th><th>Guru asal</th><th class="pk">Pilihan guru ganti</th></tr></thead><tbody>${R.rows.map(r=>{const tm=lessonTime(r.pi,[r.c]),p=P[r.key],ok=p>=0||p===-2||p===-3;
-      return`<tr class="${ok?'rg-ok':''}"><td class="rg-tm">${h12(tm.s)}–${h12(tm.e)}</td><td><b>${esc(D.classes[r.c].name)}</b></td><td>${esc(r.sub)}</td><td class="rd">${esc(sn[r.t])}</td><td class="pk"><span class="rg-ps"><span aria-hidden="true">${ok?'✔':'⇄'}</span><select data-rgk="${esc(r.key)}" aria-label="Guru ganti ${esc(D.classes[r.c].name)} waktu ${esc(PER[r.pi].n)}">${rgOpts(R,r)}</select></span></td></tr>`}).join('')}</tbody></table></div>
+      return`<tr class="${ok?'rg-ok':''}${r.key===S.arSel?' rg-sel':''}" data-rgr="${esc(r.key)}"><td class="rg-tm">${h12(tm.s)}–${h12(tm.e)}</td><td><b>${esc(D.classes[r.c].name)}</b></td><td>${esc(r.sub)}</td><td class="rd">${esc(sn[r.t])}</td><td class="pk"><span class="rg-ps"><span aria-hidden="true">${ok?'✔':'⇄'}</span><select data-rgk="${esc(r.key)}" aria-label="Guru ganti ${esc(D.classes[r.c].name)} waktu ${esc(PER[r.pi].n)}">${rgOpts(R,r)}</select></span></td></tr>`}).join('')}</tbody></table></div>
     <p class="mu" style="margin:8px 0 0">★ guru kelas atau pembantu guru kelas. Nombor dalam kurungan ialah bilangan relif guru itu hari ini. Tekan <b>Simpan</b> supaya semua guru nampak.</p>`:`<p class="mu">${absC.length?'Guru tidak hadir ini tiada kelas pada hari itu.':'Tambah guru tidak hadir untuk melihat kelas yang perlu diganti.'}</p>`}</section>`;
-  return`<div class="rg">${head}<div class="rg-mb">${rmode}</div><div class="rg-g"><div class="rg-c1">${tetapan}${input}</div><div class="rg-c2">${abs}${jad}</div></div></div>`}
+  return`<div class="rg">${head}<div class="rg-mb">${rmode}</div><div class="rg-g w3"><div class="rg-c1">${tetapan}${input}</div><div class="rg-c2">${abs}${jad}</div><div class="rg-c3">${rgPanel(R)}</div></div></div>`}
 async function rgSave(){const keep=new Set(arAbsCodes());await arSave();
   const st=Object.entries(RELIF||{}).filter(([id,v])=>v&&v.date===S.rdate&&!keep.has(v.absent));for(const[id]of st){try{await DBH.doc('relif/'+id).delete()}catch(e){}}}
 async function rgJpeg(){const R=arRows(),P=S.arPick||{},sn=shortNames(),dt=new Date(S.rdate+'T00:00:00'),HARI=['AHAD','ISNIN','SELASA','RABU','KHAMIS','JUMAAT','SABTU'];
@@ -3667,9 +3710,16 @@ mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.pr
   if(k==='jana'){arAuto();render();toast('Cadangan guru ganti dijana. Semak dan tukar jika perlu.');return}
   if(k==='kosong'){S.arPick={};S.arJenis={};render();return}
   if(k==='simpan'){rgSave().then(()=>render());return}
-  if(k==='jpeg'){rgJpeg();return}},true);
+  if(k==='jpeg'){rgJpeg();return}
+  if(S.arSel&&(k==='pg'||k==='bt'||k==='ks')){S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[S.arSel];if(k==='ks')delete S.arPick[S.arSel];else S.arPick[S.arSel]=k==='pg'?-2:-3;render();return}
+  if(k==='nx'){const R=arRows(),P=S.arPick||{},i=R.rows.findIndex(r=>r.key===S.arSel),nx=R.rows.slice(i+1).concat(R.rows.slice(0,i+1)).find(r=>!(P[r.key]>=0||P[r.key]===-2||P[r.key]===-3));if(nx){S.arSel=nx.key;render()}else toast('Semua sudah diganti');return}},true);
+mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.preview)return;
+  const c=e.target.closest('[data-rgc]');if(c&&S.arSel){e.stopImmediatePropagation();const v=+c.dataset.rgc,R=arRows(),r=R.rows.find(x=>x.key===S.arSel);S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[S.arSel];
+    if(S.arPick[S.arSel]===v)delete S.arPick[S.arSel];else{S.arPick[S.arSel]=v;const cd=r&&arCands(R,r).find(x=>x.i===v);if(cd&&!cd.free)S.arJenis[S.arSel]='Gabung'}render();return}
+  if(e.target.closest('select,option,button'))return;const tr=e.target.closest('[data-rgr]');if(tr){e.stopImmediatePropagation();S.arSel=tr.dataset.rgr;render()}},true);
+{const _rRG=render;render=function(){_rRG();document.body.classList.toggle('rgw',S.view==='relif'&&S.rmode==='ganti'&&!S.preview)}}
 mainEl.addEventListener('change',e=>{if(S.view!=='relif'||S.rmode!=='ganti')return;const t=e.target.closest('[data-rgk]');if(!t)return;e.stopImmediatePropagation();
-  const key=t.dataset.rgk,v=t.value;S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[key];
+  const key=t.dataset.rgk,v=t.value;S.arSel=key;S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[key];
   if(v===''){delete S.arPick[key]}else{const n=+v;S.arPick[key]=n;if(n>=0){const R=arRows(),r=R.rows.find(x=>x.key===key),c=r&&arCands(R,r).find(x=>x.i===n);if(c&&!c.free)S.arJenis[key]='Gabung'}}render()},true);
 mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='papan'||S.preview)return;const b=e.target.closest('[data-rp]');if(!b)return;e.stopImmediatePropagation();const k=b.dataset.rp;
   if(k==='prev'||k==='next'){arShift(k==='prev'?-1:1);render();return}
