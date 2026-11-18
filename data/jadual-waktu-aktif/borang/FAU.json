@@ -1,19 +1,26 @@
 {
   "catatan": "",
-  "dihantar": 1793940997464,
+  "dihantar": 1794934176323,
   "guru": "FAUZIAH BINTI HUSIN",
   "kod": "FAU",
-  "oleh": "DATIN MARIATI",
+  "oleh": "",
   "subjek": [
     {
       "kelas": [
         "1 AMBER",
-        "2 EMERALD",
         "2 CRYSTAL",
+        "2 EMERALD",
         "4 AMBER"
       ],
       "kod": "MT",
       "nama": "Matematik"
+    },
+    {
+      "kelas": [
+        "5 CRYSTAL"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
     }
   ]
 }

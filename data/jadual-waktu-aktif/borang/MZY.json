@@ -1,0 +1,57 @@
+{
+  "guru": "MOHAMED ZAIYAD BIN YATIM",
+  "kod": "MZY",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "3 PEARL",
+        "5 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "3 PEARL",
+        "5 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "3 AMBER",
+        "3 OPAL",
+        "3 PEARL",
+        "5 CRYSTAL",
+        "6 DIAMOND"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "3 PEARL",
+        "5 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "3 AMBER",
+        "3 EMERALD",
+        "3 OPAL",
+        "3 PEARL",
+        "5 CRYSTAL",
+        "5 DIAMOND",
+        "6 DIAMOND"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

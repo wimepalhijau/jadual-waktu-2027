@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793985528525,
+  "dihantar": 1794934835776,
   "guru": "MUHAMMAD ADNIN B. ARSHAD",
   "kod": "MAA",
   "oleh": "",
@@ -12,6 +12,15 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "5 DIAMOND",
+        "5 EMERALD",
+        "6 AMBER"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
     }
   ]
 }

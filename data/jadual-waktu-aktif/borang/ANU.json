@@ -1,9 +1,9 @@
 {
   "catatan": "",
-  "dihantar": 1794545973087,
+  "dihantar": 1794934055985,
   "guru": "ANUAR BIN IBRAHIM",
   "kod": "ANU",
-  "oleh": "DATIN MARIATI",
+  "oleh": "",
   "subjek": [
     {
       "kelas": [
@@ -12,6 +12,13 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "6 OPAL"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
     }
   ]
 }

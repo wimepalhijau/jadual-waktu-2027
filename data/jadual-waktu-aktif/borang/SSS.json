@@ -1,0 +1,58 @@
+{
+  "guru": "SITI SALINIE BT SALLEH",
+  "kod": "SSS",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "2 CRYSTAL",
+        "3 DIAMOND",
+        "6 DIAMOND"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "2 CRYSTAL",
+        "3 DIAMOND",
+        "6 DIAMOND"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "2 CRYSTAL",
+        "2 EMERALD",
+        "3 DIAMOND",
+        "5 OPAL",
+        "6 DIAMOND"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "2 CRYSTAL",
+        "3 DIAMOND",
+        "6 DIAMOND"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "1 RUBY",
+        "2 CRYSTAL",
+        "2 EMERALD",
+        "3 DIAMOND",
+        "6 DIAMOND"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

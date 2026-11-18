@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794899553081,
+  "dihantar": 1794934753726,
   "guru": "DANIAL HAZIQ BIN ABDULLAH",
   "kod": "DHA",
   "oleh": "DATIN MARIATI",
@@ -18,6 +18,16 @@
       ],
       "kod": "PM",
       "nama": "Pendidikan Moral"
+    },
+    {
+      "kelas": [
+        "4 AMBER",
+        "5 CRYSTAL",
+        "6 DIAMOND",
+        "6 EMERALD"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
     }
   ]
 }

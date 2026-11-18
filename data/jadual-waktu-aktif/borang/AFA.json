@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794801982707,
+  "dihantar": 1794934941338,
   "guru": "AISYAH FARANAZ BINTI AWALLUDDIN",
   "kod": "AFA",
   "oleh": "",
@@ -12,6 +12,16 @@
       ],
       "kod": "BI",
       "nama": "Bahasa Inggeris"
+    },
+    {
+      "kelas": [
+        "2 AMBER",
+        "2 CRYSTAL",
+        "3 AMBER",
+        "3 CRYSTAL"
+      ],
+      "kod": "DMZ",
+      "nama": "Dunia Muzik"
     }
   ]
 }

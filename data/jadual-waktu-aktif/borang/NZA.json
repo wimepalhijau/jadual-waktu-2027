@@ -1,16 +1,16 @@
 {
   "catatan": "",
-  "dihantar": 1793941478594,
+  "dihantar": 1794979534902,
   "guru": "NURIZZATI BT. ZAHARINUDDIN",
   "kod": "NZA",
   "oleh": "DATIN MARIATI",
   "subjek": [
     {
+      "kod": "BA",
+      "nama": "Bahasa Arab",
       "kelas": [
         "5 OPAL"
-      ],
-      "kod": "BA",
-      "nama": "Bahasa Arab"
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794899951069,
+  "dihantar": 1794934477787,
   "guru": "RAFIDAH BT. MD SHARIF",
   "kod": "RMS",
   "oleh": "DATIN MARIATI",
@@ -12,6 +12,14 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "4 AMBER",
+        "5 AMBER"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
     }
   ]
 }

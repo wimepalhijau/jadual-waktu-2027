@@ -1,0 +1,58 @@
+{
+  "guru": "NUR ZAWANI BINTI MOHD SAIM",
+  "kod": "NZM",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "1 OPAL",
+        "2 DIAMOND",
+        "5 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "1 OPAL",
+        "2 DIAMOND",
+        "5 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "1 OPAL",
+        "2 DIAMOND",
+        "3 PEARL",
+        "4 EMERALD",
+        "5 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "1 OPAL",
+        "2 DIAMOND",
+        "5 AMBER"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "1 OPAL",
+        "2 DIAMOND",
+        "3 PEARL",
+        "4 EMERALD",
+        "5 AMBER"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

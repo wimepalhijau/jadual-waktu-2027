@@ -1,0 +1,55 @@
+{
+  "guru": "NURUL QUDWATUN NISA' BINTI MOHD ZAMBERI",
+  "kod": "NQN",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "2 AMBER",
+        "6 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "2 AMBER",
+        "6 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "2 AMBER",
+        "2 CRYSTAL",
+        "5 DIAMOND",
+        "6 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "2 AMBER",
+        "6 CRYSTAL"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "1 OPAL",
+        "2 AMBER",
+        "2 CRYSTAL",
+        "5 EMERALD",
+        "5 OPAL",
+        "6 CRYSTAL"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

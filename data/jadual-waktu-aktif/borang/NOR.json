@@ -1,0 +1,57 @@
+{
+  "guru": "NORAHIMAH BT. ALI",
+  "kod": "NOR",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 EMERALD"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 EMERALD"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 AMBER",
+        "5 EMERALD"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 EMERALD"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 AMBER",
+        "5 EMERALD",
+        "6 CRYSTAL"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

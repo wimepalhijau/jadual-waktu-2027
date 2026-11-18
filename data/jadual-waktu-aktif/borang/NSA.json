@@ -1,0 +1,58 @@
+{
+  "guru": "NUR SYAZWANI BT. AHMAD",
+  "kod": "NSA",
+  "catatan": "",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kod": "PI(j)",
+      "nama": "PI(j)",
+      "kelas": [
+        "2 EMERALD",
+        "5 OPAL",
+        "6 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(q1)",
+      "nama": "PI(q1)",
+      "kelas": [
+        "2 EMERALD",
+        "5 OPAL",
+        "6 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(q2)",
+      "nama": "PI(q2)",
+      "kelas": [
+        "2 EMERALD",
+        "4 DIAMOND",
+        "5 OPAL",
+        "6 AMBER"
+      ]
+    },
+    {
+      "kod": "PI(u)",
+      "nama": "PI(u)",
+      "kelas": [
+        "2 EMERALD",
+        "5 OPAL",
+        "6 AMBER"
+      ]
+    },
+    {
+      "kod": "TAS",
+      "nama": "Tasmik",
+      "kelas": [
+        "1 DIAMOND",
+        "2 DIAMOND",
+        "2 EMERALD",
+        "4 DIAMOND",
+        "5 OPAL",
+        "6 AMBER"
+      ]
+    }
+  ],
+  "dihantar": 1794979534902
+}

@@ -1,0 +1,35 @@
+{
+  "catatan": "",
+  "dihantar": 1794934638812,
+  "guru": "RAPAHEL BINSING",
+  "kod": "RAP",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "4 AMBER",
+        "4 CRYSTAL",
+        "5 AMBER",
+        "5 CRYSTAL",
+        "5 DIAMOND",
+        "5 EMERALD",
+        "6 AMBER",
+        "6 CRYSTAL",
+        "6 DIAMOND",
+        "6 EMERALD"
+      ],
+      "kod": "DMZ",
+      "nama": "Dunia Muzik"
+    },
+    {
+      "kelas": [
+        "3 CRYSTAL",
+        "4 DIAMOND",
+        "5 OPAL",
+        "6 OPAL"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
+    }
+  ]
+}
