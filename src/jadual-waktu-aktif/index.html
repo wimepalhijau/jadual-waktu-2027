@@ -467,6 +467,19 @@ tbody tr.row{cursor:pointer}
 .pp-tb{display:block;width:110px;height:7px;border-radius:4px;background:var(--pp-track)}.pp-tb span{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--pp-t2),var(--pp-t))}.pp-tb span.over{background:var(--pp-warn)}
 .pp-ai{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pp-tl);display:grid;place-items:center}.pp-ai svg{width:18px;height:18px}
 .pp-tip{position:absolute;z-index:20;pointer-events:none;background:var(--fg);color:var(--panel);font-size:12px;padding:6px 9px;border-radius:7px;max-width:280px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+/* papan relif */
+.rp-hero{align-items:center}.rp-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rp-arr{width:36px;height:36px;border-radius:10px;border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--pp-t);font-size:22px;line-height:1;cursor:pointer}
+.rp-day{display:grid;text-align:center;min-width:92px}.rp-day b{font-size:17px;color:var(--pp-t)}.rp-day span{font-size:12px;color:var(--muted)}
+.rp-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.rp-bar .seg{max-width:100%;overflow-x:auto;flex-wrap:nowrap}.rp-bar .seg button{white-space:nowrap}.rp-bar .seg{font-size:12px}.rp-btn{border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--fg);border-radius:10px;padding:7px 13px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}.rp-btn.pri{background:var(--pp-t);border-color:var(--pp-t);color:#fff}.rp-btn:hover{border-color:var(--pp-t)}
+.rp .pp-grid>.rp-wide{grid-column:1/-1}
+.rp-mini{flex:none;width:60px;height:6px;border-radius:3px;background:var(--pp-track)}.rp-mini span{display:block;height:6px;border-radius:3px;background:var(--pp-t)}
+.rp-tl{display:grid;gap:3px;align-items:center}.rp-th{font-size:10.5px;color:var(--muted);text-align:center}.rp-tn{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:6px}
+.rp-c{height:26px;border-radius:5px;background:var(--pp-track);opacity:.45;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff}.rp-c.ok{background:var(--pp-t);opacity:1}.rp-c.bad{background:var(--pp-bad);opacity:1}.rp-c.mid{background:var(--pp-warn);opacity:1}.rp-c.off{background:repeating-linear-gradient(45deg,var(--pp-track) 0 4px,transparent 4px 8px);opacity:1}
+.rp-lg{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11.5px;color:var(--muted)}.rp-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}.rp-lg i.ok{background:var(--pp-t)}.rp-lg i.bad{background:var(--pp-bad)}.rp-lg i.mid{background:var(--pp-warn)}.rp-lg i.off{background:repeating-linear-gradient(45deg,var(--pp-track) 0 3px,transparent 3px 6px);border:1px solid var(--pp-track)}
+.rp-vb{height:160px;gap:5px}.rp-vb .pp-vf.need{background:linear-gradient(180deg,#f08a8a,var(--pp-bad))}.rp-swn{background:var(--pp-bad)}
+.rp-wk{height:160px}.rp-wk .pp-vc.cur .pp-vl{color:var(--pp-t);font-weight:700}.rp-wk .pp-vt{max-width:52px}
+.rp-tm{color:var(--muted);font-size:11px;font-weight:400}.rp-dash{color:var(--pp-bad);font-weight:600;font-size:12px}
+.rp .pp-t tbody tr[data-rp]{cursor:pointer}
 </style>
 
 <div class="wrap">
@@ -1108,11 +1121,73 @@ function sharedRelif(){
   const hb='<div class="bar" style="margin:0 0 6px"><button class="btn" data-a="relifhari">Cetak Jadual Guru Ganti hari ini</button></div>';
   rows.sort((a,b)=>a.pi-b.pi||a.cls.localeCompare(b.cls));
   return h+hb+`<div class="tw"><table><thead><tr><th>Waktu</th><th>Kelas</th><th>Guru ganti</th><th>Ganti untuk</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="mono">${PER[r.pi]?PER[r.pi].n+' · '+(()=>{const c=D.classes.findIndex(k=>k.name===r.cls);return h12(lessonTime(r.pi,c>=0?[c]:[]).s)})():r.pi+1}</td><td>${esc(r.cls)}</td><td>${esc(U(r.by))}</td><td>${esc(U(r.abs))}</td></tr>`).join('')}</tbody></table></div>`}
+/* ---------- Papan relif (dashboard guru ganti harian) ---------- */
+function rpTip(t){return` data-tip="${esc(t)}"`}
+function rpStatus(key){const p=(S.arPick||{})[key];if(p===-2)return['Pengawas','mid'];if(p===-3)return['Batal','mid'];if(p>=0){const j=arJenisOf(key);return[j==='Gabung'?'Gabung':'Diganti','ok']}return['Belum','bad']}
+function relifPapan(rmode){
+  arLoad();const R=arRows(),P=S.arPick||{},d=R.d,dt=new Date(S.rdate+'T00:00:00'),HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],sn=shortNames();
+  const nAbs=R.abs.length,nRow=R.rows.length,done=R.rows.filter(r=>rpStatus(r.key)[0]!=='Belum').length,left=nRow-done,pct=nRow?Math.round(done/nRow*100):100;
+  const ic={abs:'<circle cx="12" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 23c0-5 4-8 8-8s8 3 8 8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 6l6 6M25 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    jam:'<circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 8v6l4 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    ok:'<circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 14l3.5 3.5L19 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+    belum:'<path d="M14 4l11 19H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v5M14 19v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'};
+  const kpi=(k,lab,val,sub,bar,tone)=>`<div class="pp-kpi"><span class="pp-kic ${tone||''}"><svg viewBox="0 0 28 28" aria-hidden="true">${ic[k]}</svg></span><div class="pp-kb"><div class="pp-kl">${lab}</div><div class="pp-kv">${val}</div><div class="pp-ks">${sub}</div>${bar!=null?`<span class="pp-pbar"><span style="width:${bar}%"></span></span>`:''}</div></div>`;
+  const hero=`<div class="pp-hero rp-hero"><div><h2>Papan Relif Harian</h2><p>Guru tidak hadir, waktu yang perlu diganti dan guru ganti · ${esc((D.school&&D.school.name)||'')}</p></div>
+    <div class="rp-nav"><button class="rp-arr" data-rp="prev" aria-label="Hari sebelum">‹</button><div class="rp-day"><b>${HARI[dt.getDay()]}</b><span>${esc(dmy(S.rdate))}</span></div><button class="rp-arr" data-rp="next" aria-label="Hari berikut">›</button>${dateBox()}</div></div>
+    <div class="rp-bar"><button class="rp-btn pri" data-rp="add">＋ Guru tidak hadir</button><button class="rp-btn" data-rp="urus">Pilih guru ganti</button><button class="rp-btn" data-rp="board">Papan kenyataan</button><button class="rp-btn" data-rp="cetak">Cetak</button><span class="grow"></span>${rmode}</div>`;
+  if(d<0)return`<div class="pp">${hero}<section class="pp-card"><p class="note" style="margin:0">Tarikh ini hari hujung minggu. Tiada waktu mengajar.</p></section></div>`;
+  /* guru tidak hadir */
+  const absH=R.abs.map(t=>{const T=D.teachers[t],rs=R.rows.filter(r=>r.t===t),dn=rs.filter(r=>rpStatus(r.key)[0]!=='Belum').length,jl=arJulat(T.code),sb=arSebab(T.code)||'Tidak dinyatakan';
+    return`<li><span class="pp-av">${esc(T.code.slice(0,2))}</span><div><b>${esc(U(T.name))}</b><small>${esc(sb)} · ${jl?'waktu '+esc(jl):'sepanjang hari'} · ${rs.length} waktu</small></div><span class="rp-mini"${rpTip(`${dn} daripada ${rs.length} waktu sudah ada guru ganti`)}><span style="width:${rs.length?dn/rs.length*100:100}%"></span></span><em class="pp-pill ${dn===rs.length?'ok':'bad'}">${dn}/${rs.length}</em></li>`}).join('')
+    ||`<li><div><b>Tiada guru tidak hadir direkodkan</b><small>Tekan "＋ Guru tidak hadir" untuk mula</small></div></li>`;
+  /* garis masa */
+  const tl=R.abs.length?`<div class="rp-tl" style="grid-template-columns:minmax(70px,110px) repeat(${PER.length},minmax(0,1fr))"><span></span>${PER.map(p=>`<span class="rp-th">${esc(p.n)}</span>`).join('')}${R.abs.map(t=>`<span class="rp-tn">${esc(sn[t])}</span>${PER.map((p,pi)=>{const rs=R.rows.filter(r=>r.t===t&&r.pi===pi);
+      if(rs.length){const st=rs.map(r=>rpStatus(r.key)),bad=st.some(s=>s[0]==='Belum'),cls=bad?'bad':st.every(s=>s[1]==='ok')?'ok':'mid';
+        return`<span class="rp-c ${cls}"${rpTip(`Waktu ${p.n} · ${rs.map((r,k)=>`${D.classes[r.c].name} ${r.sub}: ${st[k][0]==='Belum'?'belum diganti':(P[r.key]>=0?sn[P[r.key]]:st[k][0])}`).join(' · ')}`)}>${rs.length>1?rs.length:''}</span>`}
+      if(R.off.some(o=>o.t===t&&o.pi===pi))return`<span class="rp-c off"${rpTip(`Waktu ${p.n}: kelas tiada (acara)`)}></span>`;
+      return'<span class="rp-c"></span>'}).join('')}`).join('')}</div>
+    <div class="rp-lg"><span><i class="ok"></i>Sudah diganti</span><span><i class="bad"></i>Belum diganti</span><span><i class="mid"></i>Pengawas / batal</span><span><i class="off"></i>Kelas tiada</span></div>`:'<p class="note" style="margin:0">Tiada data untuk hari ini.</p>';
+  /* guru tersedia ikut waktu */
+  const{busy,sub}=arBusy(R.G,d,R.abs),pool=D.teachers.map((_,i)=>i).filter(i=>!R.abs.includes(i)&&rsPoolOk(i));
+  const fr=PER.map((_,p)=>pool.filter(i=>!busy[i][p]&&!sub[i][p]&&!tOff(i,d,p)).length),need=PER.map((_,p)=>R.rows.filter(r=>r.pi===p&&rpStatus(r.key)[0]==='Belum').length),fmx=Math.max(1,...fr);
+  const avail=`<div class="pp-vb rp-vb">${PER.map((p,k)=>`<div class="pp-vc"${rpTip(`Waktu ${p.n} (${h12(lessonTime(k,[]).s)}): ${fr[k]} guru kosong${need[k]?` · ${need[k]} waktu belum diganti`:''}`)}><span class="pp-vv">${fr[k]}</span><div class="pp-vt"><div class="pp-vf ${need[k]?'need':''}" style="height:${fr[k]/fmx*100}%"></div></div><span class="pp-vl">${esc(p.n)}</span></div>`).join('')}</div>`;
+  /* bulan ini: sebab & guru ganti */
+  const m=S.rdate.slice(0,7),docs=Object.values(RELIF||{}).filter(v=>String(v.date||'').slice(0,7)===m&&v.date!==S.rdate),sbc={};
+  docs.forEach(v=>{const k=v.sebab||'Tidak dinyatakan';sbc[k]=(sbc[k]||0)+1});R.abs.forEach(t=>{const k=arSebab(D.teachers[t].code)||'Tidak dinyatakan';sbc[k]=(sbc[k]||0)+1});
+  const sbe=Object.entries(sbc).sort((a,b)=>b[1]-a[1]),sbt=sbe.reduce((a,x)=>a+x[1],0),cols=['--pp-c1','--pp-c2','--pp-c3','--pp-c4','--pp-c5','--pp-c6'];
+  const sbx=sbe.length>6?sbe.slice(0,5).concat([['Lain-lain',sbe.slice(5).reduce((a,x)=>a+x[1],0)]]):sbe;
+  let acc=0;const Rr=42,Cc=2*Math.PI*Rr;
+  const donut=sbt?`<div class="pp-don"><svg viewBox="0 0 120 120" role="img" aria-label="Sebab tidak hadir bulan ini">${sbx.map(([k,v],i)=>{const len=v/sbt*Cc,gap=sbx.length>1?Math.min(2,len*.3):0,o=acc;acc+=len;return`<circle r="${Rr}" cx="60" cy="60" fill="none" stroke="var(${cols[i]})" stroke-width="16" stroke-dasharray="${len-gap} ${Cc-len+gap}" stroke-dashoffset="${-o}" transform="rotate(-90 60 60)"${rpTip(`${k}: ${v} hari guru`)}/>`}).join('')}<text x="60" y="58" text-anchor="middle" class="pp-dt">${sbt}</text><text x="60" y="73" text-anchor="middle" class="pp-ds">hari guru</text></svg><ul class="pp-dl">${sbx.map(([k,v],i)=>`<li><i style="background:var(${cols[i]})"></i>${esc(k)}<b>${v}</b></li>`).join('')}</ul></div>`:'<p class="note" style="margin:0">Belum ada rekod bulan ini.</p>';
+  const cnt={};docs.forEach(v=>(v.items||[]).forEach(it=>{if((it.jenis||'Ganti')!=='Batal'&&it.by&&it.by!=='PENGAWAS'&&it.by!=='BATAL')cnt[it.by]=(cnt[it.by]||0)+1}));
+  Object.values(P).forEach(v=>{if(v>=0){const c=D.teachers[v].code;cnt[c]=(cnt[c]||0)+1}});
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,8),tmx=Math.max(1,...top.map(x=>x[1])),st=arSet();
+  const topH=top.length?`<div class="pp-tw"><table class="pp-t"><thead><tr><th>Guru ganti</th><th class="num">Hari ini</th><th class="num">Bulan ini</th><th>Kekerapan</th></tr></thead><tbody>${top.map(([c,n])=>{const i=D.teachers.findIndex(t=>t.code===c),td=Object.values(P).filter(v=>v===i).length;
+      return`<tr${rpTip(`${tName0(c)}: ${n} waktu relif bulan ini`)}><td><span class="pp-av">${esc(c.slice(0,2))}</span>${esc(U(tName0(c)).split(' ').slice(0,2).join(' '))}</td><td class="num">${td}</td><td class="num">${n}</td><td><span class="pp-tb"><span style="width:${n/tmx*100}%" class="${td>st.maxHari?'over':''}"></span></span></td></tr>`}).join('')}</tbody></table></div>`:'<p class="note" style="margin:0">Belum ada guru ganti bulan ini.</p>';
+  /* minggu ini */
+  const[wa]=arWeek(),w0=new Date(wa+'T00:00:00'),wk=[0,1,2,3,4].map(k=>{const x=new Date(w0);x.setDate(w0.getDate()+k);const iso=x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+    const n=iso===S.rdate?done:Object.values(RELIF||{}).filter(v=>v.date===iso).reduce((a,v)=>a+(v.items||[]).filter(it=>(it.jenis||'Ganti')!=='Batal').length,0);return{iso,n,l:['Isn','Sel','Rab','Kha','Jum'][k],cur:iso===S.rdate}});
+  const wmx=Math.max(1,...wk.map(x=>x.n));
+  const week=`<div class="pp-vb rp-wk">${wk.map(x=>`<div class="pp-vc${x.cur?' cur':''}"${rpTip(`${fmtDate(x.iso)}: ${x.n} waktu diganti`)}><span class="pp-vv">${x.n}</span><div class="pp-vt"><div class="pp-vf" style="height:${x.n/wmx*100}%"></div></div><span class="pp-vl">${x.l}</span></div>`).join('')}</div>`;
+  /* senarai */
+  const listH=R.rows.length?`<div class="pp-tw"><table class="pp-t"><thead><tr><th>Waktu</th><th>Kelas</th><th>Subjek</th><th>Tidak hadir</th><th>Guru ganti</th><th>Status</th></tr></thead><tbody>${R.rows.map(r=>{const p=P[r.key],s=rpStatus(r.key),tm=lessonTime(r.pi,[r.c]);
+      return`<tr data-rp="row" data-k="${esc(r.key)}"><td class="num" style="text-align:left"><b>${esc(PER[r.pi].n)}</b> <small class="rp-tm">${h12(tm.s)}</small></td><td><b>${esc(D.classes[r.c].name)}</b></td><td>${esc(r.sub)}</td><td>${esc(sn[r.t])}</td><td>${p>=0?esc(U(D.teachers[p].name).split(' ').slice(0,3).join(' ')):p===-2?'Pengawas':p===-3?'—':'<span class="rp-dash">Pilih guru →</span>'}</td><td><em class="pp-pill ${s[1]}">${s[0]}</em></td></tr>`}).join('')}</tbody></table></div>`:'<p class="note" style="margin:0">Tiada waktu perlu diganti.</p>';
+  return`<div class="pp rp">${hero}
+  <div class="pp-kpis">${kpi('abs','Guru tidak hadir',nAbs,nAbs?'hari ini':'tiada direkodkan')}${kpi('jam','Waktu perlu diganti',nRow,'kelas yang ditinggalkan')}${kpi('ok','Sudah diganti',`${done}<small> / ${nRow}</small>`,`${pct}% selesai`,pct)}${kpi('belum','Belum diganti',left,left?'perlu tindakan':'semua selesai',null,left?'warn':'')}</div>
+  <div class="pp-grid">
+    <section class="pp-card"><h3>Guru tidak hadir hari ini <button class="pp-link" data-rp="add">Tambah →</button></h3><ul class="pp-act">${absH}</ul></section>
+    <section class="pp-card"><h3>Garis masa penggantian <span class="pp-lgd">waktu 1–${PER.length}</span></h3>${tl}</section>
+    <section class="pp-card rp-wide"><h3>Senarai penggantian hari ini <button class="pp-link" data-rp="urus">Urus →</button></h3>${listH}</section>
+    <section class="pp-card"><h3>Guru kosong ikut waktu <span class="pp-lgd"><i class="pp-sw1"></i>Kosong <i class="rp-swn"></i>Ada kelas belum diganti</span></h3>${avail}</section>
+    <section class="pp-card"><h3>Relif minggu ini <span class="pp-lgd">waktu diganti sehari</span></h3>${week}</section>
+    <section class="pp-card"><h3>Sebab tidak hadir bulan ini</h3>${donut}</section>
+    <section class="pp-card"><h3>Guru ganti paling kerap <span class="pp-lgd">bulan ini · had ${st.maxHari} sehari</span></h3>${topH}</section>
+  </div><div class="pp-tip" role="tooltip" hidden></div></div>`}
 function relifView(){
   if(!D.teachers.length)return'<p class="note">Tambah guru dahulu.</p>';
   if(S.rt>=D.teachers.length)S.rt=0;
-  if(S.rmode==null)S.rmode='asc';
-  const rmode=`<div class="seg" role="group" aria-label="Jenis relif"><button data-rmode="asc" aria-pressed="${S.rmode==='asc'}">Gaya aSc</button><button data-rmode="biasa" aria-pressed="${S.rmode==='biasa'}">Seorang guru</button><button data-rmode="statik" aria-pressed="${S.rmode==='statik'}">Ramai guru (relif statik)</button><button data-rmode="rekod" aria-pressed="${S.rmode==='rekod'}">Rekod bulanan</button><button data-rmode="sejarah" aria-pressed="${S.rmode==='sejarah'}">Sejarah</button></div>`;
+  if(S.rmode==null)S.rmode='papan';
+  const rmode=`<div class="seg" role="group" aria-label="Jenis relif"><button data-rmode="papan" aria-pressed="${S.rmode==='papan'}">Papan</button><button data-rmode="asc" aria-pressed="${S.rmode==='asc'}">Gaya aSc</button><button data-rmode="biasa" aria-pressed="${S.rmode==='biasa'}">Seorang guru</button><button data-rmode="statik" aria-pressed="${S.rmode==='statik'}">Ramai guru (relif statik)</button><button data-rmode="rekod" aria-pressed="${S.rmode==='rekod'}">Rekod bulanan</button><button data-rmode="sejarah" aria-pressed="${S.rmode==='sejarah'}">Sejarah</button></div>`;
+  if(S.rmode==='papan')return relifPapan(rmode);
   if(S.rmode==='asc'){arLoad();return ascRelifView(rmode)}
   if(S.rmode==='rekod')return`<div class="bar">${rmode}</div>`+rekodView();
   if(S.rmode==='sejarah')return`<div class="bar">${rmode}</div>`+sejarahView();
@@ -3498,10 +3573,17 @@ mainEl.addEventListener('click',e=>{if(S.view!=='papan')return;const b=e.target.
   if(b.dataset.a==='ppy'){e.stopImmediatePropagation();S.ppY=b.dataset.y==='all'?null:b.dataset.y;render()}
   else if(b.dataset.a==='ppcls'){e.stopImmediatePropagation();S.view='jadual';S.jMode='kelas';S.jSel=+b.dataset.c;render()}},true);
 mainEl.addEventListener('click',e=>{if(S.view!=='papan')return;const b=e.target.closest('button[data-v]');if(!b)return;e.stopImmediatePropagation();S.view=b.dataset.v;render()},true);
-mainEl.addEventListener('pointermove',e=>{if(S.view!=='papan')return;const tip=mainEl.querySelector('.pp-tip');if(!tip)return;const el=e.target.closest('[data-tip]');
+mainEl.addEventListener('pointermove',e=>{if(S.view!=='papan'&&!(S.view==='relif'&&S.rmode==='papan'))return;const tip=mainEl.querySelector('.pp-tip');if(!tip)return;const el=e.target.closest('[data-tip]');
   if(!el){tip.hidden=true;return}tip.textContent=el.dataset.tip;tip.hidden=false;const r=mainEl.querySelector('.pp').getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top+14;
   if(x+tip.offsetWidth>r.width)x=e.clientX-r.left-tip.offsetWidth-10;tip.style.left=x+'px';tip.style.top=y+'px'});
 mainEl.addEventListener('pointerleave',()=>{const tip=mainEl.querySelector('.pp-tip');if(tip)tip.hidden=true});
+mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='papan'||S.preview)return;const b=e.target.closest('[data-rp]');if(!b)return;e.stopImmediatePropagation();const k=b.dataset.rp;
+  if(k==='prev'||k==='next'){arShift(k==='prev'?-1:1);render();return}
+  if(k==='add'){S.rmode='asc';S.arAdd=true;render();return}
+  if(k==='urus'){S.rmode='asc';render();return}
+  if(k==='row'){S.rmode='asc';S.arSel=b.dataset.k;render();return}
+  if(k==='cetak'){S.preview='relifar';render();window.scrollTo(0,0);return}
+  if(k==='board'){S.preview='relifboard';render();window.scrollTo(0,0);return}},true);
 /* ---------- events ---------- */
 mainEl.addEventListener('click',async e=>{
   if(S.view==='jadual'&&S.edit&&!S.preview){const td=e.target.closest('td[data-s]');
