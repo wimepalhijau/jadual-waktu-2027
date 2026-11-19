@@ -1,16 +1,1 @@
-{
-  "guru": "ZURINA BT. NASIR",
-  "kod": "ZUR",
-  "catatan": "",
-  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
-  "subjek": [
-    {
-      "kod": "BA",
-      "nama": "Bahasa Arab",
-      "kelas": [
-        "4 CRYSTAL"
-      ]
-    }
-  ],
-  "dihantar": 1794979534902
-}
+{"catatan": "", "dihantar": 1795070694087, "guru": "ZURINA BT. NASIR", "kod": "ZUR", "oleh": "Borang Guru Bahasa Arab (Ustaz Aziz)", "subjek": [{"kod": "BA", "nama": "Bahasa Arab", "kelas": ["3 AMBER", "3 CRYSTAL", "3 DIAMOND", "3 EMERALD", "4 CRYSTAL", "6 DIAMOND"]}]}
