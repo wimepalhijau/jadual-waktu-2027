@@ -471,6 +471,15 @@ tbody tr.row{cursor:pointer}
 .md-bar{grid-column:1/-1;height:4px;border-radius:2px;background:var(--hover)}.md-bar span{display:block;height:4px;border-radius:2px;background:hsl(var(--h) 65% var(--md-tbd))}
 body.pv .md-g{min-width:0}body.pv .md-g td,body.pv .md-tw,body.pv .md-e,body.pv .md-pkb,body.pv .md-day span,body.pv .md-restc span{height:46px;min-height:46px}body.pv .md-hero{padding:10px 14px}body.pv .md-hero h2{font-size:22px}
 @media print{.md-g{min-width:0}}
+
+/* gaya moden dalam pratonton cetak / PDF: warna padu (tanpa kecerunan atau lutsinar) */
+body.pv .md-hero{background:#1e3a8a!important;box-shadow:none}
+body.pv .md-meta{background:#2b4aa0}body.pv .md-chip{background:#3554ab;border-color:#5470c0}
+body.pv .md-day span{background:#e3eaf8}
+body.pv .md-ph{background:#eef2f8!important}body.pv .md-ph.rh,body.pv .md-ph.pk{background:#efe9fd!important}
+body.pv .md-rest{background:#e4dcfb!important}body.pv .md-restc span{background:#efe9fd}body.pv .md-pkb{background:#fdeccb}
+body.pv .md-li{background:#fff}body.pv .md-kpi{border-top-width:4px}
+body.pv .md-g{border-spacing:3px}
 /* papan pemuka */
 .pp{--pp-t:#0f8f86;--pp-t2:#14b8a6;--pp-tl:#d7f3ef;--pp-track:#e4efee;--pp-bad:#d64545;--pp-warn:#c27c0e;--pp-ok:#0f8f5a;--pp-card:var(--panel);
   --pp-c1:#2a78d6;--pp-c2:#eb6834;--pp-c3:#1baf7a;--pp-c4:#eda100;--pp-c5:#e87ba4;--pp-c6:#6250d6;position:relative;display:grid;gap:14px;font-family:inherit}
@@ -2913,11 +2922,11 @@ async function savePdf(){
 /* Dalam claude.ai dialog cetak disekat; Cetak menyimpan fail cetak yang membuka dialog pencetak sendiri apabila dibuka. */
 const inClaude=()=>!!(window.claude&&window.claude.use);
 function doPrint(){
-  if(inClaude()){toast('Fail cetak sedang disediakan. Buka fail itu — pilihan pencetak akan terbuka sendiri.');saveFile();return}
+  if(inClaude()){toast('PDF sedang disediakan. Buka fail PDF itu dan cetak.');savePdf();return}
   toast('Pilih pencetak dalam dialog cetak.');
   try{window.print()}catch(e){}
 }
-const printTip=()=>inClaude()?'Tekan Cetak: fail cetak akan dimuat turun. Buka fail itu dan pilihan pencetak terbuka sendiri.':'Tekan Cetak untuk memilih pencetak.';
+const printTip=()=>inClaude()?'Tekan Cetak: fail PDF akan dimuat turun. Buka fail PDF itu dan cetak.':'Tekan Cetak untuk memilih pencetak.';
 function anaTitle(t){const sc=D.school||{};return`<div style="margin:0 0 8px"><b style="font-size:15px">${esc(U(sc.name||''))}</b><br><span style="font-size:13px">${esc(t)}</span></div>`}
 function anaPrint(k){
   const sc=D.school||{},G=build();
