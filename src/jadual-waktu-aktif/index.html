@@ -1349,7 +1349,7 @@ function relifGanti(rmode){
     <div class="rg-act">${absC.length?'<button class="rg-b ghost" data-rg="kosong">Kosongkan pilihan</button>':''}<button class="rg-b green" data-rg="jana" ${R.rows.length?'':'disabled'}>⚙ Jana cadangan guru ganti</button></div></section>`;
   const sn=shortNames();
   const jad=`<section class="rg-card"><h3 class="rg-jh"><span><span class="rg-jt">Jadual Guru Ganti</span><small>Tarikh: <b>${esc(dmy(S.rdate))}</b> | Hari: <b>${HARI[dt.getDay()]}</b></small></span><span class="grow"></span>
-    ${canSave?`<button class="rg-b blue sm" data-rg="simpan" ${absC.length?'':'disabled'}>💾 Simpan</button>`:''}<button class="rg-b purple sm" data-rg="jpeg" ${R.rows.length?'':'disabled'}>🖼 Muat turun imej (JPEG)</button></h3>
+    ${canSave?`<button class="rg-b blue sm" data-rg="simpan" ${absC.length?'':'disabled'}>💾 Simpan</button>`:''}<button class="rg-b blue sm" data-rg="cetak" ${R.rows.length?'':'disabled'}>🖨 Cetak laporan</button><button class="rg-b purple sm" data-rg="jpeg" ${R.rows.length?'':'disabled'}>🖼 Muat turun imej (JPEG)</button></h3>
     ${d<0?'<p class="mu">Tarikh ini hari hujung minggu. Tiada waktu mengajar.</p>':R.rows.length?`<div class="rg-tw"><table class="rg-t rg-j"><thead><tr><th>Masa</th><th>Kelas</th><th>Mata pelajaran</th><th>Guru asal</th><th class="pk">Pilihan guru ganti</th></tr></thead><tbody>${R.rows.map(r=>{const tm=lessonTime(r.pi,[r.c]),p=P[r.key],ok=p>=0||p===-2||p===-3;
       return`<tr class="${ok?'rg-ok':''}${r.key===S.arSel?' rg-sel':''}" data-rgr="${esc(r.key)}"><td class="rg-tm">${h12(tm.s)}–${h12(tm.e)}</td><td><b>${esc(D.classes[r.c].name)}</b></td><td>${esc(r.sub)}</td><td class="rd">${esc(sn[r.t])}</td><td class="pk"><span class="rg-ps"><span aria-hidden="true">${ok?'✔':'⇄'}</span><select data-rgk="${esc(r.key)}" aria-label="Guru ganti ${esc(D.classes[r.c].name)} waktu ${esc(PER[r.pi].n)}">${rgOpts(R,r)}</select></span></td></tr>`}).join('')}</tbody></table></div>
     <p class="mu" style="margin:8px 0 0">★ guru kelas atau pembantu guru kelas. Nombor dalam kurungan ialah bilangan relif guru itu hari ini. Tekan <b>Simpan</b> supaya semua guru nampak.</p>`:`<p class="mu">${absC.length?'Guru tidak hadir ini tiada kelas pada hari itu.':'Tambah guru tidak hadir untuk melihat kelas yang perlu diganti.'}</p>`}</section>`;
@@ -3893,6 +3893,7 @@ mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.pr
   if(k==='kosong'){S.arPick={};S.arJenis={};render();return}
   if(k==='simpan'){rgSave().then(()=>render());return}
   if(k==='jpeg'){rgJpeg();return}
+  if(k==='cetak'){S.preview='relifar';render();window.scrollTo(0,0);return}
   if(S.arSel&&(k==='pg'||k==='bt'||k==='ks')){S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[S.arSel];if(k==='ks')delete S.arPick[S.arSel];else S.arPick[S.arSel]=k==='pg'?-2:-3;render();return}
   if(k==='nx'){const R=arRows(),P=S.arPick||{},i=R.rows.findIndex(r=>r.key===S.arSel),nx=R.rows.slice(i+1).concat(R.rows.slice(0,i+1)).find(r=>!(P[r.key]>=0||P[r.key]===-2||P[r.key]===-3));if(nx){S.arSel=nx.key;render()}else toast('Semua sudah diganti');return}},true);
 mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.preview)return;
