@@ -2824,8 +2824,14 @@ const LOGOJ={src:null,by:{},err:'',used:0};
 /* warna latar sebenar di belakang gambar (naik ke induk sehingga jumpa latar tidak lutsinar) */
 function bgOf(el){for(let e=el.parentElement;e;e=e.parentElement){const c=getComputedStyle(e).backgroundColor,m=(c||'').match(/rgba?\(([^)]+)\)/);if(m){const v=m[1].split(',').map(x=>parseFloat(x));if(v.length<4||v[3]>0.5)return'rgb('+v[0]+','+v[1]+','+v[2]+')'}}return'rgb(255,255,255)'}
 function logoJpeg(bg){const src=D.school&&D.school.logo;if(!src)return Promise.resolve(null);if(LOGOJ.src!==src){LOGOJ.src=src;LOGOJ.by={}}if(LOGOJ.by[bg])return Promise.resolve(LOGOJ.by[bg]);
-  return new Promise(res=>{const im=new Image();im.onload=()=>{try{const n=Math.min(600,Math.max(im.naturalWidth,im.naturalHeight)||300),c=document.createElement('canvas');c.width=n;c.height=n;const x=c.getContext('2d');x.fillStyle=bg;x.fillRect(0,0,n,n);
-      const ar=im.naturalWidth/im.naturalHeight;let dw=n,dh=n/ar;if(dh>n){dh=n;dw=n*ar}x.drawImage(im,(n-dw)/2,(n-dh)/2,dw,dh);
+  return new Promise(res=>{const im=new Image();im.onload=()=>{try{const n=Math.min(600,Math.max(im.naturalWidth,im.naturalHeight)||300),c0=document.createElement('canvas');c0.width=n;c0.height=n;const x0=c0.getContext('2d');
+      const ar=im.naturalWidth/im.naturalHeight;let dw=n,dh=n/ar;if(dh>n){dh=n;dw=n*ar}x0.drawImage(im,(n-dw)/2,(n-dh)/2,dw,dh);
+      /* buang latar putih di sekeliling logo: isi banjir dari tepi untuk piksel hampir putih */
+      const id=x0.getImageData(0,0,n,n),px=id.data,seen=new Uint8Array(n*n),st=[];const wh=i=>px[i*4+3]<20||(px[i*4]>225&&px[i*4+1]>225&&px[i*4+2]>225);
+      for(let q=0;q<n;q++){st.push(q,(n-1)*n+q,q*n,q*n+n-1)}
+      while(st.length){const i=st.pop();if(seen[i])continue;seen[i]=1;if(!wh(i))continue;px[i*4+3]=0;const xx=i%n,yy=(i/n)|0;if(xx>0)st.push(i-1);if(xx<n-1)st.push(i+1);if(yy>0)st.push(i-n);if(yy<n-1)st.push(i+n)}
+      x0.putImageData(id,0,0);
+      const c=document.createElement('canvas');c.width=n;c.height=n;const x=c.getContext('2d');x.fillStyle=bg;x.fillRect(0,0,n,n);x.drawImage(c0,0,0);
       const o={bin:atob(c.toDataURL('image/jpeg',.92).split(',')[1]),w:n,h:n};LOGOJ.by[bg]=o;LOGOJ.err='';res(o)}catch(e){LOGOJ.err='kanvas: '+(e&&e.message||e);res(null)}};im.onerror=()=>{LOGOJ.err='gambar tidak dapat dibuka';res(null)};im.src=src})}
 function buildPdf(host,land,units){
   const mm=2.834646,PWpt=(land?297:210)*mm,PHpt=(land?210:297)*mm,mar=8*mm;
