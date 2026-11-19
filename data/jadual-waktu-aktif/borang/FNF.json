@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794934798006,
+  "dihantar": 1795074822546,
   "guru": "FATIN NADZIRA BT. FAUZI",
   "kod": "FNF",
   "oleh": "DATIN MARIATI",
@@ -20,6 +20,13 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "1 DIAMOND"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

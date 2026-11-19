@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793941285474,
+  "dihantar": 1795074907929,
   "guru": "NURUL AIN BT. ALIAS",
   "kod": "NUA",
   "oleh": "DATIN MARIATI",
@@ -18,6 +18,13 @@
       ],
       "kod": "PSV",
       "nama": "Pendidikan Seni Visual"
+    },
+    {
+      "kelas": [
+        "1 OPAL"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "catatan": "",
-  "dihantar": 1794934638812,
+  "dihantar": 1795074820996,
   "guru": "RAPAHEL BINSING",
   "kod": "RAP",
-  "oleh": "",
+  "oleh": "DATIN MARIATI",
   "subjek": [
     {
       "kelas": [
@@ -30,6 +30,14 @@
       ],
       "kod": "PSV",
       "nama": "Pendidikan Seni Visual"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 PEARL"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794934753726,
+  "dihantar": 1795074908310,
   "guru": "DANIAL HAZIQ BIN ABDULLAH",
   "kod": "DHA",
   "oleh": "DATIN MARIATI",
@@ -28,6 +28,13 @@
       ],
       "kod": "PSV",
       "nama": "Pendidikan Seni Visual"
+    },
+    {
+      "kelas": [
+        "1 OPAL"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

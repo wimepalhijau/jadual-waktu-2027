@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793941347864,
+  "dihantar": 1795074821787,
   "guru": "ALIFF RAHMAN BIN OMAR",
   "kod": "ARO",
   "oleh": "DATIN MARIATI",
@@ -20,6 +20,14 @@
       ],
       "kod": "DMZ",
       "nama": "Dunia Muzik"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "1 RUBY"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

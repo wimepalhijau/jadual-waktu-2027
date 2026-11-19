@@ -1,57 +1,57 @@
 {
+  "catatan": "",
+  "dihantar": 1794979534902,
   "guru": "NORAHIMAH BT. ALI",
   "kod": "NOR",
-  "catatan": "",
   "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
   "subjek": [
     {
+      "kelas": [
+        "3 EMERALD",
+        "4 DIAMOND",
+        "5 EMERALD"
+      ],
       "kod": "PI(j)",
-      "nama": "PI(j)",
+      "nama": "PI(j)"
+    },
+    {
       "kelas": [
         "3 EMERALD",
         "4 DIAMOND",
         "5 EMERALD"
-      ]
-    },
-    {
+      ],
       "kod": "PI(q1)",
-      "nama": "PI(q1)",
-      "kelas": [
-        "3 EMERALD",
-        "4 DIAMOND",
-        "5 EMERALD"
-      ]
+      "nama": "PI(q1)"
     },
     {
-      "kod": "PI(q2)",
-      "nama": "PI(q2)",
       "kelas": [
         "3 EMERALD",
         "4 DIAMOND",
         "5 AMBER",
         "5 EMERALD"
-      ]
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
     },
     {
-      "kod": "PI(u)",
-      "nama": "PI(u)",
       "kelas": [
         "3 EMERALD",
         "4 DIAMOND",
         "5 EMERALD"
-      ]
+      ],
+      "kod": "PI(u)",
+      "nama": "PI(u)"
     },
     {
-      "kod": "TAS",
-      "nama": "Tasmik",
       "kelas": [
         "3 EMERALD",
         "4 DIAMOND",
         "5 AMBER",
         "5 EMERALD",
         "6 CRYSTAL"
-      ]
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
     }
-  ],
-  "dihantar": 1794979534902
+  ]
 }

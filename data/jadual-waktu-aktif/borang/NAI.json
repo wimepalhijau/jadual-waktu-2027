@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793941423090,
+  "dihantar": 1795074822171,
   "guru": "NOR ALIA IZYAN BT. MOHD RASLI",
   "kod": "NAI",
   "oleh": "DATIN MARIATI",
@@ -18,6 +18,13 @@
       ],
       "kod": "PSV",
       "nama": "Pendidikan Seni Visual"
+    },
+    {
+      "kelas": [
+        "1 DIAMOND"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "catatan": "",
-  "dihantar": 1793885814395,
+  "dihantar": 1795074821394,
   "guru": "RASYADA BINTI RAHIM",
   "kod": "RAS",
-  "oleh": "",
+  "oleh": "DATIN MARIATI",
   "subjek": [
     {
       "kelas": [
@@ -11,6 +11,14 @@
       ],
       "kod": "SN",
       "nama": "Sains"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 PEARL"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
     }
   ]
 }

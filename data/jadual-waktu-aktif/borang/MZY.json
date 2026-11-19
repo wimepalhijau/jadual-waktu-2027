@@ -1,47 +1,46 @@
 {
+  "catatan": "",
+  "dihantar": 1794979534902,
   "guru": "MOHAMED ZAIYAD BIN YATIM",
   "kod": "MZY",
-  "catatan": "",
   "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
   "subjek": [
     {
+      "kelas": [
+        "3 PEARL",
+        "5 CRYSTAL"
+      ],
       "kod": "PI(j)",
-      "nama": "PI(j)",
+      "nama": "PI(j)"
+    },
+    {
       "kelas": [
         "3 PEARL",
         "5 CRYSTAL"
-      ]
-    },
-    {
+      ],
       "kod": "PI(q1)",
-      "nama": "PI(q1)",
-      "kelas": [
-        "3 PEARL",
-        "5 CRYSTAL"
-      ]
+      "nama": "PI(q1)"
     },
     {
-      "kod": "PI(q2)",
-      "nama": "PI(q2)",
       "kelas": [
         "3 AMBER",
         "3 OPAL",
         "3 PEARL",
         "5 CRYSTAL",
         "6 DIAMOND"
-      ]
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
     },
     {
-      "kod": "PI(u)",
-      "nama": "PI(u)",
       "kelas": [
         "3 PEARL",
         "5 CRYSTAL"
-      ]
+      ],
+      "kod": "PI(u)",
+      "nama": "PI(u)"
     },
     {
-      "kod": "TAS",
-      "nama": "Tasmik",
       "kelas": [
         "3 AMBER",
         "3 EMERALD",
@@ -50,8 +49,9 @@
         "5 CRYSTAL",
         "5 DIAMOND",
         "6 DIAMOND"
-      ]
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
     }
-  ],
-  "dihantar": 1794979534902
+  ]
 }
