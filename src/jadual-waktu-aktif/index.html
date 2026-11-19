@@ -1710,10 +1710,32 @@ function ascRelifView(rmode){
 function arStats(){const m=S.rdate.slice(0,7),docs=Object.values(RELIF||{}).filter(v=>String(v.date||'').slice(0,7)===m);let n=0;docs.forEach(v=>{n+=(v.items||[]).filter(it=>(it.jenis||'Ganti')!=='Batal').length});return{n,abs:new Set(docs.map(v=>v.absent+v.date)).size}}
 function arAuto(){const R=arRows(),st=arSet();S.arPick=S.arPick||{};R.rows.forEach(r=>{if(S.arPick[r.key]!=null&&S.arPick[r.key]!==-1)return;if(r.pair)return;const C=arCands(R,r).filter(x=>x.free&&x.load<TCAP&&x.today<st.maxHari);if(C.length)S.arPick[r.key]=C[0].i})}
 function arReportRows(){const R=arRows(),rows=[];R.rows.forEach(r=>{const p=(S.arPick||{})[r.key];if(!(p>=0||p===-2||p===-3))return;const tm=lessonTime(r.pi,[r.c]),j=arJenisOf(r.key);
-    rows.push({g:p>=0?D.teachers[p].name:p===-2?'PENGAWAS':'(KELAS DIBATALKAN)',pi:r.pi,n:PER[r.pi].n,tm:h12(tm.s)+'-'+h12(tm.e),c:D.classes[r.c].name+(j&&j!=='Ganti'?' ('+j+')':''),abs:D.teachers[r.t].name,sebab:arSebab(D.teachers[r.t].code)})});
+    rows.push({g:p>=0?D.teachers[p].name:p===-2?'PENGAWAS':'(KELAS DIBATALKAN)',pi:r.pi,n:PER[r.pi].n,tm:h12(tm.s)+'-'+h12(tm.e),c:D.classes[r.c].name+(j&&j!=='Ganti'?' ('+j+')':''),abs:D.teachers[r.t].name,sebab:arSebab(D.teachers[r.t].code),sub:r.sub})});
   const absList=arAbsCodes().map(c=>({n:tName0(c),r:arJulat(c)})).sort((a,b)=>a.n.localeCompare(b.n));return{rows,absList}}
 function tName0(c){const t=D.teachers.find(x=>x.code===c);return t?t.name:c}
-function arPrint(){const{rows,absList}=arReportRows();return`<div class="noprint"><div class="bar"><span class="grow"></span>${orientBar('p')}<button class="btn" data-a="pvback">Kembali</button></div></div>`+rgReport(rows,absList,S.rdate)}
+function arPrint(){const{rows,absList}=arReportRows(),m=S.rptMode||'masa',b=(k,l)=>`<button data-rpt="${k}" aria-pressed="${m===k}">${l}</button>`;
+  return`<div class="noprint"><div class="bar"><div class="seg" role="group" aria-label="Susunan laporan">${b('masa','Ikut masa')}${b('guru','Ikut guru ganti')}</div><span class="grow"></span>${orientBar('p')}<button class="btn" data-a="pvback">Kembali</button></div></div>`+(m==='guru'?rgReport(rows,absList,S.rdate):rgReportMasa(rows,absList,S.rdate))}
+/* Laporan guru ganti ikut masa (seperti cetakan aSc Substitution) */
+function rgReportMasa(rows,absList,date){
+  const sc=D.school||{},HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],dt=new Date(date+'T00:00:00');
+  const now=new Date(),dic=now.getDate()+'.'+(now.getMonth()+1)+'.'+now.getFullYear()+' '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+  const al=absList.map(a=>esc(U(a.n))+(a.r?'('+esc(a.r)+')':''));const absTxt=al.length>1?al.slice(0,-1).join(', ')+' dan '+al[al.length-1]:al.join('');
+  const by={};rows.forEach(r=>{(by[r.pi]=by[r.pi]||[]).push(r)});
+  const body=Object.keys(by).map(Number).sort((a,b)=>a-b).map(pi=>{const a=by[pi].sort((x,y)=>x.c.localeCompare(y.c));
+    return a.map((r,k)=>`<tr class="${k===a.length-1?'gl':''}"><td class="gg">${esc(U(r.g))}</td>${k===0?`<td class="ms" rowspan="${a.length}">${esc(r.n)} <span>(${esc(r.tm)})</span></td>`:''}<td class="cl">${esc(r.c)}</td><td class="sm">${esc(U(r.abs))}</td><td class="sb">${esc(r.sub||'')}</td><td class="se">${esc(U(r.sebab||''))}</td><td class="tt"></td></tr>`).join('')}).join('');
+  const ver=U(sc.versi||'');
+  return`<style>.rm{font-family:Arial,Helvetica,sans-serif;color:#000;background:#fff;max-width:760px;margin:0 auto}
+  .rm h1{text-align:center;font-size:24px;margin:2px 0 2px}.rm .dt{text-align:center;font-size:16px;margin:0 0 6px}.rm .ab{text-align:center;font-size:12.5px;margin:0}.rm .an{text-align:center;font-size:11.5px;font-weight:700;margin:2px 0 12px;line-height:1.4}
+  .rm table{width:100%;border-collapse:collapse;border:0}.rm th{font-size:12px;font-weight:700;text-align:left;padding:6px 4px;border:0;border-bottom:1.5px solid #000;background:#fff}.rm th.c{text-align:center}.rm th.tt{font-size:9px;text-align:center}
+  .rm td{border:0;border-top:1px solid #000;vertical-align:middle;padding:10px 4px;background:#fff;text-align:center}
+  .rm td.gg{text-align:left;font-weight:700;font-size:12.5px;width:24%}.rm td.ms{font-size:12.5px;font-weight:700;width:13%;border-left:0}.rm td.ms span{display:block;font-weight:400;font-size:11px}
+  .rm td.cl{font-size:10.5px;font-weight:700;white-space:nowrap}.rm td.sm{font-size:9.5px;width:18%}.rm td.sb{font-size:12px}.rm td.se{font-size:11px;font-weight:700}.rm td.tt{width:12%}
+  .rm tbody tr:last-child td{border-bottom:1.5px solid #000}.rm tr.gl td{border-bottom:1.5px solid #000}
+  .rm .ft{display:flex;justify-content:space-between;font-size:10px;border-top:1px solid #000;margin-top:24px;padding-top:3px}
+  @media print{body:has(.rm) .hdr{display:none}}</style>
+  <section class="sec rm"><h1>JADUAL GURU GANTI${ver?' '+esc(ver):''}</h1><p class="dt">${HARI[dt.getDay()]}, ${esc(fmtDate(date).replace(/^[A-Za-z]+,\s*/,''))}</p><p class="ab">Senarai guru tiada hari ini:</p><p class="an">${absTxt||'-'}</p>
+  <table><thead><tr><th>Guru Ganti</th><th class="c">Masa</th><th class="c">Kelas</th><th class="c">Guru Tidak Hadir</th><th class="c">Subjek</th><th class="c">Sebab</th><th class="tt">Tanda Tangan</th></tr></thead><tbody>${body||'<tr><td colspan="7">Tiada penggantian.</td></tr>'}</tbody></table>
+  <div class="ft"><span>Unit Jadual Waktu · dicetak ${dic}</span><span>${esc(U(sc.name||''))}</span></div></section>`}
 /* Papan kenyataan: senarai besar penggantian hari itu untuk bilik guru */
 function arBoard(){const{rows,absList}=arReportRows(),sn=shortNames(),sc=D.school||{};rows.sort((a,b)=>a.pi-b.pi||a.c.localeCompare(b.c));
   return`<div class="noprint"><div class="bar"><span class="grow"></span>${orientBar('l')}<button class="btn" data-a="pvback">Kembali</button></div></div><style>.brd{font-family:Arial,sans-serif;color:#000;background:#fff}.brd h1{font-size:30px;text-align:center;margin:0}.brd .d{text-align:center;font-size:20px;margin:2px 0 10px}.brd table{width:100%;border-collapse:collapse}.brd th{background:#1a3f8c;color:#fff;font-size:16px;padding:6px}.brd td{border:1px solid #888;font-size:18px;padding:6px;text-align:center}.brd tr:nth-child(even) td{background:#eef3fb}@media print{body:has(.brd) .hdr{display:none}}</style>
@@ -3149,7 +3171,7 @@ main.addEventListener('click',e=>{
     const yr=e.target.closest('[data-pvyr]');if(yr){const y=+yr.dataset.pvyr,names=D.classes.filter((c,i)=>yearOf(i)===y).map(c=>c.name),a=S.pvK||[],all=names.every(n=>a.includes(n));S.pvK=all?a.filter(n=>!names.includes(n)):[...new Set([...a,...names])];savePv();render();return}
     if(e.target.closest('summary')){setTimeout(()=>{document.querySelectorAll('[data-pvd]').forEach(d=>{op[d.dataset.pvd]=d.open})},0)}
   }
-  if(S.preview){if(e.target.closest('[data-a="doprint"]')){doPrint();return}if(e.target.closest('[data-a="savefile"]')){saveFile();return}if(e.target.closest('[data-a="savepdf"]')){savePdf();return}if(e.target.closest('[data-a="pvback"]')){S.preview=null;render()}return}
+  if(S.preview){const rp=e.target.closest('[data-rpt]');if(rp){S.rptMode=rp.dataset.rpt;render();return}if(e.target.closest('[data-a="doprint"]')){doPrint();return}if(e.target.closest('[data-a="savefile"]')){saveFile();return}if(e.target.closest('[data-a="savepdf"]')){savePdf();return}if(e.target.closest('[data-a="pvback"]')){S.preview=null;render()}return}
   const v=S.view;
   if(v==='jadual'&&S.edit){const td=e.target.closest('td[data-s]');if(td){const[d,p]=td.dataset.s.split(',').map(Number);openSlot(d,p);return}}
   if(v==='kumpulan'&&groupClick(e))return;
