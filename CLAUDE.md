@@ -88,6 +88,10 @@ Guru
 - https://claude.ai/artifact/8wNrLFyhvXZxHfuJae2Tt7 — untuk Ustazah Nur Syazwani (NSA) isi guru PI(j), PI(u), PI(q1), PI(q2) ×2, TAS ×2, BA setiap kelas. Koleksi `pai`, id = `1-AMBER`, medan `PIj,PIu,PIq1,PIq2a,PIq2b,TASa,TASb,BA` (kod guru), `catatan`, `oleh`, `masa`.
 - Pengguna mahu isian ini dimasukkan ke `borang` jadual (subjek ikut kod: PI(j), PI(u), PI(q1), PI(q2), TAS, BA) bila sudah diisi.
 
+## Borang Guru Bahasa Arab 2027 (dalam talian)
+
+- https://claude.ai/artifact/2HnKeUeSqPngwPutaQxTvk — untuk Ketua Panitia BA isi guru BA setiap kelas (3 waktu). Koleksi `ba`, id = `1-AMBER`, medan `BA` (kod guru), `catatan`, `oleh`, `masa`. Dibuat 2026-11-19, kosong. Masukkan ke `borang` jadual (subjek BA) bila diisi.
+
 ## GitHub Pages
 
 - Repo: `wimepalhijau/jadual-waktu-2027` (public, cawangan `main`).
