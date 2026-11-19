@@ -612,8 +612,30 @@ header.hdr .btn.pri:hover:not(:disabled){background:#eef3ff}
 .panel{border-radius:16px;border-color:var(--line);box-shadow:0 1px 3px rgba(20,40,90,.06)}
 @media (max-width:640px){header.hdr{padding:12px 14px}header.hdr h1{font-size:17px}header.hdr .hlogo{width:40px;height:40px}.rb svg{width:32px;height:32px;padding:4px}.rb{min-width:56px}}
 @media print{header.hdr{background:none;color:#000;box-shadow:none;padding:0}header.hdr h1{color:#000}}
+
+/* Menu tepi (gaya papan pemuka) — skrin lebar sahaja */
+.side{display:none}
+@media (min-width:1100px){
+  body:not(.pv) .side{display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:248px;background:var(--panel);border-right:1px solid var(--line);box-shadow:2px 0 14px rgba(20,40,90,.05);z-index:30;overflow-y:auto;scrollbar-width:thin;padding:14px 12px 18px}
+  body:not(.pv){padding-left:248px}
+  body:not(.pv) #tabs,body:not(.pv) #ribbon{display:none}
+  .sd-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 14px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  .sd-brand .sd-lg{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:10px;background:linear-gradient(135deg,#6d5ae6,#3b6fd8);color:#fff}
+  .sd-brand .sd-lg:has(img){background:none}.sd-brand .sd-lg img{width:38px;height:38px;object-fit:contain}.sd-brand .sd-lg svg{width:22px;height:22px}
+  .sd-brand b{display:block;font-size:15px;line-height:1.2;color:var(--fg)}.sd-brand small{display:block;font-size:11.5px;color:var(--muted)}
+  .sd-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:14px 10px 6px}
+  .sd-i{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;color:var(--fg);font:inherit;font-size:13.5px;text-align:left;padding:8px 10px;border-radius:8px;cursor:pointer;min-height:38px}
+  .sd-i svg{width:22px;height:22px;flex:none}
+  .sd-i:hover{background:var(--hover)}
+  .sd-i:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .sd-i[aria-current="page"]{background:linear-gradient(90deg,#6d5ae6,#8b7cf0);color:#fff;font-weight:600;box-shadow:0 3px 10px rgba(109,90,230,.3)}
+  .sd-i[aria-current="page"] svg{background:#fff;border-radius:6px;padding:2px}
+  .sd-ft{margin-top:auto;padding:14px 10px 0;font-size:11px;color:var(--muted)}
+}
+@media print{.side{display:none!important}body{padding-left:0!important}}
 </style>
 
+<aside class="side" id="side" aria-label="Menu utama"></aside>
 <div class="wrap">
   <header class="hdr">
     <div class="hid"><span class="hlogo" id="hlogo" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 11h20M10 4v4M18 4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 15h3M15 15h4M9 19h3M15 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><div><h1>Jadual Waktu Aktif 2027</h1>
@@ -3948,6 +3970,21 @@ mainEl.addEventListener('change',e=>{const t=e.target;
   if(t.id==='xdtypes'){const a=t.value.split(',').map(x=>x.trim()).filter(Boolean);D.dutyTypes=a.length?a:null;persist();render();return}
 });
 })();
+
+/* Menu tepi: dibina daripada butang reben, klik dihantar melalui reben supaya semua tindakan sedia ada berfungsi. */
+{const SECT=[['Utama',['papan','jadual','relif','bertugas']],['Data sekolah',['pelajaran','kelas','guru','waktuguru','borang','bilik','kumpulan','pairing','bilangan']],['Semak & jana',['semak','analisa','jana']],['Tetapan',['sekolah','versi','bantuan']],['Fail',['simpan','cetak','salin']]];
+  const lab={};Object.values(GROUPS).forEach(g=>g.forEach(x=>{if(x)lab[x[0].slice(2)]={k:x[0],l:x[1]}}));lab.papan&&(lab.papan.l='Papan pemuka');lab.bantuan&&(lab.bantuan.l='Panduan');
+  const used=new Set(SECT.flatMap(x=>x[1])),lain=Object.keys(lab).filter(k=>!used.has(k));if(lain.length)SECT.splice(4,0,['Lain',lain]);
+  const side=document.getElementById('side');
+  function sideMenu(){if(!side)return;const lg=D.school&&D.school.logo;
+    side.innerHTML=`<div class="sd-brand"><span class="sd-lg">${lg?`<img src="${lg}" alt="">`:'<svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 11h20M10 4v4M18 4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'}</span><div><b>Jadual Waktu 2027</b><small>SK Putrajaya Presint 17(1)</small></div></div>`+
+      SECT.map(([h,ks])=>{const it=ks.filter(k=>lab[k]).map(k=>{const v=lab[k].k[0]==='v',cur=v&&S.view===k&&!S.preview;
+        return`<button type="button" class="sd-i" data-sd="${lab[k].k}"${cur?' aria-current="page"':''}><svg viewBox="0 0 28 28" aria-hidden="true">${ICON[k]||'<circle cx="14" cy="14" r="5" fill="#6d5ae6"/>'}</svg>${esc(lab[k].l)}</button>`}).join('');
+        return it?`<div class="sd-h">${esc(h)}</div>`+it:''}).join('')+`<div class="sd-ft">Versi ${esc((D.school&&D.school.versi)||'')}</div>`}
+  const _rib=ribbon;ribbon=function(){_rib();sideMenu()};
+  side&&side.addEventListener('click',e=>{const b=e.target.closest('[data-sd]');if(!b)return;const k=b.dataset.sd,rb=document.getElementById('ribbon'),x=document.createElement('button');
+    if(k[0]==='v')x.dataset.v=k.slice(2);else x.dataset.act=k.slice(2);x.hidden=true;rb.appendChild(x);x.click();x.remove();sideMenu();window.scrollTo(0,0)});
+  sideMenu();}
 </script>
 
 
