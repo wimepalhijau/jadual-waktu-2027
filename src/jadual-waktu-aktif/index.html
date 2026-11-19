@@ -2847,7 +2847,7 @@ function buildPdf(host,land,units){
   /* gambar (cth logo sekolah): dilukis sebagai JPEG */
   const IMS=[];
   for(const im of host.querySelectorAll('img')){
-    const st=getComputedStyle(im);if(st.display==='none'||st.visibility==='hidden'||!im.complete||!im.naturalWidth)continue;
+    const st=getComputedStyle(im);if(st.display==='none'||st.visibility==='hidden'||!im.naturalWidth)continue;
     const r=rel(im.getBoundingClientRect());if(r.w<=0||r.h<=0)continue;
     try{const sc=Math.min(4,600/Math.max(r.w,r.h)),c2=document.createElement('canvas');c2.width=Math.max(1,Math.round(r.w*sc));c2.height=Math.max(1,Math.round(r.h*sc));
       const x2=c2.getContext('2d');x2.fillStyle='#fff';x2.fillRect(0,0,c2.width,c2.height);
@@ -2916,6 +2916,7 @@ async function savePdf(){
     m.querySelectorAll('.tw').forEach(t=>{t.style.maxHeight='none';t.style.overflow='visible'});
     host.appendChild(m);document.body.appendChild(host);
     host.style.visibility='visible';
+    await Promise.all([...host.querySelectorAll('img')].map(im=>im.complete&&im.naturalWidth?null:new Promise(r=>{im.onload=im.onerror=r;setTimeout(r,3000)}).then(()=>im.decode?im.decode().catch(()=>{}):null)));
     const secs=[...m.querySelectorAll('.sec')];
     let units=secs.length?[]:[...m.querySelectorAll('tr')];
     for(const sc of secs){units.push(sc);units.push(...sc.querySelectorAll('tr'))}
