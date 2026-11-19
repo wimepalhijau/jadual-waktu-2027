@@ -487,6 +487,7 @@ body.pv .md-g{border-spacing:3px}
 :root[data-theme="dark"] .pp{--pp-t:#2dd4bf;--pp-t2:#14b8a6;--pp-tl:#123a37;--pp-track:#22302f;--pp-bad:#ff7b72;--pp-warn:#e0a63a;--pp-ok:#4cc26f;--pp-c1:#3987e5;--pp-c2:#d95926;--pp-c3:#199e70;--pp-c4:#c98500;--pp-c5:#d55181;--pp-c6:#9085e9}
 .pp-hero{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between;padding:18px 20px;border-radius:16px;background:linear-gradient(120deg,var(--pp-tl),transparent 70%),var(--pp-card);border:1px solid var(--ribbon-line)}
 .pp-hero h2{margin:0;font-size:26px;font-weight:700;color:var(--fg);letter-spacing:-.01em}.pp-hero h2::first-letter{color:var(--pp-t)}.pp-hero p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.pp-hid{display:flex;gap:14px;align-items:center}.pp-logo{width:58px;height:58px;border-radius:50%;background:#fff;object-fit:contain;padding:3px;border:1px solid var(--ribbon-line)}
 .pp-date{font-size:12.5px;color:var(--muted);border:1px solid var(--ribbon-line);border-radius:9px;padding:6px 10px;background:var(--pp-card)}
 .pp-filt{display:flex;flex-wrap:wrap;gap:6px}.pp-chip{border:1px solid var(--ribbon-line);background:var(--pp-card);color:var(--fg);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer}.pp-chip[aria-pressed="true"]{background:var(--pp-t);border-color:var(--pp-t);color:#fff}
 .pp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
@@ -522,7 +523,7 @@ body.pv .md-g{border-spacing:3px}
 .rg{--rg-n:#1e3a8a;--rg-n2:#2747a8;--rg-b:#2563eb;--rg-g:#16a34a;--rg-p:#7c3aed;--rg-r:#dc2626;--rg-y:#fffbea;--rg-card:var(--panel);--rg-ln:var(--ribbon-line);display:grid;grid-template-columns:minmax(0,1fr);gap:12px;min-width:0}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rg{--rg-y:#2b2814;--rg-n:#1c2f6b;--rg-n2:#25409a}}:root[data-theme="dark"] .rg{--rg-y:#2b2814;--rg-n:#1c2f6b;--rg-n2:#25409a}
 .rg-hd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(90deg,var(--rg-n),var(--rg-n2));color:#fff;border-radius:12px;padding:12px 16px}
-.rg-logo{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--rg-n);display:grid;place-items:center}.rg-logo svg{width:24px;height:24px}
+.rg-logo{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--rg-n);display:grid;place-items:center}.rg-logo svg{width:24px;height:24px}.rg-logo img{width:36px;height:36px;object-fit:contain}
 .rg-tt{display:grid}.rg-tt b{font-size:18px}.rg-tt span{font-size:11.5px;opacity:.85}.rg-hr{display:grid;justify-items:end;gap:3px}.rg-hr b{font-size:13px}
 .rg-st{font-size:11px;font-weight:700;background:#fde68a;color:#78350f;border-radius:5px;padding:2px 7px}.rg-st.ok{background:#bbf7d0;color:#14532d}
 .rg-mb{min-width:0;overflow:hidden}.rg-mb .seg{max-width:100%;overflow-x:auto;flex-wrap:nowrap;font-size:12px}.rg-mb .seg button{white-space:nowrap}
@@ -1331,7 +1332,7 @@ function relifGanti(rmode){
   arLoad();const R=arRows(),P=S.arPick||{},d=R.d,dt=new Date(S.rdate+'T00:00:00'),HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],canSave=DBH&&CANW!==false;
   const absC=arAbsCodes(),done=R.rows.filter(r=>{const p=P[r.key];return p>=0||p===-2||p===-3}).length,cat=S.rsCat||{};
   const today=dt.toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  const head=`<div class="rg-hd"><div class="rg-logo" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="13" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 19c0-2 2-3.3 4-3.3s4 1.3 4 3.3M17 12h4M17 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+  const head=`<div class="rg-hd"><div class="rg-logo" aria-hidden="true">${D.school&&D.school.logo?`<img src="${D.school.logo}" alt="">`:`<svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="13" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 19c0-2 2-3.3 4-3.3s4 1.3 4 3.3M17 12h4M17 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`}</div>
     <div class="rg-tt"><b>Sistem Guru Ganti</b><span>Pengurusan relif sekolah · ${esc((D.school&&D.school.name)||'')}</span></div><span class="grow"></span>
     <div class="rg-hr"><b>${esc(today)}</b><span class="rg-st ${R.rows.length&&done===R.rows.length?'ok':''}">${R.rows.length?`${done}/${R.rows.length} diganti`:'Tiada relif'}</span></div></div>`;
   const tetapan=`<section class="rg-card"><h3><span class="rg-i">📅</span>Tetapan Tarikh</h3><label class="rg-l">Tarikh relif</label><div class="rg-dt"><button class="rg-nv" data-rg="prev" aria-label="Hari sebelum">‹</button>${dateBox()}<button class="rg-nv" data-rg="next" aria-label="Hari berikut">›</button></div>
@@ -2843,6 +2844,19 @@ function buildPdf(host,land,units){
     for(const [n,x1,y1,x2,y2] of sd){const w=parseFloat(st['border'+n+'Width']);if(!(w>0)||st['border'+n+'Style']==='none')continue;const c=col(st['border'+n+'Color']);if(!c||c.a<0.05)continue;
       ops.push(cs(c)+' RG '+f(Math.max(w*k,0.4))+' w '+f(X(x1))+' '+f(Y(y1))+' m '+f(X(x2))+' '+f(Y(y2))+' l S')}
   }
+  /* gambar (cth logo sekolah): dilukis sebagai JPEG */
+  const IMS=[];
+  for(const im of host.querySelectorAll('img')){
+    const st=getComputedStyle(im);if(st.display==='none'||st.visibility==='hidden'||!im.complete||!im.naturalWidth)continue;
+    const r=rel(im.getBoundingClientRect());if(r.w<=0||r.h<=0)continue;
+    try{const sc=Math.min(4,600/Math.max(r.w,r.h)),c2=document.createElement('canvas');c2.width=Math.max(1,Math.round(r.w*sc));c2.height=Math.max(1,Math.round(r.h*sc));
+      const x2=c2.getContext('2d');x2.fillStyle='#fff';x2.fillRect(0,0,c2.width,c2.height);
+      const ar=im.naturalWidth/im.naturalHeight,bw=c2.width,bh=c2.height;let dw=bw,dh=bw/ar;if(dh>bh){dh=bh;dw=bh*ar}
+      x2.drawImage(im,(bw-dw)/2,(bh-dh)/2,dw,dh);
+      const bin=atob(c2.toDataURL('image/jpeg',.9).split(',')[1]);const id='Im'+IMS.length;IMS.push({bin,w:c2.width,h:c2.height});
+      const [i,y]=place(r.t,r.h);pg(i).push('q '+f(r.w*k)+' 0 0 '+f(r.h*k)+' '+f(X(r.l))+' '+f(Y(y+r.h))+' cm /'+id+' Do Q');
+    }catch(e){}
+  }
   const cv=document.createElement('canvas').getContext('2d');
   const mp={'–':'\x96','—':'\x97','‘':'\x91','’':'\x92','“':'\x93','”':'\x94','•':'\x95','…':'\x85','×':'\xd7'};
   const enc=t=>{let o='';for(const ch of t){const c=ch.charCodeAt(0);o+=mp[ch]||(c<256?ch:'?')}return o.replace(/([\\()])/g,'\\$1')};
@@ -2867,9 +2881,11 @@ function buildPdf(host,land,units){
   objs[2]='<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+np+' >>';
   objs[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
   objs[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+  const imBase=5+np*2,xo=IMS.length?' /XObject << '+IMS.map((m,j)=>'/Im'+j+' '+(imBase+j)+' 0 R').join(' ')+' >>':'';
+  IMS.forEach((m,j)=>{objs[imBase+j]='<< /Type /XObject /Subtype /Image /Width '+m.w+' /Height '+m.h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+m.bin.length+' >>\nstream\n'+m.bin+'\nendstream'});
   for(let i=0;i<np;i++){
     const body=(pages[i]||[]).join('\n');
-    objs[5+i*2]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+f(PWpt)+' '+f(PHpt)+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+(6+i*2)+' 0 R >>';
+    objs[5+i*2]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+f(PWpt)+' '+f(PHpt)+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >>'+xo+' >> /Contents '+(6+i*2)+' 0 R >>';
     objs[6+i*2]='<< /Length '+body.length+' >>\nstream\n'+body+'\nendstream';
   }
   let out='%PDF-1.4\n',offs=[];
@@ -3804,7 +3820,7 @@ function papanView(){
   const actH=vers.map(([id,v])=>`<li><span class="pp-ai"><svg viewBox="0 0 28 28">${ICON.versi||''}</svg></span><div><b>${esc(v.nama||id)}</b><small>Versi disimpan · ${v.savedAt?esc(new Date(v.savedAt).toLocaleString('ms-MY',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})):''}</small></div></li>`).join('')||'<li><div><b>Belum ada versi disimpan</b><small>Simpan versi dalam menu Versi</small></div></li>';
   const today=new Date().toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   return`<div class="pp">
-  <div class="pp-hero"><div><h2>Papan Pemuka Jadual Waktu</h2><p>Kurikulum, guru dan isu jadual dalam satu paparan · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div><div class="pp-date">📅 ${esc(today)}</div></div>
+  <div class="pp-hero"><div class="pp-hid">${D.school&&D.school.logo?`<img class="pp-logo" src="${D.school.logo}" alt="">`:''}<div><h2>Papan Pemuka Jadual Waktu</h2><p>Kurikulum, guru dan isu jadual dalam satu paparan · ${esc((D.school&&D.school.name)||'SK Putrajaya Presint 17(1)')}</p></div></div><div class="pp-date">📅 ${esc(today)}</div></div>
   <div class="pp-filt" role="group" aria-label="Tapis tahun">${chip('all','Semua tahun')}${ys.map(y=>chip(y,y===0?'Prasekolah':'Tahun '+y)).join('')}</div>
   <div class="pp-kpis">${kpi('kelas','Kelas',P.cls.length,yf==='all'?'semua tahun':'dalam tapisan')}${kpi('guru','Guru',nT,`termasuk ${nP} pentadbir`)}${kpi('waktu','Waktu dijadualkan',`${P.got}<small> / ${P.tot}</small>`,`${pct}% ikut kurikulum`,pct)}${kpi('isu','Isu jadual',isu,isu?'perlu disemak':'tiada isu utama',null,isu?'warn':'')}</div>
   <div class="pp-grid">
