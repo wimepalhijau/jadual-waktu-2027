@@ -2820,11 +2820,11 @@ async function saveFile(){
 let pdfBusy=false;
 /* Penjana PDF sendiri (tanpa pustaka luar): mengukur DOM dan melukis teks/kotak/garis sebagai PDF vektor. */
 /* Logo sekolah disediakan awal sebagai JPEG supaya sentiasa ada dalam PDF. */
-const LOGOJ={src:null,bin:null,w:0,h:0};
+const LOGOJ={src:null,bin:null,w:0,h:0,err:'',used:0};
 function logoJpeg(){const src=D.school&&D.school.logo;if(!src)return Promise.resolve(null);if(LOGOJ.src===src&&LOGOJ.bin)return Promise.resolve(LOGOJ);
   return new Promise(res=>{const im=new Image();im.onload=()=>{try{const n=Math.min(600,Math.max(im.naturalWidth,im.naturalHeight)||300),c=document.createElement('canvas');c.width=n;c.height=n;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,n,n);
       const ar=im.naturalWidth/im.naturalHeight;let dw=n,dh=n/ar;if(dh>n){dh=n;dw=n*ar}x.drawImage(im,(n-dw)/2,(n-dh)/2,dw,dh);
-      Object.assign(LOGOJ,{src,bin:atob(c.toDataURL('image/jpeg',.9).split(',')[1]),w:n,h:n});res(LOGOJ)}catch(e){res(null)}};im.onerror=()=>res(null);im.src=src})}
+      Object.assign(LOGOJ,{src,bin:atob(c.toDataURL('image/jpeg',.9).split(',')[1]),w:n,h:n,err:''});res(LOGOJ)}catch(e){LOGOJ.err='kanvas: '+(e&&e.message||e);res(null)}};im.onerror=()=>{LOGOJ.err='gambar tidak dapat dibuka';res(null)};im.src=src})}
 function buildPdf(host,land,units){
   const mm=2.834646,PWpt=(land?297:210)*mm,PHpt=(land?210:297)*mm,mar=8*mm;
   const W=host.getBoundingClientRect().width,hr=host.getBoundingClientRect();
@@ -2855,7 +2855,7 @@ function buildPdf(host,land,units){
   for(const im of host.querySelectorAll('img')){
     const st=getComputedStyle(im);if(st.display==='none'||st.visibility==='hidden')continue;
     const r=rel(im.getBoundingClientRect());if(r.w<=0||r.h<=0)continue;
-    if(LOGOJ.bin&&im.getAttribute('src')===LOGOJ.src){const id='Im'+IMS.length;IMS.push({bin:LOGOJ.bin,w:LOGOJ.w,h:LOGOJ.h});const s2=Math.min(r.w,r.h),lx=r.l+(r.w-s2)/2,[i,y]=place(r.t+(r.h-s2)/2,s2);pg(i).push('q '+f(s2*k)+' 0 0 '+f(s2*k)+' '+f(X(lx))+' '+f(Y(y+s2))+' cm /'+id+' Do Q');continue}
+    if(LOGOJ.bin&&im.getAttribute('src')===LOGOJ.src){LOGOJ.used++;const id='Im'+IMS.length;IMS.push({bin:LOGOJ.bin,w:LOGOJ.w,h:LOGOJ.h});const s2=Math.min(r.w,r.h),lx=r.l+(r.w-s2)/2,[i,y]=place(r.t+(r.h-s2)/2,s2);pg(i).push('q '+f(s2*k)+' 0 0 '+f(s2*k)+' '+f(X(lx))+' '+f(Y(y+s2))+' cm /'+id+' Do Q');continue}
     if(!im.naturalWidth)continue;
     try{const sc=Math.min(4,600/Math.max(r.w,r.h)),c2=document.createElement('canvas');c2.width=Math.max(1,Math.round(r.w*sc));c2.height=Math.max(1,Math.round(r.h*sc));
       const x2=c2.getContext('2d');x2.fillStyle='#fff';x2.fillRect(0,0,c2.width,c2.height);
@@ -2928,13 +2928,13 @@ async function savePdf(){
     const secs=[...m.querySelectorAll('.sec')];
     let units=secs.length?[]:[...m.querySelectorAll('tr')];
     for(const sc of secs){units.push(sc);units.push(...sc.querySelectorAll('tr'))}
-    await logoJpeg();
+    LOGOJ.used=0;if(!(D.school&&D.school.logo))LOGOJ.err='tiada logo dalam data sekolah';await logoJpeg();
     const {blob,pages}=buildPdf(host,land,units);
     host.remove();host=null;
     if(oldTheme===null)root.removeAttribute('data-theme');else root.setAttribute('data-theme',oldTheme);
     const nm='jadual-'+String(S.preview||'cetak').replace(/[^a-z_]/gi,'')+'.pdf';
     await dl.save({filename:nm,data:blob});
-    toast('PDF disimpan ('+pages+' halaman)');
+    toast('PDF disimpan ('+pages+' halaman) · logo: '+(LOGOJ.used?'ada':'tiada'+(LOGOJ.err?' ('+LOGOJ.err+')':(m.querySelector('img')?' (logo tidak sepadan)':' (tiada logo dalam paparan)'))));
   }catch(e){
     if(e&&e.code==='declined')return;
     toast(e&&e.code?'Simpan PDF tidak tersedia pada paparan ini':'Gagal menjana PDF: '+(e&&e.message||e));
