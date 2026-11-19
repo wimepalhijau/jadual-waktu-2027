@@ -921,6 +921,17 @@ function copy(text){
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done,fb);else fb();
 }
 
+
+/* Tukar kod (singkatan) guru: kemas kini semua rujukan — guru kelas, pembantu, pasangan, borang subjek dan rekod relif. */
+function tukarKod(oc,nc){
+  D.classes.forEach(c=>{if(c.guru===oc)c.guru=nc;if(c.pgk===oc)c.pgk=nc});
+  (D.pairs||[]).forEach(p=>{if(p.a===oc)p.a=nc;if(p.b===oc)p.b=nc});
+  ['rsAbs'].forEach(k=>{if(Array.isArray(S[k]))S[k]=S[k].map(c=>c===oc?nc:c)});
+  (async()=>{let db=DBH;try{if(!db&&window.claude&&window.claude.use)db=await window.claude.use('db')}catch(e){}if(!db)return;let nB=0,nR=0;
+    try{const BRx=window.__BR||{},rec=BRx[docId(oc)];if(rec&&!BRx[docId(nc)]){await db.doc('borang/'+docId(nc)).set({...rec,kod:nc});await db.doc('borang/'+docId(oc)).delete();nB=1}}catch(e){}
+    for(const[id,r]of Object.entries(RELIF||{})){if(!r)continue;const hit=r.absent===oc||(r.items||[]).some(x=>x&&x.by===oc);if(!hit)continue;
+      try{await db.doc('relif/'+id).set({...r,absent:r.absent===oc?nc:r.absent,items:(r.items||[]).map(x=>x&&x.by===oc?{...x,by:nc}:x)});nR++}catch(e){}}
+    toast('Kod '+oc+' → '+nc+' ditukar'+(nB?' · borang dipindah':'')+(nR?' · '+nR+' rekod relif':''))})()}
 /* ---------- list views ---------- */
 const SCHEMA={
   pelajaran:{key:'subjects',title:'Pelajaran',cols:[['Nama','name'],['Kod','code'],['Tahun','tahun'],['Warna','h']],
@@ -975,6 +986,9 @@ function form(v,idx){
     if(o.tahun&&!o.tahun.length)delete o.tahun;
     if(o.cls&&o.sub){const yb=yearBad(o.sub,o.cls);if(yb.length){toast(yearMsg(o.sub,yb));return}}
     if(o.subs&&!o.subs.length){toast('Pilih sekurang-kurangnya satu pelajaran');return}
+    if(v==='guru'){o.code=String(o.code).toUpperCase().replace(/\s+/g,'');
+      if(D.teachers.some((t,j)=>j!==idx&&t.code===o.code)){toast('Kod '+o.code+' sudah digunakan oleh '+D.teachers.find((t,j)=>j!==idx&&t.code===o.code).name);return}
+      if(idx!=null&&D.teachers[idx].code!==o.code)tukarKod(D.teachers[idx].code,o.code)}
     if(idx==null){D[sc.key].push(o);S.sel[v]=D[sc.key].length-1}else D[sc.key][idx]=o;
     persist();L.innerHTML='';render()};
 }
