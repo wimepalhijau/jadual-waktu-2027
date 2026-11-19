@@ -576,12 +576,38 @@ body.rgw:not(.pv) .wrap{max-width:min(calc(1320px / var(--zm,1)),100%)!important
 .rp-wk{height:160px}.rp-wk .pp-vc.cur .pp-vl{color:var(--pp-t);font-weight:700}.rp-wk .pp-vt{max-width:52px}
 .rp-tm{color:var(--muted);font-size:11px;font-weight:400}.rp-dash{color:var(--pp-bad);font-weight:600;font-size:12px}
 .rp .pp-t tbody tr[data-rp]{cursor:pointer}
+
+/* ---------- kepala, tab dan reben gaya moden ---------- */
+header.hdr{margin-top:12px;padding:16px 20px;border-radius:16px;background:linear-gradient(115deg,#1e3a8a,#2747a8 55%,#0f8f86);color:#fff;align-items:center;box-shadow:0 6px 18px rgba(30,58,138,.18)}
+header.hdr .hid{display:flex;align-items:center;gap:14px}
+header.hdr .hlogo{flex:none;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;color:#fff}
+header.hdr .hlogo svg{width:28px;height:28px}header.hdr .hlogo img{width:40px;height:40px;object-fit:contain;border-radius:50%;background:#fff}
+header.hdr h1{font-size:21px;font-weight:700;letter-spacing:-.005em;color:#fff}
+header.hdr .sub{color:rgba(255,255,255,.82);font-size:12.5px}
+header.hdr .btn{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff;border-radius:10px;font-weight:600}
+header.hdr .btn:hover:not(:disabled){background:rgba(255,255,255,.24)}
+header.hdr .btn.pri{background:#fff;border-color:#fff;color:#1e3a8a;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+header.hdr .btn.pri:hover:not(:disabled){background:#eef3ff}
+.tabs{border-bottom:0;gap:6px;margin-top:12px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;width:max-content;max-width:100%}
+.tab{border:0;border-radius:9px;margin:0;padding:7px 16px;font-weight:600;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg);border:0}
+.tab:hover:not([aria-selected="true"]){background:var(--hover);color:var(--fg)}
+.ribbon{margin-top:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;gap:4px;min-height:0;box-shadow:0 1px 3px rgba(20,40,90,.06)}
+.sep{background:var(--line);margin:8px 4px}
+.rb{min-width:70px;padding:7px 6px 6px;border-radius:12px;gap:5px;font-size:11.5px;font-weight:600;color:var(--fg)}
+.rb svg{width:40px;height:40px;padding:6px;border-radius:12px;background:var(--hover);transition:transform .12s ease,background .12s ease}
+.rb:hover{background:none;border-color:transparent}.rb:hover svg{transform:translateY(-2px);background:color-mix(in srgb,var(--accent) 16%,var(--panel))}
+.rb[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 10%,var(--panel));border-color:transparent;color:var(--accent)}
+.rb[aria-pressed="true"] svg{background:color-mix(in srgb,var(--accent) 28%,var(--panel));box-shadow:inset 0 0 0 2px var(--accent)}
+.panel{border-radius:16px;border-color:var(--line);box-shadow:0 1px 3px rgba(20,40,90,.06)}
+@media (max-width:640px){header.hdr{padding:12px 14px}header.hdr h1{font-size:17px}header.hdr .hlogo{width:40px;height:40px}.rb svg{width:32px;height:32px;padding:4px}.rb{min-width:56px}}
+@media print{header.hdr{background:none;color:#000;box-shadow:none;padding:0}header.hdr h1{color:#000}}
 </style>
 
 <div class="wrap">
   <header class="hdr">
-    <div><h1>Jadual Waktu</h1>
-    <div class="sub">Prototaip gaya aSc · data contoh sekolah rendah, bukan data sebenar</div></div>
+    <div class="hid"><span class="hlogo" id="hlogo" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 11h20M10 4v4M18 4v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 15h3M15 15h4M9 19h3M15 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><div><h1>Jadual Waktu Aktif 2027</h1>
+    <div class="sub">SK Putrajaya Presint 17(1) · Jadual waktu, guru ganti &amp; analisa</div></div></div>
     <div class="hbtns">
       <button type="button" class="btn pri" id="borangBuka">Borang Subjek Guru</button>
       <button type="button" class="btn" id="borangKosong">Borang kosong (PDF)</button>
@@ -3808,7 +3834,7 @@ mainEl.addEventListener('click',e=>{if(S.view!=='relif'||S.rmode!=='ganti'||S.pr
   const c=e.target.closest('[data-rgc]');if(c&&S.arSel){e.stopImmediatePropagation();const v=+c.dataset.rgc,R=arRows(),r=R.rows.find(x=>x.key===S.arSel);S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[S.arSel];
     if(S.arPick[S.arSel]===v)delete S.arPick[S.arSel];else{S.arPick[S.arSel]=v;const cd=r&&arCands(R,r).find(x=>x.i===v);if(cd&&!cd.free)S.arJenis[S.arSel]='Gabung'}render();return}
   if(e.target.closest('select,option,button'))return;const tr=e.target.closest('[data-rgr]');if(tr){e.stopImmediatePropagation();S.arSel=tr.dataset.rgr;render()}},true);
-{const _rRG=render;render=function(){_rRG();document.body.classList.toggle('rgw',S.view==='relif'&&S.rmode==='ganti'&&!S.preview)}}
+{const _rRG=render;render=function(){_rRG();document.body.classList.toggle('rgw',S.view==='relif'&&S.rmode==='ganti'&&!S.preview);const hl=document.getElementById('hlogo'),lg=D.school&&D.school.logo;if(hl&&lg&&hl.dataset.lg!==lg){hl.dataset.lg=lg;hl.innerHTML='<img src="'+lg+'" alt="">'}}}
 mainEl.addEventListener('change',e=>{if(S.view!=='relif'||S.rmode!=='ganti')return;const t=e.target.closest('[data-rgk]');if(!t)return;e.stopImmediatePropagation();
   const key=t.dataset.rgk,v=t.value;S.arSel=key;S.arPick=S.arPick||{};S.arJenis=S.arJenis||{};delete S.arJenis[key];
   if(v===''){delete S.arPick[key]}else{const n=+v;S.arPick[key]=n;if(n>=0){const R=arRows(),r=R.rows.find(x=>x.key===key),c=r&&arCands(R,r).find(x=>x.i===n);if(c&&!c.free)S.arJenis[key]='Gabung'}}render()},true);
