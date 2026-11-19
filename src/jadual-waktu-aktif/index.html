@@ -662,6 +662,17 @@ header.hdr .btn.pri:hover:not(:disabled){background:#eef3ff}
   .side .sd-ft{padding:10px 10px 0;font-size:11px;color:var(--muted)}
 }
 @media print{.bnav,.sd-bg{display:none!important}}
+@media (max-width:760px) and (prefers-color-scheme: light){:root:not([data-theme="dark"]) body:not(.pv){--rg-n:#2b2a26;--rg-n2:#4a463d;--accent:#2b2a26;--accent-fg:#fff;--btnp:#2b2a26;--btnp-h:#45423a;--btnp-a:#1a1915;--btnp-fg:#fff;--pp-t:#3f6b4f}}
+@media (max-width:760px){:root[data-theme="light"] body:not(.pv){--rg-n:#2b2a26;--rg-n2:#4a463d;--accent:#2b2a26;--accent-fg:#fff;--btnp:#2b2a26;--btnp-h:#45423a;--btnp-a:#1a1915;--btnp-fg:#fff;--pp-t:#3f6b4f}
+  body:not(.pv) .pp-hero{background:#2b2a26;border:0;border-radius:24px;color:#fff}
+  body:not(.pv) .pp-hero h2{color:#fff}body:not(.pv) .pp-hero p{color:#cfc8b6}
+  body:not(.pv) .pp-hero .pp-date{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#e9e3d3}
+  body:not(.pv) .rg-hd{background:#2b2a26;border-radius:24px}
+  body:not(.pv) .pp-chip[aria-pressed="true"]{background:#2b2a26;border-color:#2b2a26;color:#fff}
+  body:not(.pv) .pp-hero h2::first-letter{color:#e9dfb8}
+  body:not(.pv) .pp-kpi{border:0;border-radius:20px}
+}
+
 </style>
 
 <aside class="side" id="side" aria-label="Menu utama"></aside>
