@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793938931216,
+  "dihantar": 1795144452307,
   "guru": "RAMIZAH BINTI ABU NAIM",
   "kod": "RAN",
   "oleh": "DATIN MARIATI",
@@ -12,6 +12,20 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "3 CRYSTAL"
+      ],
+      "kod": "PJ3",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "3 CRYSTAL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
     }
   ]
 }

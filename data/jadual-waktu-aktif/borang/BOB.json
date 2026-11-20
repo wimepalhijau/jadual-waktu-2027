@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793985386658,
+  "dihantar": 1795144452307,
   "guru": "MOHD HAZRI B. ABD LATIB",
   "kod": "BOB",
   "oleh": "",
@@ -12,6 +12,20 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "3 EMERALD"
+      ],
+      "kod": "PJ3",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "3 EMERALD"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
     }
   ]
 }

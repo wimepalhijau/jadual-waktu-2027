@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793941075344,
+  "dihantar": 1795144452307,
   "guru": "ISKANDAR RAZIN TSEN B. ABDULLAH",
   "kod": "IS",
   "oleh": "DATIN MARIATI",
@@ -13,6 +13,20 @@
       ],
       "kod": "MT",
       "nama": "Matematik"
+    },
+    {
+      "kelas": [
+        "3 OPAL"
+      ],
+      "kod": "PJ3",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "3 OPAL"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794801624324,
+  "dihantar": 1795144452307,
   "guru": "MD SHAHRIL B. MD SHUKRI",
   "kod": "RIL",
   "oleh": "",
@@ -13,6 +13,20 @@
       ],
       "kod": "BI",
       "nama": "Bahasa Inggeris"
+    },
+    {
+      "kelas": [
+        "2 EMERALD"
+      ],
+      "kod": "PJ2",
+      "nama": "Pendidikan Jasmani"
+    },
+    {
+      "kelas": [
+        "2 EMERALD"
+      ],
+      "kod": "PK",
+      "nama": "Pendidikan Kesihatan"
     }
   ]
 }

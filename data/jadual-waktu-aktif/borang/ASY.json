@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793982854556,
+  "dihantar": 1795144452308,
   "guru": "MUHAMMAD ASYRAF B. MD NAWI",
   "kod": "ASY",
   "oleh": "",
@@ -16,7 +16,8 @@
     {
       "kelas": [
         "6 DIAMOND",
-        "6 EMERALD"
+        "6 EMERALD",
+        "4 EMERALD"
       ],
       "kod": "PK",
       "nama": "Pendidikan Kesihatan"
@@ -48,7 +49,8 @@
     },
     {
       "kelas": [
-        "4 AMBER"
+        "4 AMBER",
+        "4 EMERALD"
       ],
       "kod": "PJ4",
       "nama": "Pendidikan Jasmani"
