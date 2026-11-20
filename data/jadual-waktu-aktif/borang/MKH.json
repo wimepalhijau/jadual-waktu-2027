@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1793962761943,
+  "dihantar": 1795144927668,
   "guru": "MOHD KHAIRI BIN HAMID",
   "kod": "MKH",
   "oleh": "",
@@ -21,10 +21,18 @@
     },
     {
       "kelas": [
-        "5 DIAMOND"
+        "5 DIAMOND",
+        "6 DIAMOND"
       ],
       "kod": "PK",
       "nama": "Pendidikan Kesihatan"
+    },
+    {
+      "kelas": [
+        "6 DIAMOND"
+      ],
+      "kod": "PJ6",
+      "nama": "Pendidikan Jasmani"
     }
   ]
 }
