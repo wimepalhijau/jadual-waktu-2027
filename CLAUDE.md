@@ -57,7 +57,7 @@ Kelas & kurikulum
 - Tahun 1: BI 8 (2+2+2+2), MT 7 (2+2+3), ADM 4 (dua guru serentak), PJ1 3. Tahun 2–6: MT 2+2+2, BI 2+2+2+3, PJ 1+1 hari berselang.
 - Tahun 1 tiada PK, DMZ, PSV, SN, SEJ, RBT. ADM untuk Tahun 1 sahaja. SEJ dan RBT Tahun 4–6.
 - PI(q) 3 waktu = PI(q1) 1 waktu (guru PI(j)/PI(u) kelas itu) + PI(q2) 2 waktu berpasangan.
-- PJ1–PJ6 mesti tamat sebelum 10:40 (boleh selepas rehat); Tahun 1 hingga 10:55.
+- PJ1–PJ6 mesti tamat selewat-lewatnya **11:10 pagi** (10:40–11:10 di bawah bumbung; pengguna 2026-11-20, dulu 10:40); Tahun 1 hingga 10:55.
 - **Tiada PJ pada hari Isnin.**
 - **Tahun 2–6: guru PK (Pendidikan Kesihatan) sama dengan guru PJ kelas itu** (pengguna 2026-11-20). Hamparan Guru PJ 2027: https://claude.ai/artifact/5pF63Gcn3qzG8bMVK5f1q8 (lajur Guru PJ = pilihan; bila pengguna kata siap, masukkan PJ+PK ke `borang`).
 - TAS kelas yang ada Pendidikan Moral diletak di waktu terakhir sesi.

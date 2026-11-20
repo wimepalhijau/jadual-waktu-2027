@@ -17,7 +17,7 @@ L, T, C = D["lessons"], D["teachers"], D["classes"]
 DAYS = ["Isnin", "Selasa", "Rabu", "Khamis", "Jumaat"]
 NOTEACH = {"PER", "BY"}           # tidak dikira sebagai mengajar
 TRUN, TGAP, TBERAT, TCAP = 3, 2, 33, 7
-PJ_END = 640                       # PJ mesti tamat sebelum 10:40
+PJ_END = 670                       # PJ mesti tamat sebelum 11:10 (2026-11-20)
 end_min = lambda p: 460 + 30 * (p + 1)
 
 def year(ci):
@@ -58,12 +58,12 @@ for ci, cl in enumerate(C):
         if have != want:
             issues["Kurikulum tidak cukup/lebih"].append(f"{cl['code']} {sub}: {have}/{want}")
 
-# 4. PJ selepas 10:40
+# 4. PJ selepas 11:10
 for l in L:
     # Tahun 1: PKR 09:10-09:25 + rehat 09:25-09:55, waktu selepas rehat anjak 15 minit
     sh = 15 if l[4] and all(year(c) == 1 for c in l[4]) and l[2] > 3 else 0
     if l[3].startswith("PJ") and end_min(l[2]) + sh > (655 if sh else PJ_END):  # Tahun 1 had 10:55
-        issues["PJ tamat selepas 10:40"].append(f"{T[l[0]]['code']} {DAYS[l[1]]} waktu {l[2]+1} {l[3]}")
+        issues["PJ tamat selepas 11:10"].append(f"{T[l[0]]['code']} {DAYS[l[1]]} waktu {l[2]+1} {l[3]}")
     if l[3].startswith("PJ") and l[1] == 0:
         issues["PJ pada hari Isnin"].append(f"{T[l[0]]['code']} waktu {l[2]+1} {l[3]} " + ", ".join(C[c]['code'] for c in l[4]))
 

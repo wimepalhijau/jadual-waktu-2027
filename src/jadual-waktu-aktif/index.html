@@ -2146,8 +2146,8 @@ function semakView(){
 let JN=null;
 /* Had subjek sehari: kelas Tahun 1-3 tidak lebih 4 subjek berbeza sehari (PI(q)/PI(u)/PI(j) dikira satu, PJ1-PJ6 dikira satu). */
 const HAD={max:4,tahun:[1,2,3]};
-/* PJ1-PJ6 mesti tamat selewat-lewatnya 10:40 pagi (boleh selepas rehat). */
-const PJ_END=640;
+/* PJ1-PJ6 mesti tamat selewat-lewatnya 11:10 pagi (10:40-11:10 di bawah bumbung, pengguna 2026-11-20). */
+const PJ_END=670;
 /* Guru tidak mengajar lebih 7 waktu sehari (perhimpunan tidak dikira). */
 const TCAP=7;
 /* Had waktu habis mengajar setiap guru (medan teachers[i].habis, cth '11:40'). */
@@ -2378,7 +2378,7 @@ function janaView(){
   <ul style="padding-left:18px;margin:0 0 10px;display:grid;gap:4px">
     <li>Guru tidak boleh bertindih, termasuk tindihan separuh waktu kerana kelas Tahun 1 anjak 15 minit selepas rehat.</li>
     <li>Guru yang mengajar Tahun 1 pada 8:40–9:10 menyambung Pembentukan Karakter (9:10–9:25), jadi tidak diberi kelas lain pada 9:10 hari itu.</li>
-    <li>PJ1 hingga PJ6 diletakkan paling lewat tamat pada 10:40 pagi (Tahun 1: 10:55 pagi) dan tidak pada hari Isnin.</li>
+    <li>PJ1 hingga PJ6 diletakkan paling lewat tamat pada 11:10 pagi (Tahun 1: 10:55 pagi) dan tidak pada hari Isnin.</li>
     <li>Guru yang ada had waktu habis mengajar (menu Guru, Edit) diusahakan tidak mengajar selepas waktu itu.</li>
     <li>Guru yang ada waktu kosong di hadapan (menu Guru, Edit) diusahakan tidak mengajar pada waktu pertama itu.</li>
     <li><b>Wajib:</b> guru tidak mengajar lebih ${TRUN} waktu berturutan (tiada 4 waktu berturut), dan selepas ${TRUN} waktu berturutan mesti kosong sekurang-kurangnya ${TGAP} waktu sebelum mengajar lagi. Guru yang mengajar ${TBERAT} waktu seminggu atau lebih cukup kosong 1 waktu.</li>
@@ -2402,7 +2402,7 @@ function janaView(){
   ${S.genAsk?`<div class="card" style="padding:10px 12px;margin:8px 0;border-color:var(--warn,#c80)"><p style="margin:0 0 8px"><b>Jana dari borang</b> akan membuang semua waktu kelas Tahun 1–6 yang ada sekarang, kemudian mencipta semula waktu setiap subjek mengikut borang guru dan peruntukan waktu (menu Bilangan), lalu menyusunnya. Prasekolah, Perhimpunan, BY dan tugas tanpa kelas tidak diusik. Jadual hanya berubah selepas anda tekan "Guna jadual ini", dan boleh dibuat asal.</p><div class="bar" style="margin:0"><button class="btn pri" data-a="gengo">Teruskan</button><button class="btn" data-a="genno">Batal</button></div></div>`:''}
   ${JN&&JN.gen?genRepHTML(JN.rep):''}
   ${st?`<div class="tw"><table><thead><tr><th></th><th>Sebelum</th><th>Selepas</th></tr></thead><tbody>
-    ${row('Guru bertindih',bf.conf,st.conf)}${row('PJ hari Isnin atau tamat selepas 10:40 (daripada '+st.pjAll+')',bf.pj,st.pj)}
+    ${row('Guru bertindih',bf.conf,st.conf)}${row('PJ hari Isnin atau tamat selepas 11:10 (daripada '+st.pjAll+')',bf.pj,st.pj)}
     ${row('TAS kelas PM bukan di akhir (daripada '+st.tasAll+')',bf.tas,st.tas)}${row('TAS kelas tanpa PM di waktu akhir',bf.tasN,st.tasN)}${row('Pelajaran sama berulang sehari',bf.dup,st.dup)}${row('Hari kelas Tahun 1-3 lebih '+HAD.max+' subjek',bf.exc,st.exc)}${row('PJ pada hari berturutan',bf.adj,st.adj)}${row('Waktu guru melebihi '+TCAP+' sehari',bf.tex,st.tex)}${row('Waktu guru selepas had habis mengajar',bf.tl,st.tl)}${row('Waktu guru dalam waktu kosong di hadapan',bf.tf,st.tf)}${row('Guru lebih '+TRUN+' waktu berturutan, gap kurang '+TGAP+' waktu, atau tukar kelas tanpa waktu kosong',bf.run,st.run)}${row('Subjek kelas lebih '+KRUN+' waktu berturut',bf.k4,st.k4)}${row('Pola blok subjek tidak ikut tetapan (cth BM Tahun 1 3+3+2+2+2)',bf.pk,st.pk)}${row('Guru pada waktu tidak tersedia',bf.off,st.off)}${row('Bilik khas penuh (lebihan kelas)',bf.rm,st.rm)}</tbody></table></div>
     <p class="note">${JN.applied?'Jadual baharu sudah digunakan dan dikongsi.':'Ini pratonton sahaja. Tekan Guna jadual ini untuk menggantikan jadual sekarang.'}</p>`:''}`;
 }
@@ -2849,7 +2849,7 @@ function anaKelasData(c,G){
     if(k===restOf(c))issues.push(`${dn}: pelajaran pada waktu rehat (${[...new Set(es.map(e=>e.sub))].join(', ')})`)}));
   const r=restOf(c);
   Object.values(subs).forEach(x=>{
-    if(/^PJ\d/.test(x.sub))[...x.slots].forEach(k=>{const[d,p]=k.split(',').map(Number);if(pjBad(d,p,[c]))issues.push(d===0?`${x.sub} pada hari ${DAYS[d]} (PJ tidak boleh hari Isnin)`:`${x.sub} ${DAYS[d]} waktu ${p+1} tamat selepas 10:40`)});
+    if(/^PJ\d/.test(x.sub))[...x.slots].forEach(k=>{const[d,p]=k.split(',').map(Number);if(pjBad(d,p,[c]))issues.push(d===0?`${x.sub} pada hari ${DAYS[d]} (PJ tidak boleh hari Isnin)`:`${x.sub} ${DAYS[d]} waktu ${p+1} tamat selepas 11:10`)});
     Object.entries(x.days).forEach(([d,ks])=>{const a=[...ks].sort((u,v)=>u-v);let runs=1;for(let i=1;i<a.length;i++)if(a[i]!==a[i-1]+1)runs++;
       if(runs>1&&x.sub!=='PER')issues.push(`${x.sub} berulang pada ${DAYS[d]} (waktu ${a.map(n=>n+1).join(', ')})`)})});
   const kur=kurOf(c);
