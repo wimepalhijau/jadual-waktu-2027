@@ -2069,7 +2069,9 @@ function rehatHTML(G){
   const tm=[...new Set(D.classes.map((_,i)=>yearOf(i)))].filter(y=>y!=null&&D.rehat&&D.rehat[y]!=null).sort().map(y=>`${yearTxt(y)} ${h12(PER[D.rehat[y]].s-restEx(y))}–${h12(PER[D.rehat[y]].e)}`).join('; ');
   return`<h2 class="sech" style="margin-top:6px">Waktu rehat</h2>${out.length
     ?`<p><span class="bad">${out.length} pelajaran jatuh pada waktu rehat</span></p><ul>${out.slice(0,12).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${out.length>12?`<p class="note">Dan ${out.length-12} lagi.</p>`:''}`
-    :`<p><span class="ok">Tiada pelajaran pada waktu rehat</span></p>`}<p class="note">${esc(tm)}. Ubah di menu Sekolah.</p>`}
+    :`<p><span class="ok">Tiada pelajaran pada waktu rehat</span></p>`}<p class="note">${esc(tm)}. Ubah di menu Sekolah.</p>`+balikHTML(G)}
+function balikHTML(G){const out=[];D.classes.forEach((c,i)=>DAYS.forEach((dn,d)=>G.cls[i][d].forEach((es,k)=>{if(k>endP(i,d)&&es.some(e=>e.sub!=='PER'&&e.sub!=='BY'))out.push(`${c.name}, ${dn} waktu ${k+1}: ${[...new Set(es.map(e=>e.sub))].join(', ')}`)})));
+  return`<h2 class="sech" style="margin-top:6px">Waktu balik</h2>${out.length?`<p><span class="bad">${out.length} pelajaran selepas waktu balik</span></p><ul>${out.slice(0,12).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p><span class="ok">Tiada pelajaran selepas waktu balik</span></p>`}<p class="note">Tahun 2–3 balik 1:10 (Isnin–Khamis). Tahun 4–6 balik 1:40, Rabu 1:10. Jumaat semua hingga 12:10.</p>`}
 function semakView(){
   const G=build(),bad=[],total=DAYS.length*PER.length;
   D.teachers.forEach((t,i)=>DAYS.forEach((dn,d)=>PER.forEach((p,k)=>{
@@ -2457,12 +2459,12 @@ function genBorang(){
   const load={};blocks.forEach(b=>b.tpl.forEach(x=>{load[x.t]=(load[x.t]||0)+b.len}));
   blocks.forEach(b=>{b.w=b.len*100+Math.max(...b.tpl.map(x=>load[x.t]||0))+(b.pj?500:0)+(b.tpl.length>1?300:0)+Math.random()});
   blocks.sort((a,b)=>b.w-a.w);
-  const endOf=d=>d===ND-1?GEN_FRI_END:NP-1;
+  const endOf=(d,c)=>Math.min(d===ND-1?GEN_FRI_END:NP-1,c==null?NP-1:endP(c,d));
   function cand(b,strict){let best=null;
     for(let d=0;d<ND;d++){
       if(strict&&subDay[b.c][d].has(b.sub))continue;
       if(b.pj&&(d===0||[...pjDay[b.c]].some(x=>Math.abs(x-d)===1)&&strict))continue;
-      for(let s=0;s+b.len-1<=endOf(d);s++){let ok=true,tc=0;
+      for(let s=0;s+b.len-1<=endOf(d,b.c);s++){let ok=true,tc=0;
         for(let k=0;k<b.len;k++){if(cB[b.c][d][s+k]){ok=false;break}b.tpl.forEach(x=>{if(tB[x.t][d][s+k]||tOff(x.t,d,s+k))tc++})}
         if(!ok)continue;if(b.pj&&pjLate(s+b.len-1,[b.c]))continue;
         if(PK.on)b.tpl.forEach(x=>{if(y1c(b.c)&&pkCov(s,b.len)&&tB[x.t][d][PK.p])tc++;if(!y1c(b.c)&&pkHit(s,b.len)&&tY[x.t][d])tc++});
@@ -2556,6 +2558,10 @@ function bilSplit(c,sub,sizes){
   return{ok:true,moved:best.units.length};
 }
 /* Cells (day,waktu) a class can hold lessons in: its own plus those of other classes in the same year, minus assembly and PKR. */
+/* Waktu balik (indeks waktu terakhir) ikut tahun & hari, pengguna 2026-11-20: Tahun 2–3 balik 1:10 (Isnin–Khamis);
+   Tahun 4–6 balik 1:40, Rabu 1:10; Jumaat semua hingga waktu 9 (12:10). Tahun 1 & Prasekolah tiada had baharu. */
+const TAMAT={1:[11,11,11,11,8],2:[10,10,10,10,8],3:[10,10,10,10,8],4:[11,11,10,11,8],5:[11,11,10,11,8],6:[11,11,10,11,8]};
+function endP(c,d){const t=TAMAT[yearOf(c)];return t?t[d]:PER.length-1}
 function bilGrid(c,G){
   G=G||build();const y=yearOf(c),g=new Set(),per=new Set();
   D.classes.forEach((_,k)=>{if(k!==c&&(y==null||yearOf(k)!==y))return;
@@ -2563,6 +2569,7 @@ function bilGrid(c,G){
       if(es.some(e=>e.sub==='PER'))per.add(d+','+p);
       else if(es.some(e=>e.sub!==PK.code))g.add(d+','+p)}))});
   per.forEach(x=>g.delete(x));
+  [...g].forEach(k=>{const[d,p]=k.split(',').map(Number);if(p>endP(c,d))g.delete(k)});
   return g}
 const kurOf=c=>{const y=yearOf(c);return(y!=null&&D.kur&&D.kur[y]&&Object.keys(D.kur[y]).length)?D.kur[y]:null};
 const kurTxt=k=>Object.entries(k||{}).map(([s,n])=>s+' '+n).join(', ');
@@ -2846,7 +2853,8 @@ function anaKelasData(c,G){
     es.forEach(e=>{teach.add(e.t);const x=subs[e.sub]||(subs[e.sub]={sub:e.sub,slots:new Set(),t:new Set(),days:{}});
       x.slots.add(d+','+k);x.t.add(D.teachers[e.t].name);(x.days[d]=x.days[d]||new Set()).add(k);
       if(G.tch[e.t][d][k].length>1)issues.push(`${dn} waktu ${p.n}: ${D.teachers[e.t].name} bertindih (${G.tch[e.t][d][k].map(z=>z.sub).join(' dan ')})`)});
-    if(k===restOf(c))issues.push(`${dn}: pelajaran pada waktu rehat (${[...new Set(es.map(e=>e.sub))].join(', ')})`)}));
+    if(k===restOf(c))issues.push(`${dn}: pelajaran pada waktu rehat (${[...new Set(es.map(e=>e.sub))].join(', ')})`)
+    if(k>endP(c,d)&&es.some(e=>e.sub!=='PER'&&e.sub!=='BY'))issues.push(`${dn} waktu ${p.n}: pelajaran selepas waktu balik (${[...new Set(es.map(e=>e.sub))].join(', ')})`)}));
   const r=restOf(c);
   Object.values(subs).forEach(x=>{
     if(/^PJ\d/.test(x.sub))[...x.slots].forEach(k=>{const[d,p]=k.split(',').map(Number);if(pjBad(d,p,[c]))issues.push(d===0?`${x.sub} pada hari ${DAYS[d]} (PJ tidak boleh hari Isnin)`:`${x.sub} ${DAYS[d]} waktu ${p+1} tamat selepas 11:10`)});
@@ -3995,7 +4003,7 @@ mainEl.addEventListener('click',async e=>{
       if(S.lockMode){const es=S.jMode==='kelas'?G.cls[i][d][p].map(x=>x.t):G.tch[i][d][p].length?[i]:[];if(!es.length){toast('Petak ini kosong');return}
         D.locks=D.locks||[];const keys=[...new Set(es)].map(t=>t+'|'+d+'|'+p),any=keys.some(k=>D.locks.includes(k));
         D.locks=any?D.locks.filter(k=>!keys.includes(k)):[...D.locks,...keys.filter(k=>!D.locks.includes(k))];persist();render();toast(any?'Kunci dibuka':'Dikunci');return}
-      if(S.place){const c=S.place.c,sub=S.place.sub;if(G.cls[c][d][p].length){toast('Petak ini sudah ada pelajaran');return}if(p===restOf(c)){toast('Ini waktu rehat');return}
+      if(S.place){const c=S.place.c,sub=S.place.sub;if(G.cls[c][d][p].length){toast('Petak ini sudah ada pelajaran');return}if(p===restOf(c)){toast('Ini waktu rehat');return}if(p>endP(c,d)){toast('Selepas waktu balik kelas ini');return}
         const ts=teachersFor(c,sub),busy=ts.filter(t=>G.tch[t][d][p].length);if(busy.length){toast('Guru '+busy.map(t=>D.teachers[t].code).join(', ')+' sudah mengajar pada waktu ini');return}
         ts.forEach(t=>D.lessons.push([t,d,p,sub,[c]]));persist();if(!shortfall(c).some(x=>x.sub===sub))S.place=null;render();return}}}
   const b=e.target.closest('[data-a],[data-xplace],[data-xoff],[data-xotsel],[data-xvask],[data-xvgo],[data-xvdel]');if(!b)return;

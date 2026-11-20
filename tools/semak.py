@@ -67,6 +67,15 @@ for l in L:
     if l[3].startswith("PJ") and l[1] == 0:
         issues["PJ pada hari Isnin"].append(f"{T[l[0]]['code']} waktu {l[2]+1} {l[3]} " + ", ".join(C[c]['code'] for c in l[4]))
 
+# 4b. Waktu balik (2026-11-20)
+TAMAT = {1:[11,11,11,11,8],2:[10,10,10,10,8],3:[10,10,10,10,8],4:[11,11,10,11,8],5:[11,11,10,11,8],6:[11,11,10,11,8]}
+for l in L:
+    if l[3] in NOTEACH: continue
+    for c in l[4]:
+        y = year(c)
+        if y in TAMAT and l[2] > TAMAT[y][l[1]]:
+            issues["Pelajaran selepas waktu balik"].append(f"{C[c]['code']} {DAYS[l[1]]} waktu {l[2]+1} {l[3]}")
+
 # 5. Peraturan guru
 load = Counter(l[0] for l in L if l[3] != "PER")
 for ti, t in enumerate(T):

@@ -63,6 +63,7 @@ Kelas & kurikulum
 - TAS kelas yang ada Pendidikan Moral diletak di waktu terakhir sesi.
 - Tahun 1–3: tidak lebih 4 subjek berbeza sehari.
 - **Pembentukan Karakter (PKR) Tahun 1**: setiap hari 09:10–09:25, diajar oleh **guru subjek waktu sebelumnya** (waktu 3, 08:40–09:10) kelas itu pada hari itu (tiada pelajaran PKR dalam data; aplikasi kira sendiri `pkList()`, tindihan guru PKR dilapor dalam Semak; Jana (`janaAdd/janaConf` melalui `J.pkA`, `genBorang` melalui `tY`) dan isi slot (`bilDo`) mengelaknya). `PK.on=true, guru:false`. Rehat Tahun 1 jadi 09:25–09:55 dan semua waktu Tahun 1 selepas rehat anjak 15 minit lewat (pilihan pengguna 2026-11-17). PJ Tahun 1 boleh tamat paling lewat **10:55** (peraturan dilonggarkan oleh pengguna 2026-11-17; tahun lain kini 11:10 sejak 2026-11-20).
+- **Waktu balik** (pengguna 2026-11-20): Tahun 2–3 balik 1:10 petang Isnin–Khamis (waktu 11 terakhir); Tahun 4–6 balik 1:40 (waktu 12), Rabu 1:10; Jumaat semua hingga 12:10 (waktu 9). Aplikasi: `TAMAT`/`endP(c,d)` (Semak 'Waktu balik', isi slot, Jana dari borang). Jangan ubah guru kelas/pembantu bila mengalih pelajaran.
 - Rehat: Tahun 1 & 4 09:10–09:40; Tahun 2 & 3 09:40–10:10; Tahun 5 & 6 10:10–10:40; Prasekolah 10:00–10:40.
 
 Guru
