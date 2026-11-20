@@ -6,7 +6,7 @@ Arahan projek untuk Claude Code. Baca keseluruhan fail ini sebelum mula.
 
 - Pengguna ialah guru (akaun GitHub `wimepalhijau`). **Sentiasa balas dalam Bahasa Melayu**, ringkas dan tanpa istilah teknikal yang tidak perlu.
 - **Jangan terjemah atau tukar ke Bahasa Inggeris.** Elakkan perkataan Inggeris dalam jawapan; guna istilah Melayu. Nama butang/menu GitHub yang memang dalam Inggeris boleh disebut, tetapi terangkan dalam Bahasa Melayu.
-- Bila pengguna taip **"kemaskini"**: jalankan `python3 tools/build_pages.py`, `python3 tools/semak.py`, kemudian commit dan push ke `main` supaya GitHub Pages dikemas kini. Lapor ringkas apa yang berubah.
+- Bila pengguna taip **"kemaskini"**: salin data claude.ai ke `data/`, jalankan `python3 tools/semak.py`, kemudian commit dan push ke `main`. **GitHub Pages DITUTUP (2026-11-20, permintaan pengguna: tak mahu orang lain tahu isi jadual)** — JANGAN jalankan `tools/build_pages.py` dan jangan tulis semula `docs/index.html` (kini halaman 'ditutup'). Pengguna diminta jadikan repo peribadi. Lapor ringkas apa yang berubah.
 - Jangan hantar/salin fail HTML ke desktop pengguna — dia kerja terus dalam talian.
 - Jangan teka nama guru untuk sesuatu kelas/subjek. Ambil daripada data (`borang`, `plan.teachers`) atau tanya.
 - Bila menukar jadual guru lain (alih pelajaran), minta izin dulu.
