@@ -59,6 +59,7 @@ Kelas & kurikulum
 - PI(q) 3 waktu = PI(q1) 1 waktu (guru PI(j)/PI(u) kelas itu) + PI(q2) 2 waktu berpasangan.
 - PJ1–PJ6 mesti tamat sebelum 10:40 (boleh selepas rehat); Tahun 1 hingga 10:55.
 - **Tiada PJ pada hari Isnin.**
+- **Tahun 2–6: guru PK (Pendidikan Kesihatan) sama dengan guru PJ kelas itu** (pengguna 2026-11-20). Hamparan Guru PJ 2027: https://claude.ai/artifact/5pF63Gcn3qzG8bMVK5f1q8 (lajur Guru PJ = pilihan; bila pengguna kata siap, masukkan PJ+PK ke `borang`).
 - TAS kelas yang ada Pendidikan Moral diletak di waktu terakhir sesi.
 - Tahun 1–3: tidak lebih 4 subjek berbeza sehari.
 - **Pembentukan Karakter (PKR) Tahun 1**: setiap hari 09:10–09:25, diajar oleh **guru subjek waktu sebelumnya** (waktu 3, 08:40–09:10) kelas itu pada hari itu (tiada pelajaran PKR dalam data; aplikasi kira sendiri `pkList()`, tindihan guru PKR dilapor dalam Semak; Jana (`janaAdd/janaConf` melalui `J.pkA`, `genBorang` melalui `tY`) dan isi slot (`bilDo`) mengelaknya). `PK.on=true, guru:false`. Rehat Tahun 1 jadi 09:25–09:55 dan semua waktu Tahun 1 selepas rehat anjak 15 minit lewat (pilihan pengguna 2026-11-17). PJ Tahun 1 boleh tamat paling lewat **10:55** (peraturan dilonggarkan oleh pengguna 2026-11-17; tahun lain kekal 10:40).
