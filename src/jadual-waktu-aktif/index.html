@@ -2397,7 +2397,7 @@ function janaView(){
     <li>PJ Tahun 2–6: dua waktu tunggal pada hari berselang (contoh Selasa dan Khamis).</li></ul>
   ${janaScope()}
   <div class="bar"><button class="btn pri" data-a="janarun" ${ed&&!(JN&&JN.busy)?'':'disabled'}>${JN&&JN.busy&&!JN.scoped?'Menjana '+Math.round(JN.prog*100)+'%':'Jana semua kelas'}</button>
-  <button class="btn pri" data-a="janasel" ${ed&&!(JN&&JN.busy)&&Object.values(S.jscope||{}).some(Boolean)?'':'disabled'}>${JN&&JN.busy&&JN.scoped?'Menjana '+Math.round(JN.prog*100)+'%':'Jana kelas dipilih ('+Object.values(S.jscope||{}).filter(Boolean).length+')'}</button>
+  <button class="btn pri" data-a="janasel" ${ed&&!(JN&&JN.busy)?'':'disabled'}>${JN&&JN.busy&&JN.scoped?'Menjana '+Math.round(JN.prog*100)+'%':'Jana kelas dipilih ('+Object.values(S.jscope||{}).filter(Boolean).length+')'}</button>
   <button class="btn" data-a="genask" ${ed&&!(JN&&JN.busy)?'':'disabled'}>${JN&&JN.busy&&JN.gen?'Menjana '+Math.round(JN.prog*100)+'%':'Jana dari borang (Tahun 1–6)'}</button>
   ${JN&&JN.done&&!JN.applied&&ed?'<button class="btn" data-a="janause">Guna jadual ini</button>':''}
   ${S.undo&&ed&&JN&&JN.applied?'<button class="btn" data-a="janaundo">Buat asal</button>':''}</div>
@@ -2411,7 +2411,7 @@ function janaView(){
 function janaScope(){
   const sc=S.jscope||{},ys=[];D.classes.forEach((c,i)=>{const y=yearOf(i);if(y!=null&&!ys.includes(y))ys.push(y)});
   const all=y=>D.classes.every((c,i)=>yearOf(i)!==y||sc[i]);
-  return`<details style="margin:0 0 10px" ${Object.values(sc).some(Boolean)?'open':''}><summary style="cursor:pointer;font-weight:600">Pilih kelas untuk dijana</summary>
+  return`<details id="jscope" style="margin:0 0 10px" open><summary style="cursor:pointer;font-weight:600">Pilih kelas untuk dijana (tanda kelas, kemudian tekan Jana kelas dipilih)</summary>
   <div class="bar" style="margin-top:8px">${ys.map(y=>`<button class="btn ${all(y)?'pri':''}" data-jy="${y}" aria-pressed="${all(y)}">${y===0?'PRA':'Tahun '+y}</button>`).join('')}<button class="btn" data-a="janaclr">Kosongkan</button></div>
   <div style="display:flex;flex-wrap:wrap;gap:6px 14px">${D.classes.map((c,i)=>`<label style="display:flex;gap:4px;align-items:center"><input type="checkbox" data-jc="${i}" ${sc[i]?'checked':''}>${esc(c.name)}</label>`).join('')}</div>
   <p class="note">Hanya kelas yang ditanda disusun semula. Kelas lain kekal, tetapi guru mereka tetap diambil kira supaya tidak bertindih. Pelajaran kongsi dengan kelas yang tidak ditanda tidak dialih.</p></details>`;
@@ -3299,7 +3299,7 @@ main.addEventListener('click',e=>{
   if(b.dataset.a==='genno'){S.genAsk=false;render();return}
   if(b.dataset.a==='gengo'){S.genAsk=false;if(!window.__BR||!Object.keys(window.__BR).length){toast('Rekod borang belum dimuatkan. Buka halaman ini dalam Claude dan cuba lagi.');render();return}
     const g=genBorang();const pre=JSON.stringify(D.lessons);janaStart(false,g.lessons,g.rep);JN.pre=pre;return}
-  if(b.dataset.a==='janasel'){janaStart(true);return}
+  if(b.dataset.a==='janasel'){if(!Object.values(S.jscope||{}).some(Boolean)){const d=document.getElementById('jscope');if(d){d.open=true;d.scrollIntoView({block:'center'})}toast('Tandakan kelas dahulu dalam senarai "Pilih kelas untuk dijana"');return}janaStart(true);return}
   if(b.dataset.a==='janaclr'){S.jscope={};render();return}
   if(b.dataset.a==='janause'){if(JN&&JN.done&&!JN.applied){janaApply(JN.J);if(JN.pre)S.undo=JN.pre;JN.applied=true;toast('Jadual baharu digunakan');render()}return}
   if(b.dataset.a==='janaundo'){if(S.undo){D.lessons=JSON.parse(S.undo);S.undo=null;persist();JN.applied=false;render()}return}
