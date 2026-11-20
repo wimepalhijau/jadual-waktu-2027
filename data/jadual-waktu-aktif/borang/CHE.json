@@ -1,0 +1,57 @@
+{
+  "catatan": "",
+  "dihantar": 1794979534902,
+  "guru": "CHE SABARIAH BINTI MAT DAUD",
+  "kod": "CHE",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "3 CRYSTAL",
+        "5 DIAMOND"
+      ],
+      "kod": "PI(j)",
+      "nama": "PI(j)"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "3 CRYSTAL",
+        "5 DIAMOND"
+      ],
+      "kod": "PI(q1)",
+      "nama": "PI(q1)"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "2 AMBER",
+        "3 CRYSTAL",
+        "5 DIAMOND",
+        "5 EMERALD"
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "3 CRYSTAL",
+        "5 DIAMOND"
+      ],
+      "kod": "PI(u)",
+      "nama": "PI(u)"
+    },
+    {
+      "kelas": [
+        "1 CRYSTAL",
+        "2 AMBER",
+        "3 CRYSTAL",
+        "5 DIAMOND"
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
+    }
+  ]
+}

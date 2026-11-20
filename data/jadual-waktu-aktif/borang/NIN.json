@@ -1,0 +1,26 @@
+{
+  "catatan": "",
+  "dihantar": 1794934835776,
+  "guru": "MUHAMMAD ADNIN B. ARSHAD",
+  "kod": "NIN",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "2 AMBER",
+        "3 OPAL"
+      ],
+      "kod": "BM",
+      "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "5 DIAMOND",
+        "5 EMERALD",
+        "6 AMBER"
+      ],
+      "kod": "PSV",
+      "nama": "Pendidikan Seni Visual"
+    }
+  ]
+}

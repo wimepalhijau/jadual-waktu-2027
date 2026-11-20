@@ -92,6 +92,10 @@ Guru
 
 - https://claude.ai/artifact/2HnKeUeSqPngwPutaQxTvk — untuk Ketua Panitia BA isi guru BA setiap kelas (3 waktu). Koleksi `ba`, id = `1-AMBER`, medan `BA` (kod guru), `catatan`, `oleh`, `masa`. Dibuat 2026-11-19, kosong. Masukkan ke `borang` jadual (subjek BA) bila diisi.
 
+## Tukar kod guru (2026-11-20)
+
+Pengguna menukar 48 kod guru (singkatan) melalui hamparan Singkatan Guru (https://claude.ai/artifact/37Z4MZ9ds3Yj9ZCwUk3EMf). Kod lama dalam nota di atas merujuk kod sebelum tukar. Peta lama→baharu: NFJ→PKHEM, SAM→PKKO, AAM→ZIZ, ABA→ABU, ATA→MIZ, ANU→NUA, AMH→ATH, CSC→ARA, FMH→TIM, FAU→GEE, HAW→WIM, HAY→YAT, HHM→HAZ, IRT→IS, MSM→RIL, MZY→YAD, MHA→BOB, MAA→NIN, MAM→ASY, CSM→CHE, NAI→ALIA, NAA→WAA, NIK→YANI, NOR→NORA, NJA→LIZ, NOA→HUD, NAM→MAL, NUR→DIL, NFS→FAR, NZM→ZAW, NZA→IZZ, NUA→AIN, NQN→NISA, RMS→FID, RAP→KORA, RAS→RR, SMZ→IRA, SMM→SMS, SNB→NAD, SSS→SAL, SSY→SAR, SUH→ILA, SSA→FIA, WAW→WAS, ZAI→AAK, ZAH→ZUL, ZUR→INA, AFA→AISY. NMS kekal NMS. Borang PAI & BA turut dikemas kini. Kod kini boleh 2–5 huruf. Tukar kod dalam aplikasi (Guru → Tukar nama / singkatan) mengemas kini guru kelas, pasangan, borang & relif (`tukarKod`).
+
 ## GitHub Pages
 
 - Repo: `wimepalhijau/jadual-waktu-2027` (public, cawangan `main`).

@@ -1,0 +1,58 @@
+{
+  "catatan": "",
+  "dihantar": 1794979534902,
+  "guru": "NOR ILYANI BT KADIRIN",
+  "kod": "YANI",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kelas": [
+        "3 AMBER",
+        "4 OPAL",
+        "6 EMERALD"
+      ],
+      "kod": "PI(j)",
+      "nama": "PI(j)"
+    },
+    {
+      "kelas": [
+        "3 AMBER",
+        "4 OPAL",
+        "6 EMERALD"
+      ],
+      "kod": "PI(q1)",
+      "nama": "PI(q1)"
+    },
+    {
+      "kelas": [
+        "3 AMBER",
+        "3 EMERALD",
+        "4 CRYSTAL",
+        "4 OPAL",
+        "6 EMERALD"
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
+    },
+    {
+      "kelas": [
+        "3 AMBER",
+        "4 OPAL",
+        "6 EMERALD"
+      ],
+      "kod": "PI(u)",
+      "nama": "PI(u)"
+    },
+    {
+      "kelas": [
+        "1 EMERALD",
+        "3 AMBER",
+        "4 AMBER",
+        "4 OPAL",
+        "6 EMERALD"
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
+    }
+  ]
+}

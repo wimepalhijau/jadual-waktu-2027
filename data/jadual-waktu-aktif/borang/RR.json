@@ -1,0 +1,24 @@
+{
+  "catatan": "",
+  "dihantar": 1795074821394,
+  "guru": "RASYADA BINTI RAHIM",
+  "kod": "RR",
+  "oleh": "DATIN MARIATI",
+  "subjek": [
+    {
+      "kelas": [
+        "6 DIAMOND"
+      ],
+      "kod": "SN",
+      "nama": "Sains"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 PEARL"
+      ],
+      "kod": "ADM",
+      "nama": "Alam dan Manusia"
+    }
+  ]
+}

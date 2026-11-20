@@ -1,0 +1,56 @@
+{
+  "catatan": "",
+  "dihantar": 1794979534901,
+  "guru": "AHMAD TAMIZI B. AHMAD",
+  "kod": "MIZ",
+  "oleh": "Borang Guru PAI (Ustazah Nur Syazwani)",
+  "subjek": [
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 RUBY"
+      ],
+      "kod": "PI(j)",
+      "nama": "PI(j)"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 RUBY"
+      ],
+      "kod": "PI(q1)",
+      "nama": "PI(q1)"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 RUBY",
+        "2 DIAMOND",
+        "3 CRYSTAL",
+        "4 OPAL",
+        "6 OPAL"
+      ],
+      "kod": "PI(q2)",
+      "nama": "PI(q2)"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 RUBY"
+      ],
+      "kod": "PI(u)",
+      "nama": "PI(u)"
+    },
+    {
+      "kelas": [
+        "1 AMBER",
+        "1 RUBY",
+        "3 CRYSTAL",
+        "4 CRYSTAL",
+        "6 OPAL"
+      ],
+      "kod": "TAS",
+      "nama": "Tasmik"
+    }
+  ]
+}

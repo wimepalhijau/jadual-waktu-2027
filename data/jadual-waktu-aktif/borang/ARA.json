@@ -1,0 +1,30 @@
+{
+  "catatan": "",
+  "dihantar": 1794933939024,
+  "guru": "CHE SUHARRA BINTI CHE ALI MOHAMED",
+  "kod": "ARA",
+  "oleh": "",
+  "subjek": [
+    {
+      "kelas": [
+        "2 AMBER"
+      ],
+      "kod": "MT",
+      "nama": "Matematik"
+    },
+    {
+      "kelas": [
+        "4 DIAMOND",
+        "4 EMERALD",
+        "4 OPAL",
+        "5 DIAMOND",
+        "5 EMERALD",
+        "5 OPAL",
+        "6 DIAMOND",
+        "6 EMERALD"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
+    }
+  ]
+}
