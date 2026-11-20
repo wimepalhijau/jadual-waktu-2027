@@ -953,7 +953,7 @@ function listView(v){
     conf=`<div class="confirm" role="alert"><span>Hapus <b>${esc(arr[S.confirm.i].name)}</b>?</span>
       <button class="btn dng" data-a="yes">Ya, hapus</button><button class="btn" data-a="no">Batal</button></div>`;
   return `<div class="bar"><button class="btn pri" data-a="new" ${canEdit()?'':'disabled'}>Baru</button>
-    <button class="btn" data-a="edit" ${sel<0||!canEdit()?'disabled':''}>Edit</button>
+    <button class="btn" data-a="edit" ${sel<0||!canEdit()?'disabled':''}>${v==='guru'?'Edit nama &amp; singkatan':'Edit'}</button>
     <button class="btn" data-a="del" ${sel<0||!canEdit()?'disabled':''}>Hapus</button>
     <span class="grow"></span><span class="pill">${arr.length} ${sc.title.toLowerCase()}</span></div>${conf}
     <div class="tw"><table><thead><tr>${sc.cols.map(c=>`<th>${c[0]}</th>`).join('')}</tr></thead><tbody>
@@ -3491,7 +3491,7 @@ function borangView(){
   const sg=(k,l)=>`<button data-bgtab="${k}" aria-pressed="${B.tab===k}">${l}</button>`;
   return`<div class="bar"><div class="seg" role="group" aria-label="Borang">${sg('isi','Isi / ubah')}${sg('senarai','Senarai')}</div><span class="grow"></span><span class="note" style="margin:0">Borang Subjek Guru 2027</span></div>`+(B.tab==='isi'?formHtml():listHtml());
 }
-function guruSec(){let f=formHtml();if(!B.guru)f=f.split('<div style="margin-top:10px">')[0];return`<section class="sec" id="bg-gsec" style="margin:0 0 14px;border:2px solid var(--accent);border-radius:6px;padding:10px 12px;background:var(--hover)"><h2 class="sech" style="margin:0 0 4px">Edit subjek dan kelas yang diajar</h2><p class="note" style="margin:0 0 8px">Pilih guru dalam kotak <b>Guru</b> di bawah (atau klik nama guru dalam senarai), kemudian ubah subjek dan kelasnya, dan tekan Simpan.</p>${f}</section>`}
+function guruSec(){let f=formHtml();if(!B.guru)f=f.split('<div style="margin-top:10px">')[0];return`<section class="sec" id="bg-gsec" style="margin:0 0 14px;border:2px solid var(--accent);border-radius:6px;padding:10px 12px;background:var(--hover)"><h2 class="sech" style="margin:0 0 4px">Edit subjek dan kelas yang diajar</h2><p class="note" style="margin:0 0 8px">Pilih guru dalam kotak <b>Guru</b> di bawah (atau klik nama guru dalam senarai), kemudian ubah subjek dan kelasnya, dan tekan Simpan.</p>${B.guru&&B.guru!==LAIN&&canEdit()&&tIdx(B.guru)>=0?`<p style="margin:0 0 8px"><button type="button" class="btn" data-a="edit">✏️ Tukar nama / singkatan (kod) guru ini</button></p>`:''}${f}</section>`}
 function draw(){if(S.preview)return;if(S.view==='borang'){main.innerHTML=borangView()}else if(S.view==='guru'){const y=window.scrollY;render();window.scrollTo(0,y)}}
 const _render=render;
 render=function(){if(S.view==='borang'&&!S.preview){ribbon();document.body.classList.remove('pv');main.innerHTML=borangView();return}_render();if(S.view==='guru'&&!S.preview)main.insertAdjacentHTML('afterbegin',guruSec())};
