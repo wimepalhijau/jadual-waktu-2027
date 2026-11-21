@@ -3842,6 +3842,69 @@ function miniXlsx(sheets){
   return new Blob([...parts,...cent,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 
+/* ---------- Eksport aSc Timetables XML: buka aSc > Baru > File > Import > aSc Timetables XML ---------- */
+function ascXml(){
+  const X=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const f=m=>Math.floor(m/60)+':'+String(m%60).padStart(2,'0');
+  const nd=DAYS.length,dm=d=>Array.from({length:nd},(_,k)=>k===d?'1':'0').join('');
+  const L=[];
+  L.push('<?xml version="1.0" encoding="UTF-8"?>');
+  L.push('<timetable importtype="database" options="idprefix:JWAKTIF,daynumbering1" displayname="'+X((D.school&&D.school.name)||'')+' '+X((D.school&&D.school.versi)||'')+'">');
+  L.push('<periods options="canadd,export:silent" columns="period,name,short,starttime,endtime">');
+  PER.forEach(p=>L.push(`<period name="${p.n}" short="${p.n}" period="${p.n}" starttime="${f(p.s)}" endtime="${f(p.e)}"/>`));
+  L.push('</periods>');
+  L.push('<daysdefs options="canadd,export:silent" columns="id,days,name,short">');
+  L.push(`<daysdef id="*1" name="Setiap hari" short="X" days="${'1'.repeat(nd)}"/>`);
+  DAYS.forEach((dn,d)=>L.push(`<daysdef id="*${d+2}" name="${X(dn)}" short="${X(dn.slice(0,3))}" days="${dm(d)}"/>`));
+  L.push('</daysdefs>');
+  L.push('<weeksdefs options="canadd,export:silent" columns="id,weeks,name,short"><weeksdef id="*1" name="Semua minggu" short="All" weeks="1"/></weeksdefs>');
+  L.push('<termsdefs options="canadd,export:silent" columns="id,terms,name,short"><termsdef id="*1" name="Sepanjang tahun" short="Thn" terms="1"/></termsdefs>');
+  /* Kumpul pelajaran: satu kad bagi setiap (hari, waktu, subjek, kelas); guru yang mengajar serentak digabung. */
+  const slot=new Map();
+  (D.lessons||[]).forEach(([t,d,p,sub,cs])=>{if(!D.teachers[t]||!PER[p]||d>=nd)return;
+    let cls=(cs||[]).filter(c=>D.classes[c]).slice().sort((a,b)=>a-b);
+    if(!cls.length&&(sub==='PER'||sub==='BY'))cls=D.classes.map((c,i)=>c.guru&&c.guru===D.teachers[t].code?i:-1).filter(i=>i>=0);
+    const k=cls.length?d+'|'+p+'|'+sub+'|'+cls.join(','):d+'|'+p+'|'+sub+'|t'+t;
+    if(!slot.has(k))slot.set(k,{d,p,sub,cls,ts:new Set()});slot.get(k).ts.add(t)});
+  /* Kelas yang ada dua subjek pada waktu sama (cth PI dan PM): subjek itu jadi kumpulan dalam bahagian "Pecahan". */
+  const occ={};slot.forEach(s=>s.cls.forEach(c=>{const k=c+'|'+s.d+'|'+s.p;(occ[k]=occ[k]||new Set()).add(s.sub)}));
+  const gnm=x=>/^PI/.test(x)?'Islam':x==='PM'?'Moral':x;
+  const split={};Object.entries(occ).forEach(([k,ss])=>{if(ss.size<2)return;const c=+k.split('|')[0];split[c]=split[c]||new Set();ss.forEach(x=>split[c].add(gnm(x)))});
+  const subs=[],sid={};const subId=c=>{if(!sid[c]){subs.push(c);sid[c]='*'+subs.length}return sid[c]};
+  (D.subjects||[]).forEach(s=>subId(s.code));
+  const les=new Map(),cards=[];
+  slot.forEach(s=>{const ts=[...s.ts].sort((a,b)=>a-b),k=s.sub+'|'+s.cls.join(',')+'|'+ts.join(',');
+    if(!les.has(k))les.set(k,{id:'*'+(les.size+1),sub:s.sub,cls:s.cls,ts,n:0});const l=les.get(k);l.n++;subId(s.sub);
+    cards.push({lid:l.id,p:s.p,d:s.d})});
+  L.push('<subjects options="canadd,export:silent" columns="id,name,short,partner_id">');
+  subs.forEach(c=>{const s=(D.subjects||[]).find(x=>x.code===c);L.push(`<subject id="${sid[c]}" name="${X((s&&s.name)||c)}" short="${X(c)}" partner_id=""/>`)});
+  L.push('</subjects>');
+  L.push('<teachers options="canadd,export:silent" columns="id,name,short,gender,color,email,mobile,partner_id,firstname,lastname">');
+  D.teachers.forEach((t,i)=>L.push(`<teacher id="*${i+1}" firstname="" lastname="${X(t.name)}" name="${X(t.name)}" short="${X(t.code)}" gender="" color="" email="" mobile="" partner_id=""/>`));
+  L.push('</teachers>');
+  L.push('<classrooms options="canadd,export:silent" columns="id,name,short,capacity,buildingid,partner_id"></classrooms>');
+  L.push('<classes options="canadd,export:silent" columns="id,name,short,classroomids,teacherid,grade,partner_id">');
+  D.classes.forEach((c,i)=>{const g=D.teachers.findIndex(t=>t.code===c.guru);L.push(`<class id="*${i+1}" name="${X(c.name)}" short="${X(c.code||c.name)}" classroomids="" teacherid="${g>=0?'*'+(g+1):''}" grade="" partner_id=""/>`)});
+  L.push('</classes>');
+  L.push('<groups options="canadd,export:silent" columns="id,classid,name,entireclass,divisiontag,studentcount,studentids">');
+  const gid={};let gn=0;
+  D.classes.forEach((c,i)=>{gid[i+'|*']='*'+(++gn);L.push(`<group id="*${gn}" classid="*${i+1}" name="Seluruh kelas" entireclass="1" divisiontag="0" studentcount="" studentids=""/>`);
+    (split[i]?[...split[i]]:[]).forEach(sub=>{gid[i+'|'+sub]='*'+(++gn);L.push(`<group id="*${gn}" classid="*${i+1}" name="${X(sub)}" entireclass="0" divisiontag="1" studentcount="" studentids=""/>`)})});
+  L.push('</groups>');
+  L.push('<lessons options="canadd,export:silent" columns="id,classids,groupids,subjectid,periodspercard,periodsperweek,teacherids,classroomids,weeksdefid,termsdefid,daysdefid,capacity,partner_id">');
+  les.forEach(l=>{const g=l.cls.map(c=>gid[c+'|'+(split[c]&&split[c].has(gnm(l.sub))?gnm(l.sub):'*')]);
+    L.push(`<lesson id="${l.id}" classids="${l.cls.map(c=>'*'+(c+1)).join(',')}" groupids="${g.join(',')}" subjectid="${sid[l.sub]}" periodspercard="1" periodsperweek="${l.n}" teacherids="${l.ts.map(t=>'*'+(t+1)).join(',')}" classroomids="" weeksdefid="*1" termsdefid="*1" daysdefid="*1" capacity="*" partner_id=""/>`)});
+  L.push('</lessons>');
+  L.push('<cards options="canadd,export:silent" columns="lessonid,period,days,weeks,terms,classroomids">');
+  cards.sort((a,b)=>a.d-b.d||a.p-b.p).forEach(c=>L.push(`<card lessonid="${c.lid}" period="${PER[c.p].n}" days="${dm(c.d)}" weeks="1" terms="1" classroomids=""/>`));
+  L.push('</cards>');
+  L.push('</timetable>');
+  return{xml:L.join('\r\n'),nLes:les.size,nCard:cards.length}}
+async function exportAsc(){try{const r=ascXml(),fn='jadual-waktu-2027-aSc.xml';
+  const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+  if(dl){await dl.save({filename:fn,data:new Blob([r.xml],{type:'application/xml'})})}else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([r.xml],{type:'application/xml'}));a.download=fn;a.click()}
+  toast('Fail aSc dimuat turun: '+r.nCard+' kad, '+r.nLes+' pelajaran')
+  }catch(e){if(!(e&&e.code==='declined'))toast('Eksport aSc tidak berjaya')}}
 async function exportExcel(){try{const G=build();
   const hdr=['Hari',...PER.map(p=>p.n+' ('+h12(p.s)+')')];
   const sheet=(mode,arr,label)=>{const rows=[];arr.forEach((r,i)=>{rows.push([label+': '+r.name+(r.code&&mode==='guru'?' ('+r.code+')':'')]);rows.push(hdr);DAYS.forEach((dn,d)=>{rows.push([dn,...PER.map((_,p)=>{const es=mode==='guru'?G.tch[i][d][p]:G.cls[i][d][p];return es.map(e=>mode==='guru'?e.sub+(e.cls.length?' '+e.cls.map(c=>D.classes[c].name).join(','):''):e.sub+' '+(D.teachers[e.t]?D.teachers[e.t].code:'')).join(' / ')})])});rows.push([])});return{rows,cols:[12,...PER.map(()=>16)]}};
@@ -3865,7 +3928,7 @@ function jadualExtra(){const ed=canEdit(),k=S.jMode==='kelas';let h='';
     h+=`<div class="card" style="padding:8px 12px;margin:10px 0"><b>Kad belum diletak · ${esc(D.classes[S.jSel].name)}</b> <span class="note" style="margin:0">(mengikut peruntukan waktu di menu Bilangan)</span>
     ${sf.length?`<div class="bar" style="margin:6px 0 0;flex-wrap:wrap">${sf.map(x=>{const ts=teachersFor(S.jSel,x.sub),on=S.place&&S.place.c===S.jSel&&S.place.sub===x.sub;return`<button class="btn ${on?'pri':''}" ${ed&&ts.length?`data-xplace="${esc(x.sub)}"`:'disabled'} title="${ts.length?'Guru: '+esc(ts.map(i=>D.teachers[i].code).join(', ')):'Tiada guru dalam borang'}">${esc(x.sub)} × ${x.n}${ts.length?' · '+esc(ts.map(i=>D.teachers[i].code).join('/')):''}</button>`}).join('')}</div>
     <p class="note" style="margin:6px 0 0">${S.place?`Tekan petak kosong dalam jadual untuk meletakkan <b>${esc(S.place.sub)}</b>${S.edit?'':' (hidupkan <b>Ubah waktu</b> dahulu)'}. Tekan butang sama untuk berhenti.`:'Pilih subjek, kemudian tekan petak kosong dalam jadual (mod Ubah waktu).'}</p>`:'<p class="ok" style="margin:6px 0 0">Semua waktu sudah diletak.</p>'}</div>`}
-  if(ed)h+=`<div class="bar" style="margin:6px 0"><button class="btn ${S.lockMode?'pri':''}" data-a="xlock">${S.lockMode?'Mod kunci: hidup':'Kunci waktu'}</button><span class="note" style="margin:0">${S.lockMode?(S.edit?'Tekan petak untuk kunci atau buka kunci. Waktu berkunci 🔒 tidak dialihkan oleh Jana.':'Hidupkan Ubah waktu dahulu, kemudian tekan petak.'):`${(D.locks||[]).length} waktu dikunci.`}</span>${(D.locks||[]).length?'<button class="btn" data-a="xunlockall">Buka semua kunci</button>':''}<span class="grow"></span><button class="btn" data-a="xexcel">Eksport Excel</button></div>`;
+  if(ed)h+=`<div class="bar" style="margin:6px 0"><button class="btn ${S.lockMode?'pri':''}" data-a="xlock">${S.lockMode?'Mod kunci: hidup':'Kunci waktu'}</button><span class="note" style="margin:0">${S.lockMode?(S.edit?'Tekan petak untuk kunci atau buka kunci. Waktu berkunci 🔒 tidak dialihkan oleh Jana.':'Hidupkan Ubah waktu dahulu, kemudian tekan petak.'):`${(D.locks||[]).length} waktu dikunci.`}</span>${(D.locks||[]).length?'<button class="btn" data-a="xunlockall">Buka semua kunci</button>':''}<span class="grow"></span><button class="btn" data-a="xexcel">Eksport Excel</button><button class="btn" data-a="xasc" title="Fail untuk aSc Timetables: File > Import > aSc Timetables XML">Eksport aSc XML</button></div>`;
   return h}
 /* ---------- ribbon ---------- */
 ICON.waktuguru='<rect x="4" y="5" width="20" height="18" rx="2" fill="#fff" stroke="#3b6fb8" stroke-width="1.6"/><path d="M4 10h20" stroke="#3b6fb8" stroke-width="1.6"/><path d="M10 14l6 6M16 14l-6 6" stroke="#c0392b" stroke-width="2"/>';
@@ -4017,6 +4080,7 @@ mainEl.addEventListener('click',async e=>{
   if(a==='xlock'){S.lockMode=!S.lockMode;S.place=null;render();return}
   if(a==='xunlockall'){D.locks=[];persist();render();toast('Semua kunci dibuka');return}
   if(a==='xexcel'){exportExcel();return}
+  if(a==='xasc'){exportAsc();return}
   if(a==='xrekprint'){S.preview='relifbulan';render();window.scrollTo(0,0);return}
   if(a==='xdutyprint'){S.preview='bertugas';render();window.scrollTo(0,0);return}
   if(a==='xoffclr'){D.teachers[S.xot].off=[];persist();render();return}
