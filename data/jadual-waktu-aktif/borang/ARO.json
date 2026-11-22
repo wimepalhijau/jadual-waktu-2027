@@ -1,22 +1,25 @@
 {
   "catatan": "",
-  "dihantar": 1795074821787,
+  "dihantar": 1795360341713,
   "guru": "ALIFF RAHMAN BIN OMAR",
   "kod": "ARO",
-  "oleh": "DATIN MARIATI",
+  "oleh": "",
   "subjek": [
     {
       "kelas": [
         "3 OPAL",
-        "4 DIAMOND",
-        "4 CRYSTAL"
+        "4 CRYSTAL",
+        "4 DIAMOND"
       ],
       "kod": "MT",
       "nama": "Matematik"
     },
     {
       "kelas": [
-        "4 DIAMOND"
+        "3 DIAMOND",
+        "4 DIAMOND",
+        "4 EMERALD",
+        "4 OPAL"
       ],
       "kod": "DMZ",
       "nama": "Dunia Muzik"
