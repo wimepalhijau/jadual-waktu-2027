@@ -15,17 +15,12 @@
     },
     {
       "kelas": [
-        "3 CRYSTAL"
+        "4 AMBER",
+        "4 CRYSTAL",
+        "4 DIAMOND"
       ],
-      "kod": "PJ3",
-      "nama": "Pendidikan Jasmani"
-    },
-    {
-      "kelas": [
-        "3 CRYSTAL"
-      ],
-      "kod": "PK",
-      "nama": "Pendidikan Kesihatan"
+      "kod": "RBT",
+      "nama": "Reka Bentuk dan Teknologi"
     }
   ]
 }

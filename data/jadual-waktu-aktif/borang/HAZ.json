@@ -12,6 +12,18 @@
       ],
       "kod": "BM",
       "nama": "Bahasa Melayu"
+    },
+    {
+      "kelas": [
+        "5 OPAL",
+        "6 AMBER",
+        "6 CRYSTAL",
+        "6 DIAMOND",
+        "6 EMERALD",
+        "6 OPAL"
+      ],
+      "kod": "RBT",
+      "nama": "Reka Bentuk dan Teknologi"
     }
   ]
 }
