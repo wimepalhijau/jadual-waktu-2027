@@ -1,6 +1,6 @@
 {
   "catatan": "",
-  "dihantar": 1794878487199,
+  "dihantar": 1795359710046,
   "guru": "ZURINA BT MOHD JAMANI",
   "kod": "ZMJ",
   "oleh": "DATIN MARIATI",
@@ -16,10 +16,19 @@
     },
     {
       "kelas": [
+        "2 DIAMOND",
         "2 EMERALD"
       ],
       "kod": "PSV",
       "nama": "Pendidikan Seni Visual"
+    },
+    {
+      "kelas": [
+        "4 DIAMOND",
+        "6 OPAL"
+      ],
+      "kod": "SEJ",
+      "nama": "Sejarah"
     }
   ]
 }

@@ -1,18 +1,10 @@
 {
   "catatan": "",
-  "dihantar": 1794934477787,
+  "dihantar": 1795359444089,
   "guru": "RAFIDAH BT. MD SHARIF",
   "kod": "FID",
   "oleh": "DATIN MARIATI",
   "subjek": [
-    {
-      "kelas": [
-        "5 DIAMOND",
-        "6 AMBER"
-      ],
-      "kod": "BM",
-      "nama": "Bahasa Melayu"
-    },
     {
       "kelas": [
         "4 AMBER",
@@ -20,6 +12,15 @@
       ],
       "kod": "SEJ",
       "nama": "Sejarah"
+    },
+    {
+      "kelas": [
+        "5 DIAMOND",
+        "5 OPAL",
+        "6 AMBER"
+      ],
+      "kod": "BM",
+      "nama": "Bahasa Melayu"
     }
   ]
 }
